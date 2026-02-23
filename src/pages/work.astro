@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+	{
+		title: 'Patient Portal Usability Overhaul',
+		client: 'Health startup',
+		outcome: '31% improvement in task completion on appointment booking.',
+		summary: 'Mapped the end-to-end journey and shipped a simplified account area.',
+	},
+	{
+		title: 'SaaS Onboarding Redesign',
+		client: 'B2B analytics platform',
+		outcome: 'Cut first-time setup time from 18 to 9 minutes.',
+		summary: 'Designed a guided setup model with contextual assistance.',
+	},
+	{
+		title: 'Checkout Optimization Sprint',
+		client: 'DTC retail brand',
+		outcome: 'Increased conversion by 12% after rollout.',
+		summary: 'Ran heuristic audit, redesigned form flows, and tested two variants.',
+	},
+];
+---
+
+<Layout title="Work | Nick" description="UX case studies and client outcomes.">
+	<h1>Portfolio</h1>
+	<p class="lede">A focused selection of freelance UX projects and measurable outcomes.</p>
+
+	<div class="grid">
+		{projects.map((project) => (
+			<article>
+				<p class="client">{project.client}</p>
+				<h2>{project.title}</h2>
+				<p>{project.summary}</p>
+				<p class="outcome">{project.outcome}</p>
+			</article>
+		))}
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		margin-bottom: 0.5rem;
+	}
+
+	.lede {
+		color: var(--muted);
+		margin-bottom: 1.5rem;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1rem;
+	}
+
+	article {
+		border: 1px solid var(--line);
+		background: var(--surface);
+		border-radius: 12px;
+		padding: 1rem;
+	}
+
+	.client {
+		font-size: 0.85rem;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	h2 {
+		font-size: 1.2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.outcome {
+		font-weight: 700;
+		color: var(--accent);
+	}
+</style>

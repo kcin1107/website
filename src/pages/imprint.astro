@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Imprint | Nick Ringelmann" description="Imprint according to German law (Angaben gemäß § 5 TMG).">
+	<h1>Imprint</h1>
+
+	<h2>Angaben gemäß § 5 TMG</h2>
+	<p>
+		Postadresse<br />
+		HK100 c/o Nick Ringelmann<br />
+		Heidenkampsweg 100<br />
+		20097 Hamburg
+	</p>
+	<p>
+		Telefon: auf Anfrage<br />
+		E-Mail: <a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a>
+	</p>
+	<p>
+		Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
+		DE355308717
+	</p>
+
+	<h2>Haftungsausschluss</h2>
+
+	<h3>Haftung für Inhalt</h3>
+	<p>
+		Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
+		Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+	</p>
+
+	<h3>Haftung für Links</h3>
+	<p>
+		Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
+		Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
+		Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
+		Seiten verantwortlich.
+	</p>
+
+	<h3>Urheberrecht</h3>
+	<p>
+		Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+		deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+		Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
+		jeweiligen Autors bzw. Erstellers.
+	</p>
+</Layout>
+
+<style>
+	h1 {
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		margin-bottom: 0.5rem;
+	}
+
+	h2 {
+		margin-top: 1.5rem;
+		margin-bottom: 0.4rem;
+		font-size: 1.15rem;
+	}
+
+	h3 {
+		margin-top: 1.2rem;
+		margin-bottom: 0.35rem;
+		font-size: 1rem;
+		letter-spacing: 0.01em;
+	}
+
+	p {
+		max-width: 70ch;
+		line-height: 1.7;
+		color: var(--muted);
+		margin-top: 0;
+		margin-bottom: 1rem;
+	}
+
+	a {
+		color: var(--accent);
+	}
+</style>

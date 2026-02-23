@@ -1,11 +1,151 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+	.slice(0, 3);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Nick | UX Portfolio + Blog" description="Freelance UX portfolio and personal blog.">
+	<section class="hero">
+		<p class="kicker">Freelance UX Designer</p>
+		<h1>I design clear digital experiences and write about product thinking.</h1>
+		<p>
+			This site is a simple home for client work, process notes, and essays about UX.
+		</p>
+		<div class="actions">
+			<a href="/work">View portfolio</a>
+			<a href="/blog">Read blog</a>
+		</div>
+	</section>
+
+	<section>
+		<h2>Selected work</h2>
+		<div class="cards">
+			<article>
+				<h3>B2B Dashboard Redesign</h3>
+				<p>Reduced onboarding friction with clearer IA and progressive disclosure patterns.</p>
+			</article>
+			<article>
+				<h3>Ecommerce Checkout Audit</h3>
+				<p>Identified key conversion blockers and delivered a sprint-ready prototype plan.</p>
+			</article>
+		</div>
+	</section>
+
+	<section>
+		<div class="section-head">
+			<h2>Latest posts</h2>
+			<a href="/blog">See all</a>
+		</div>
+		<ul class="post-list">
+			{posts.map((post) => (
+				<li>
+					<a href={`/blog/${post.slug}/`}>
+						<strong>{post.data.title}</strong>
+						<span>{post.data.description}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
 </Layout>
+
+<style>
+	.hero {
+		max-width: 760px;
+		margin-bottom: 2.5rem;
+	}
+
+	.kicker {
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 0.82rem;
+		color: var(--accent);
+		font-weight: 800;
+	}
+
+	h1 {
+		font-size: clamp(1.8rem, 4vw, 3rem);
+		line-height: 1.1;
+		margin: 0 0 0.9rem;
+	}
+
+	.hero p {
+		font-size: 1.1rem;
+		color: var(--muted);
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.8rem;
+		margin-top: 1.2rem;
+	}
+
+	.actions a {
+		padding: 0.6rem 0.9rem;
+		border-radius: 999px;
+		text-decoration: none;
+		font-weight: 700;
+		border: 1px solid var(--line);
+		background: var(--surface);
+	}
+
+	.actions a:hover {
+		border-color: var(--accent);
+	}
+
+	section {
+		margin-bottom: 2.5rem;
+	}
+
+	h2 {
+		margin-bottom: 0.9rem;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+		gap: 1rem;
+	}
+
+	.cards article,
+	.post-list a {
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		padding: 1rem;
+	}
+
+	.cards p,
+	.post-list span {
+		color: var(--muted);
+	}
+
+	.section-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.section-head a {
+		color: var(--accent);
+	}
+
+	.post-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.post-list a {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		text-decoration: none;
+	}
+</style>

@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const posts = (await getCollection('blog'))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const formatter = new Intl.DateTimeFormat('en-US', {
+	month: 'long',
+	day: 'numeric',
+	year: 'numeric',
+});
+---
+
+<Layout title="Blog | Nick" description="UX and product design writing.">
+	<h1>Blog</h1>
+	<p class="lede">Short essays on UX design, product discovery, and freelance practice.</p>
+
+	<ul>
+		{posts.map((post) => (
+			<li>
+				<a href={`/blog/${post.slug}/`}>
+					<h2>{post.data.title}</h2>
+					<p>{post.data.description}</p>
+					<small>{formatter.format(post.data.date)}</small>
+				</a>
+			</li>
+		))}
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		margin-bottom: 0.5rem;
+	}
+
+	.lede {
+		color: var(--muted);
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	li a {
+		display: block;
+		padding: 1rem;
+		border-radius: 12px;
+		border: 1px solid var(--line);
+		background: var(--surface);
+		text-decoration: none;
+	}
+
+	h2 {
+		margin: 0 0 0.35rem;
+	}
+
+	p {
+		margin: 0 0 0.5rem;
+		color: var(--muted);
+	}
+
+	small {
+		color: var(--accent);
+		font-weight: 700;
+	}
+</style>

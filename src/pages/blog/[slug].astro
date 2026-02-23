@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatter = new Intl.DateTimeFormat('en-US', {
+	month: 'long',
+	day: 'numeric',
+	year: 'numeric',
+});
+---
+
+<Layout title={`${post.data.title} | Blog`} description={post.data.description}>
+	<article>
+		<a class="back" href="/blog">← Back to blog</a>
+		<h1>{post.data.title}</h1>
+		<p class="meta">{formatter.format(post.data.date)}</p>
+		<Content />
+	</article>
+</Layout>
+
+<style>
+	article {
+		max-width: 72ch;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		padding: 1.2rem;
+	}
+
+	.back {
+		font-size: 0.95rem;
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	h1 {
+		margin: 0.8rem 0 0.45rem;
+	}
+
+	.meta {
+		margin-top: 0;
+		color: var(--muted);
+	}
+
+	article :global(h2) {
+		margin-top: 1.35rem;
+	}
+
+	article :global(p),
+	article :global(li) {
+		line-height: 1.7;
+		color: #3f3328;
+	}
+</style>
