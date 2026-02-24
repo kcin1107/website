@@ -1,35 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const projects = [
-	{
-		title: 'Patient Portal Usability Overhaul',
-		client: 'Health startup',
-		outcome: '31% improvement in task completion on appointment booking.',
-		summary: 'Mapped the end-to-end journey and shipped a simplified account area.',
-	},
-	{
-		title: 'SaaS Onboarding Redesign',
-		client: 'B2B analytics platform',
-		outcome: 'Cut first-time setup time from 18 to 9 minutes.',
-		summary: 'Designed a guided setup model with contextual assistance.',
-	},
-	{
-		title: 'Checkout Optimization Sprint',
-		client: 'DTC retail brand',
-		outcome: 'Increased conversion by 12% after rollout.',
-		summary: 'Ran heuristic audit, redesigned form flows, and tested two variants.',
-	},
-];
+import { projects } from '../data/projects';
 ---
 
-<Layout title="Work | Nick" description="UX case studies and client outcomes.">
-	<h1>Portfolio</h1>
+<Layout title="Projects | Nick" description="UX case studies and client outcomes.">
+	<h1>Projects</h1>
 	<p class="lede">A focused selection of freelance UX projects and measurable outcomes.</p>
 
 	<div class="grid">
 		{projects.map((project) => (
-			<article>
+			<article class="project-card">
+				<a class="card-link" href={`/work/${project.slug}/`} aria-label={`View details for ${project.title}`}></a>
 				<p class="client">{project.client}</p>
 				<h2>{project.title}</h2>
 				<p>{project.summary}</p>
@@ -61,6 +42,24 @@ const projects = [
 		background: var(--surface);
 		border-radius: 12px;
 		padding: 1rem;
+		position: relative;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.project-card:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+	}
+
+	.card-link {
+		position: absolute;
+		inset: 0;
+		border-radius: 12px;
+	}
+
+	.card-link:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
 	}
 
 	.client {

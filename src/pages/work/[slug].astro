@@ -1,0 +1,140 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+import type { Project } from '../../data/projects';
+
+export async function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props as { project: Project };
+---
+
+<Layout title={`${project.title} | Projects | Nick`} description={project.summary}>
+	<p class="back-link">
+		<a href="/work">
+			<span aria-hidden="true">←</span>
+			Back to projects
+		</a>
+	</p>
+	<h1>{project.title}</h1>
+	<p class="client">{project.client}</p>
+	<p class="lede">{project.summary}</p>
+	<p class="outcome">{project.outcome}</p>
+
+	<section>
+		<h2>Overview</h2>
+		<p>{project.overview}</p>
+	</section>
+
+	<section>
+		<h2>Challenge</h2>
+		<p>{project.challenge}</p>
+	</section>
+
+	<section>
+		<h2>Approach</h2>
+		<ul>
+			{project.approach.map((item) => <li>{item}</li>)}
+		</ul>
+	</section>
+
+	<section>
+		<h2>Design process</h2>
+		<div class="process-grid">
+			{project.process.map((step) => (
+				<article>
+					<img src={step.image} alt={`${step.title} process diagram for ${project.title}`} loading="lazy" />
+					<h3>{step.title}</h3>
+					<p>{step.description}</p>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section>
+		<h2>Impact</h2>
+		<ul>
+			{project.impact.map((item) => <li>{item}</li>)}
+		</ul>
+	</section>
+</Layout>
+
+<style>
+	h1 {
+		font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+		margin-bottom: 0.35rem;
+	}
+
+	.back-link {
+		margin: 0 0 0.8rem;
+	}
+
+	.back-link a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		text-decoration: none;
+		color: var(--accent);
+		font-weight: 700;
+	}
+
+	.client {
+		margin: 0;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.84rem;
+		color: var(--muted);
+	}
+
+	.lede {
+		font-size: 1.08rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.outcome {
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	section {
+		margin-top: 1.4rem;
+	}
+
+	p,
+	li {
+		color: var(--muted);
+		line-height: 1.65;
+	}
+
+	ul {
+		padding-left: 1.1rem;
+	}
+
+	.process-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1rem;
+	}
+
+	.process-grid article {
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		padding: 0.75rem;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		border-radius: 8px;
+		border: 1px solid var(--line);
+	}
+
+	h3 {
+		margin: 0.7rem 0 0.35rem;
+	}
+</style>

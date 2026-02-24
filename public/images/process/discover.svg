@@ -1,0 +1,12 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="28" fill="#F4F0E8"/>
+  <rect x="70" y="70" width="1060" height="580" rx="22" fill="#FFFDF8" stroke="#D8CFC2" stroke-width="4"/>
+  <circle cx="250" cy="265" r="120" fill="#EFE7DA"/>
+  <rect x="420" y="170" width="640" height="36" rx="18" fill="#D8CFC2"/>
+  <rect x="420" y="238" width="530" height="28" rx="14" fill="#E7DED0"/>
+  <rect x="420" y="294" width="580" height="28" rx="14" fill="#E7DED0"/>
+  <rect x="420" y="350" width="490" height="28" rx="14" fill="#E7DED0"/>
+  <path d="M220 315L180 345L120 260" stroke="#B45A31" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="130" y="465" width="930" height="90" rx="18" fill="#F8F5EE" stroke="#D8CFC2" stroke-width="3"/>
+  <text x="170" y="520" fill="#2A221B" font-size="42" font-family="Arial, sans-serif" font-weight="700">Discover: research notes, interviews, and pain points</text>
+</svg>
