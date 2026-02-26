@@ -44,12 +44,12 @@ const {
 
 <style>
 	:root {
-		--bg: #f4f0e8;
-		--surface: #fffdf8;
-		--text: #2a221b;
-		--muted: #6f6458;
-		--accent: #b45a31;
-		--line: #d8cfc2;
+		--bg: #19485f;
+		--surface: #19485f;
+		--text: #d9e0a4;
+		--muted: #d9e0a4;
+		--accent: #d9e0a4;
+		--line: #d9e0a4;
 	}
 
 	html,
@@ -57,15 +57,16 @@ const {
 		margin: 0;
 		padding: 0;
 		font-family: 'Avenir Next', 'Gill Sans', 'Trebuchet MS', sans-serif;
-		background:
-			radial-gradient(circle at 10% 10%, #f8f5ee 0, transparent 35%),
-			radial-gradient(circle at 90% 20%, #efe7da 0, transparent 30%),
-			var(--bg);
+		background: var(--bg);
 		color: var(--text);
 	}
 
-	a {
-		color: inherit;
+	:global(a),
+	:global(a:link),
+	:global(a:visited),
+	:global(a:hover),
+	:global(a:active) {
+		color: var(--text);
 	}
 
 	.wrap {

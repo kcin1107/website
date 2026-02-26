@@ -1,19 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import { projects } from '../data/projects';
 
 const posts = (await getCollection('blog'))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 	.slice(0, 3);
+
+const selectedProjects = projects.slice(0, 2);
 ---
 
-<Layout title="Nick | UX Portfolio + Blog" description="Freelance UX portfolio and personal blog.">
+<Layout title="Nick Ringelmann" description="My personal website where I publish my design work and write about my interests.">
 	<section class="hero">
-		<p class="kicker">Freelance UX Designer</p>
-		<h1>I design clear digital experiences and write about product thinking.</h1>
+		<p class="kicker">Personal Website</p>
+		<h1>Hi, my name is Nick and I'm a Product Designer, currently based in Hamburg, Germany.</h1>
 		<p>
-			This site is a simple home for client work, process notes, and essays about UX.
+			 Product Designer with 3+ years of experience currently turning renewable energy data into actionable insights @ Asset Ocean. In general, I love helping businesses to create impactful digital products & user experiences for a sustainable future.
 		</p>
 		<div class="actions">
 			<a href="/work">View projects</a>
@@ -24,14 +27,14 @@ const posts = (await getCollection('blog'))
 	<section>
 		<h2>Selected projects</h2>
 		<div class="cards">
-			<article>
-				<h3>B2B Dashboard Redesign</h3>
-				<p>Reduced onboarding friction with clearer IA and progressive disclosure patterns.</p>
-			</article>
-			<article>
-				<h3>Ecommerce Checkout Audit</h3>
-				<p>Identified key conversion blockers and delivered a sprint-ready prototype plan.</p>
-			</article>
+			{selectedProjects.map((project) => (
+				<article>
+					<a href={`/work/${project.slug}/`}>
+						<h3>{project.title}</h3>
+						<p>{project.summary}</p>
+					</a>
+				</article>
+			))}
 		</div>
 	</section>
 
@@ -117,6 +120,11 @@ const posts = (await getCollection('blog'))
 		border: 1px solid var(--line);
 		border-radius: 12px;
 		padding: 1rem;
+	}
+
+	.cards article a {
+		display: block;
+		text-decoration: none;
 	}
 
 	.cards p,
