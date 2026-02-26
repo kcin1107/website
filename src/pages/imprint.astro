@@ -47,13 +47,14 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 	h1 {
+		max-width: 70ch;
+		margin: 0 auto 0.5rem;
 		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-		margin-bottom: 0.5rem;
 	}
 
 	h2 {
-		margin-top: 1.5rem;
-		margin-bottom: 0.4rem;
+		max-width: 70ch;
+		margin: 1.5rem auto 0.4rem;
 		font-size: 1.15rem;
 	}
 
@@ -61,8 +62,7 @@ import Layout from '../layouts/Layout.astro';
 		max-width: 70ch;
 		line-height: 1.7;
 		color: var(--muted);
-		margin-top: 0;
-		margin-bottom: 1rem;
+		margin: 0 auto 1rem;
 	}
 
 	a {

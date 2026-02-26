@@ -32,11 +32,11 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
 <style>
 	article {
-		max-width: 72ch;
+		width: 100%;
+		max-width: 100%;
+		margin: 0 auto;
 		background: var(--surface);
-		border: 1px solid var(--line);
 		border-radius: 12px;
-		padding: 1.2rem;
 	}
 
 	.back {
@@ -51,7 +51,7 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
 	.meta {
 		margin-top: 0;
-		color: var(--muted);
+		color: var(--text);
 	}
 
 	article :global(h2) {
@@ -61,6 +61,6 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 	article :global(p),
 	article :global(li) {
 		line-height: 1.7;
-		color: #3f3328;
+		color: var(--text);
 	}
 </style>

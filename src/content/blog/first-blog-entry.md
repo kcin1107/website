@@ -1,7 +1,7 @@
 ---
 title: "Designing for First Use"
 description: "A practical approach to reducing new-user dropoff in SaaS products."
-date: 2026-02-10
+date: 26th February 2026
 tags: ["ux", "onboarding", "saas"]
 ---
 

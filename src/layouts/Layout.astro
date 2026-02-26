@@ -26,7 +26,7 @@ const {
 			<div class="wrap">
 				<a class="brand" href="/">Nick</a>
 				<nav aria-label="Main navigation">
-					<a href="/work">Projects</a>
+					<a href="/work">Work</a>
 					<a href="/blog">Blog</a>
 					<a href="/about">About</a>
 				</nav>
@@ -35,14 +35,32 @@ const {
 		<main class="wrap">
 			<slot />
 		</main>
-		<footer class="site-footer wrap">
-			<p>© {new Date().getFullYear()} Nick. UX freelance practice and personal writing.</p>
-			<p><a href="/imprint">Imprint</a></p>
+		<footer class="site-footer">
+			<div class="wrap">
+				<p>© {new Date().getFullYear()} Nick. UX freelance practice and personal writing.</p>
+				<p><a href="/imprint">Imprint</a></p>
+			</div>
 		</footer>
 	</body>
 </html>
 
 <style>
+	@font-face {
+		font-family: 'Inter';
+		src: url('../assets/fonts/Inter-VariableFont.ttf') format('truetype');
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: 'Inter';
+		src: url('../assets/fonts/Inter-Italic-VariableFont.ttf') format('truetype');
+		font-style: italic;
+		font-weight: 100 900;
+		font-display: swap;
+	}
+
 	:root {
 		--bg: #19485f;
 		--surface: #19485f;
@@ -50,15 +68,42 @@ const {
 		--muted: #d9e0a4;
 		--accent: #d9e0a4;
 		--line: #d9e0a4;
+		--container-max: 900px;
+		--container-gutter: 1rem;
+	}
+
+	:global(*),
+	:global(*::before),
+	:global(*::after) {
+		box-sizing: border-box;
 	}
 
 	html,
 	body {
 		margin: 0;
 		padding: 0;
-		font-family: 'Avenir Next', 'Gill Sans', 'Trebuchet MS', sans-serif;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
 		background: var(--bg);
 		color: var(--text);
+	}
+
+	:global(h1),
+	:global(h2),
+	:global(h3),
+	:global(h4),
+	:global(h5),
+	:global(h6),
+	:global(strong) {
+		font-weight: 600;
+	}
+
+	:global(button),
+	:global([role='button']),
+	:global(input[type='button']),
+	:global(input[type='submit']),
+	:global(input[type='reset']) {
+		font-weight: 400;
 	}
 
 	:global(a),
@@ -70,7 +115,7 @@ const {
 	}
 
 	.wrap {
-		width: min(980px, calc(100% - 2rem));
+		width: min(var(--container-max), calc(100% - (var(--container-gutter) * 2)));
 		margin: 0 auto;
 	}
 
@@ -88,7 +133,7 @@ const {
 
 	.brand {
 		font-size: 1.2rem;
-		font-weight: 800;
+		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-decoration: none;
 	}
@@ -100,7 +145,7 @@ const {
 
 	nav a {
 		text-decoration: none;
-		font-weight: 600;
+		font-weight: 300;
 		color: var(--muted);
 	}
 
@@ -113,18 +158,21 @@ const {
 	}
 
 	.site-footer {
+	}
+
+	.site-footer .wrap {
 		border-top: 1px solid var(--line);
 		padding: 1.25rem 0 2rem;
 		color: var(--muted);
 		font-size: 0.9rem;
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr auto;
 		align-items: center;
-		justify-content: space-between;
 		gap: 1rem;
 	}
 
 	.site-footer p {
-		margin: 0.25rem 0;
+		margin: 0;
 	}
 
 	.site-footer a {
@@ -142,8 +190,8 @@ const {
 			font-size: 0.95rem;
 		}
 
-		.site-footer {
-			flex-direction: column;
+		.site-footer .wrap {
+			grid-template-columns: 1fr;
 			align-items: flex-start;
 		}
 	}
