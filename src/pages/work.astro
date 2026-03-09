@@ -13,8 +13,9 @@ import { projects } from '../data/projects';
 				<a class="card-link" href={`/work/${project.slug}/`} aria-label={`View details for ${project.title}`}></a>
 				<p class="client">{project.client}</p>
 				<h2>{project.title}</h2>
-				<p>{project.summary}</p>
-				<p class="outcome">{project.outcome}</p>
+				<ul class="tags">
+					{project.tags.map((tag) => <li>{tag}</li>)}
+				</ul>
 			</article>
 		))}
 	</div>
@@ -75,8 +76,20 @@ import { projects } from '../data/projects';
 		margin-bottom: 0.5rem;
 	}
 
-	.outcome {
-		font-weight: 300;
-		color: var(--accent);
+	.tags {
+		list-style: none;
+		padding: 0;
+		margin: 0.5rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.tags li {
+		font-size: 0.78rem;
+		padding: 0.2rem 0.55rem;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		color: var(--muted);
 	}
 </style>
