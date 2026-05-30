@@ -11,7 +11,7 @@ website/
 ├── tsconfig.json
 ├── package.json              # scripts: dev / build / preview
 ├── CLAUDE.md                 # guidance for Claude Code
-├── structure.md              # this file
+├── README.md                 # this file
 │
 ├── public/
 │   └── assets/
