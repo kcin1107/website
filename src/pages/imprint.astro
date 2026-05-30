@@ -1,71 +1,183 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import TabGroup from '../components/TabGroup.astro'
+import TabItem from '../components/TabItem.astro'
 ---
+<Layout title="Imprint – Nick Ringelmann">
 
-<Layout title="Imprint | Nick Ringelmann" description="Imprint according to German law (Angaben gemäß § 5 TMG).">
-	<h1>Imprint</h1>
+  <section class="section">
+    <div class="container legal imprint-container">
 
-	<h2>Angaben gemäß § 5 TMG</h2>
-	<p>
-		<strong>Postadresse</strong><br />
-		HK100 c/o Nick Ringelmann<br />
-		Heidenkampsweg 100<br />
-		20097 Hamburg
-	</p>
-	<p>
-		Telefon: auf Anfrage<br />
-		E-Mail: <a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a>
-	</p>
-	<p>
-		Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:<br />
-		<strong>DE355308717</strong>
-	</p>
+      <h1 id="imprint-title">Imprint</h1>
 
-	<h2>Haftungsausschluss</h2>
-	<p>
-		<strong>Haftung für Inhalt</strong><br />
-		Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
-		Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
-	</p>
+      <!-- English content -->
+      <div data-tab-panel="en">
+        <div class="legal-sections">
+          <div class="legal-section">
+            <h2>Information according to § 5 TMG</h2>
+            <div class="legal-body">
+              <p><strong>Nick Ringelmann</strong></p>
+              <p>c/o HK100 Boomerang Systems UG</p>
+              <p>Heidenkampsweg 100</p>
+              <p>20097 Hamburg</p>
+              <p>&nbsp;</p>
+              <p><strong>Contact:</strong></p>
+              <p><a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a></p>
+              <p>&nbsp;</p>
+              <p><strong>VAT identification number according to § 27a of the German VAT Act:</strong></p>
+              <p>DE355308717</p>
+            </div>
+          </div>
 
-	<p>
-		<strong>Haftung für Links</strong><br />
-		Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
-		Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
-		Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der
-		Seiten verantwortlich.
-	</p>
+          <div class="legal-section">
+            <h2>Disclaimer</h2>
+            <div class="legal-body">
+              <p><strong>Liability for Content</strong></p>
+              <p>The contents of our pages were created with the greatest care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content.</p>
+              <p>&nbsp;</p>
+              <p><strong>Liability for Links</strong></p>
+              <p>Our website contains links to external third-party websites, the content of which we have no influence over. We therefore cannot assume any liability for these external contents. The respective provider or operator of the linked pages is always responsible for their content.</p>
+              <p>&nbsp;</p>
+              <p><strong>Copyright</strong></p>
+              <p>The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution, and any kind of use beyond the limits of copyright law require the written consent of the respective author or creator.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	<p>
-		<strong>Urheberrecht</strong><br />
-		Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
-		deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-		Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
-		jeweiligen Autors bzw. Erstellers.
-	</p>
+      <!-- German content -->
+      <div data-tab-panel="de" hidden>
+        <div class="legal-sections">
+          <div class="legal-section">
+            <h2>Angaben gemäß § 5 TMG</h2>
+            <div class="legal-body">
+              <p><strong>Nick Ringelmann</strong></p>
+              <p>c/o HK100 Boomerang Systems UG</p>
+              <p>Heidenkampsweg 100</p>
+              <p>20097 Hamburg</p>
+              <p>&nbsp;</p>
+              <p><strong>Kontakt:</strong></p>
+              <p><a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a></p>
+              <p>&nbsp;</p>
+              <p><strong>Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:</strong></p>
+              <p>DE355308717</p>
+            </div>
+          </div>
+
+          <div class="legal-section">
+            <h2>Haftungsausschluss</h2>
+            <div class="legal-body">
+              <p><strong>Haftung für Inhalt</strong></p>
+              <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+              <p>&nbsp;</p>
+              <p><strong>Haftung für Links</strong></p>
+              <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+              <p>&nbsp;</p>
+              <p><strong>Urheberrecht</strong></p>
+              <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imprint-tabs">
+        <TabGroup>
+          <TabItem label="EN" selected data-tab="en" />
+          <TabItem label="DE" data-tab="de" />
+        </TabGroup>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const tabs   = document.querySelectorAll<HTMLElement>('[data-tab]')
+    const panels = document.querySelectorAll<HTMLElement>('[data-tab-panel]')
+    const title  = document.getElementById('imprint-title')
+
+    const titles: Record<string, string> = { en: 'Imprint', de: 'Impressum' }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab!
+
+        tabs.forEach(t => {
+          t.setAttribute('aria-selected', 'false')
+          t.classList.remove('tab-item--selected')
+        })
+        tab.setAttribute('aria-selected', 'true')
+        tab.classList.add('tab-item--selected')
+
+        panels.forEach(panel => {
+          panel.hidden = panel.dataset.tabPanel !== target
+        })
+
+        if (title) title.textContent = titles[target] ?? 'Imprint'
+      })
+    })
+  </script>
+
 </Layout>
 
 <style>
-	h1 {
-		max-width: 70ch;
-		margin: 0 auto 0.5rem;
-		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-	}
+  .imprint-container {
+    position: relative;
+    gap: 48px;
+  }
 
-	h2 {
-		max-width: 70ch;
-		margin: 1.5rem auto 0.4rem;
-		font-size: 1.15rem;
-	}
+  .imprint-container h1 {
+    margin-bottom: 0;
+  }
 
-	p {
-		max-width: 70ch;
-		line-height: 1.7;
-		color: var(--muted);
-		margin: 0 auto 1rem;
-	}
+  .imprint-tabs {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
-	a {
-		color: var(--accent);
-	}
+  .legal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .legal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .legal-section h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1;
+  }
+
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .legal-body p,
+  .legal-body a {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+  }
+
+  .legal-body a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  @media (min-width: 1024px) {
+    .legal-sections {
+      flex-direction: row;
+      gap: 48px;
+    }
+
+    .legal-section {
+      flex: 1 0 0;
+    }
+  }
 </style>

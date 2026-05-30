@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Button from '../../components/Button.astro'
+import { projects } from '../../data/projects'
+
+export function getStaticPaths() {
+  return projects
+    .filter(project => project.slug)
+    .map(project => ({
+      params: { slug: project.slug },
+      props: { project },
+    }))
+}
+
+const { project } = Astro.props
+---
+<Layout title={`${project.title} – ${project.client} · Nick Ringelmann`}>
+
+  <section class="section">
+    <div class="container project-detail">
+
+      <!-- Back link -->
+      <Button class="project-detail__back" href="/#projects" icon={true}>Back to Home</Button>
+
+      <!-- Header -->
+      <div class="project-detail__header">
+        <div class="project-detail__titles">
+          <h1 class="project-detail__title">{project.title}</h1>
+          <span class="project-detail__client">{project.client}</span>
+        </div>
+        <div class="project-detail__tags">
+          <span class="tag tag--topic">{project.topicTag}</span>
+          {project.tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-lg project-detail__description">{project.description ?? 'This is a project description'}</p>
+
+      <!-- Preview image -->
+      <div class="project-detail__image-wrapper">
+        <img class="project-detail__image" src={project.image} alt={project.alt}>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('.project-detail__back');
+    if (!btn) return;
+    try {
+      var ref = document.referrer;
+      if (ref && new URL(ref).pathname.startsWith('/projects')) {
+        btn.href = '/projects';
+        var textNode = Array.from(btn.childNodes).find(function (n) {
+          return n.nodeType === 3 && n.textContent.trim();
+        });
+        if (textNode) textNode.textContent = 'Back to Projects';
+      }
+    } catch (e) {}
+  })();
+</script>

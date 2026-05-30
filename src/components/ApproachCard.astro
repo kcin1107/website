@@ -1,0 +1,14 @@
+---
+interface Props {
+  icon: string
+  title: string
+  text: string
+}
+
+const { icon, title, text } = Astro.props
+---
+<div class="approach-card">
+  <div class="approach-card__icon" set:html={icon}></div>
+  <h3 class="approach-card__title">{title}</h3>
+  <p class="approach-card__text text-md">{text}</p>
+</div>

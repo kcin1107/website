@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { projects, categories } from '../../data/projects'
+---
+<Layout title="Projects – Nick Ringelmann">
+
+  <section class="section">
+    <div class="container">
+      <h1 class="section__title">Projects</h1>
+      <div class="projects-categories">
+        {categories.map(cat => {
+          const catProjects = projects.filter(p => p.category === cat.id)
+          return (
+            <div class="projects-category">
+              <div class="projects-category__intro">
+                <h2 class="projects-category__heading">{cat.title}</h2>
+                <p class="text-lg">{cat.description}</p>
+              </div>
+              <div class="projects-grid">
+                {catProjects.map(p => (
+                  <ProjectCard
+                    image={p.image}
+                    alt={p.alt}
+                    title={p.title}
+                    subtitle={p.client}
+                    topicTag={p.topicTag}
+                    tags={p.tags}
+                    href={p.slug ? `/projects/${p.slug}` : undefined}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,12 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
 
 	return posts.map((post) => ({
-		params: { slug: post.slug },
+		params: { slug: post.id },
 		props: { post },
 	}));
 }
@@ -21,46 +22,91 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 });
 ---
 
-<Layout title={`${post.data.title} | Blog`} description={post.data.description}>
-	<article>
-		<a class="back" href="/blog">← Back to blog</a>
-		<h1>{post.data.title}</h1>
-		<p class="meta">{formatter.format(post.data.date)}</p>
-		<Content />
-	</article>
+<Layout title={`${post.data.title} – Nick Ringelmann`}>
+
+  <section class="section">
+    <div class="container blog-article">
+      <Button class="blog-article__back" href="/#blog" icon={true}>Back to Home</Button>
+      <h1 class="blog-article__title">{post.data.title}</h1>
+      <p class="blog-article__date">{formatter.format(post.data.date)}</p>
+      <div class="blog-article__body">
+        <Content />
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
-	article {
-		width: 100%;
-		max-width: 100%;
-		margin: 0 auto;
-		background: var(--surface);
-		border-radius: 12px;
-	}
+  .blog-article {
+    max-width: 720px;
+  }
 
-	.back {
-		font-size: 0.95rem;
-		color: var(--accent);
-		text-decoration: none;
-	}
+  .blog-article__back {
+    align-self: flex-start;
+    margin-left: -12px;
+    margin-bottom: 48px;
+  }
 
-	h1 {
-		margin: 0.8rem 0 0.45rem;
-	}
+  .blog-article__title {
+    font-size: 2.25rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
 
-	.meta {
-		margin-top: 0;
-		color: var(--text);
-	}
+  .blog-article__date {
+    font-size: 0.9rem;
+    color: var(--dark-grey);
+    margin: 0 0 48px;
+  }
 
-	article :global(h2) {
-		margin-top: 1.35rem;
-	}
+  .blog-article__body :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 40px;
+    margin-bottom: 12px;
+  }
 
-	article :global(p),
-	article :global(li) {
-		line-height: 1.7;
-		color: var(--text);
-	}
+  .blog-article__body :global(p) {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .blog-article__body :global(ul),
+  .blog-article__body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 16px;
+  }
+
+  .blog-article__body :global(li) {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 767px) {
+    .blog-article__title {
+      font-size: 1.75rem;
+    }
+  }
 </style>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('.blog-article__back');
+    if (!btn) return;
+    try {
+      var ref = document.referrer;
+      if (ref && new URL(ref).pathname.startsWith('/blog')) {
+        btn.href = '/blog';
+        var textNode = Array.from(btn.childNodes).find(function (n) {
+          return n.nodeType === 3 && n.textContent.trim();
+        });
+        if (textNode) textNode.textContent = 'Back to All Posts';
+      }
+    } catch (e) {}
+  })();
+</script>

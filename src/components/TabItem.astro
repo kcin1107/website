@@ -1,0 +1,90 @@
+---
+interface Props {
+  label: string
+  selected?: boolean
+  disabled?: boolean
+  href?: string
+  [key: string]: unknown
+}
+
+const { label, selected = false, disabled = false, href, ...rest } = Astro.props
+---
+
+{href ? (
+  <a
+    class:list={['tab-item', 'text-sm', { 'tab-item--selected': selected, 'tab-item--disabled': disabled }]}
+    href={disabled ? undefined : href}
+    role="tab"
+    aria-selected={selected}
+    aria-disabled={disabled || undefined}
+    {...rest}
+  >{label}</a>
+) : (
+  <button
+    class:list={['tab-item', 'text-sm', { 'tab-item--selected': selected }]}
+    role="tab"
+    aria-selected={selected}
+    disabled={disabled}
+    {...rest}
+  >{label}</button>
+)}
+
+<style>
+  .tab-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    color: #616161;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease-out, color 0.2s ease-out;
+    flex-shrink: 0;
+  }
+
+  .tab-item:hover:not(:disabled):not(.tab-item--disabled) {
+    background-color: #fafafa;
+    color: #212121;
+  }
+
+  .tab-item--selected,
+  .tab-item[aria-selected="true"] {
+    background-color: #fafafa;
+    border-color: #eeeeee;
+    color: #212121;
+  }
+
+  .tab-item:disabled,
+  .tab-item--disabled {
+    color: #bdbdbd;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Dark mode */
+  :global([data-theme='dark']) .tab-item {
+    color: #a8b87a;
+  }
+
+  :global([data-theme='dark']) .tab-item:hover:not(:disabled):not(.tab-item--disabled) {
+    background-color: #1e546e;
+    color: #d9e0a4;
+  }
+
+  :global([data-theme='dark']) .tab-item--selected,
+  :global([data-theme='dark']) .tab-item[aria-selected="true"] {
+    background-color: #1e546e;
+    border-color: #2a6a85;
+    color: #d9e0a4;
+  }
+
+  :global([data-theme='dark']) .tab-item:disabled,
+  :global([data-theme='dark']) .tab-item--disabled {
+    color: #5a7855;
+  }
+</style>

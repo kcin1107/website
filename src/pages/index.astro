@@ -1,186 +1,185 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import { projects } from '../data/projects';
+import Layout from '../layouts/Layout.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import ApproachCard from '../components/ApproachCard.astro'
+import { projects } from '../data/projects'
+import { getCollection } from 'astro:content'
+import BlogCard from '../components/BlogCard.astro'
 
-const posts = (await getCollection('blog'))
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-	.slice(0, 3);
+const recentPosts = (await getCollection('blog'))
+  .filter((post: { data: { draft: boolean } }) => !post.data.draft)
+  .sort((a: { data: { date: Date } }, b: { data: { date: Date } }) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
 
-const selectedProjects = projects.slice(0, 2);
+const approaches = [
+  {
+    icon: '&#x1F6E0;&#xFE0F;',
+    title: 'Lean UX',
+    text: "Let's keep it lean and focus on business value over complicated processes that hinder progress.",
+  },
+  {
+    icon: '&#x2699;&#xFE0F;',
+    title: 'Systemic thinking',
+    text: 'Having a systemic approach to digital products helps to create a consistent user experience.',
+  },
+  {
+    icon: '&#x1F4AC;',
+    title: 'Communication is key',
+    text: 'Facilitating collaboration also means facilitating process, hence being a part of the team is a must.',
+  },
+  {
+    icon: '&#x267B;&#xFE0F;',
+    title: 'Reducing digital trash',
+    text: 'Keeping the environmental impact in mind, I aim to keep my designs simple & energy-efficient.',
+  },
+  {
+    icon: '&#x1F532;',
+    title: 'Less is more',
+    text: 'No matter the viewport: I always strive for an elegant, simplistic, and efficient design language.',
+  },
+  {
+    icon: '&#x1F331;',
+    title: 'Driven by sustainability',
+    text: 'Passionate about digital products that aim to help humans, animals, aim to reduce impact on nature.',
+  },
+]
 ---
+<Layout title="Nick Ringelmann – Product Designer">
 
-<Layout title="Nick Ringelmann" description="My personal website where I publish my design work and write about my interests.">
-	<section class="hero">
-		<p class="kicker">Personal Website</p>
-		<h1>Hi, my name is Nick and I'm a Product Designer, currently based in Hamburg, Germany.</h1>
-		<p>
-			 Product Designer with 3+ years of experience currently turning renewable energy data into actionable insights @ Asset Ocean. In general, I love helping businesses to create impactful digital products & user experiences for a sustainable future.
-		</p>
-		<div class="actions">
-			<a href="/work">View projects</a>
-			<a href="/blog">Read blog</a>
-		</div>
-	</section>
+  <!-- Hero -->
+  <section class="section">
+    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+      <div class="hero">
+        <div class="hero__images">
+          <img class="hero__image-1 elevation-md" src="/assets/images/hero1.jpg" alt="Nick Ringelmann" width="525" height="525">
+          <img class="hero__image-2 elevation-md" src="/assets/images/hero2.jpg" alt="Nick working" width="617" height="411">
+          <div class="status-row status-row--mobile">
+            <div class="status">
+              <div class="status__dot"></div>
+              <span class="status__text">Currently available</span>
+            </div>
+            <div class="status status--blue">
+              <span class="status__text">&#x1F4CD;</span>
+              <span class="status__text">Germany/Remote</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero__content">
+          <div class="status-row status-row--desktop">
+            <div class="status">
+              <div class="status__dot"></div>
+              <span class="status__text">Currently available</span>
+            </div>
+            <div class="status status--blue">
+              <span class="status__text">&#x1F4CD;</span>
+              <span class="status__text">Germany/Remote</span>
+            </div>
+          </div>
+          <h1 class="hero__title">Hi, I'm Nick and a <u>Freelance Product Designer</u>, currently based in Hamburg, Germany.</h1>
+          <p class="hero__subtitle">Product Designer with 3+ years of experience currently turning renewable energy data into actionable insights @ Asset Ocean. In general, I love helping businesses to create impactful digital products &amp; user experiences for a sustainable future.</p>
+          <div class="hero__links">
+            <a class="primaryButton" href="https://www.linkedin.com/in/nick-ringelmann/" target="_blank">LinkedIn</a>
+            <a class="primaryButton" href="mailto:work@nickringelmann.com" target="_blank">E-Mail</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<section>
-		<h2>Selected projects</h2>
-		<div class="cards">
-			{selectedProjects.map((project) => (
-				<article>
-					<a href={`/work/${project.slug}/`}>
-						<p class="card-client">{project.client}</p>
-						<h3>{project.title}</h3>
-						<ul class="card-tags">
-							{project.tags.map((tag) => <li>{tag}</li>)}
-						</ul>
-					</a>
-				</article>
-			))}
-		</div>
-	</section>
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section__title" style="margin-bottom: 0;">Projects</h2>
+        <a class="primaryButton" href="/projects">All Projects</a>
+      </div>
+      <div class="projects-grid">
+        {projects.slice(0, 6).map(p => (
+          <ProjectCard
+            image={p.image}
+            alt={p.alt}
+            title={p.title}
+            subtitle={p.client}
+            topicTag={p.topicTag}
+            tags={p.tags}
+            href={p.slug ? `/projects/${p.slug}` : undefined}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
 
-	<section>
-		<div class="section-head">
-			<h2>Latest posts</h2>
-			<a href="/blog">See all</a>
-		</div>
-		<ul class="post-list">
-			{posts.map((post) => (
-				<li>
-					<a href={`/blog/${post.slug}/`}>
-						<strong>{post.data.title}</strong>
-						<span>{post.data.description}</span>
-					</a>
-				</li>
-			))}
-		</ul>
-	</section>
+  <!-- Approach -->
+  <section class="section" id="approach">
+    <div class="container">
+      <h2 class="section__title">Approach</h2>
+      <div class="approach-grid">
+        {approaches.map(a => <ApproachCard {...a} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section__title" style="margin-bottom: 0;">Blog</h2>
+        <a class="primaryButton" href="/blog">All Posts</a>
+      </div>
+      <div class="blog-grid">
+        {recentPosts.map((post: { id: string; data: { title: string; description: string; date: Date } }) => (
+          <BlogCard
+            href={`/blog/${post.id}/`}
+            date={new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(post.data.date)}
+            title={post.data.title}
+            description={post.data.description}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients -->
+  <section class="section" id="clients">
+    <div class="container">
+      <h2 class="section__title">Clients</h2>
+      <div class="clients-grid">
+        <img src="/assets/images/Boomerang.svg" alt="Logo des Unternehmens Boomerang" width="128">
+        <img src="/assets/images/Loeffelholz-Care.svg" alt="Logo der Löffelholz Care GmbH" width="128">
+        <img src="/assets/images/Asset-Ocean.svg" alt="Logo von Asset Ocean" width="128">
+        <img src="/assets/images/encavis.svg" alt="Logo der Encavis AG" width="128">
+        <img src="/assets/images/1300ETC.svg" alt="Logo der Motorsportserie 1300ETC" width="128">
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
-	.hero {
-		margin: 0 0 2.5rem;
-	}
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 48px;
+  }
 
-	.kicker {
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		font-size: 0.82rem;
-		color: var(--accent);
-		font-weight: 600;
-	}
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+  }
 
-	h1 {
-		font-size: clamp(1.8rem, 4vw, 3rem);
-		line-height: 1.1;
-		margin: 0 0 0.9rem;
-	}
+  @media (max-width: 1023px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 
-	.hero p {
-		font-size: 1.1rem;
-		color: var(--muted);
-	}
-
-	.actions {
-		display: flex;
-		gap: 0.8rem;
-		margin-top: 1.2rem;
-	}
-
-	.actions a {
-		padding: 0.6rem 0.9rem;
-		border-radius: 999px;
-		text-decoration: none;
-		font-weight: 400;
-		border: 1px solid var(--line);
-		background: var(--surface);
-	}
-
-	.actions a:hover {
-		border-color: var(--accent);
-	}
-
-	section {
-		margin-bottom: 2.5rem;
-	}
-
-	h2 {
-		margin-bottom: 0.9rem;
-	}
-
-	.cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-		gap: 1rem;
-	}
-
-	.cards article,
-	.post-list a {
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: 12px;
-		padding: 1rem;
-	}
-
-	.cards article a {
-		display: block;
-		text-decoration: none;
-	}
-
-	.card-client {
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.07em;
-		color: var(--muted);
-		margin: 0 0 0.25rem;
-	}
-
-	.card-tags {
-		list-style: none;
-		padding: 0;
-		margin: 0.5rem 0 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem;
-	}
-
-	.card-tags li {
-		font-size: 0.78rem;
-		padding: 0.2rem 0.55rem;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		color: var(--muted);
-	}
-
-	.cards p,
-	.post-list span {
-		color: var(--muted);
-	}
-
-	.section-head {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.section-head a {
-		color: var(--accent);
-	}
-
-	.post-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	.post-list a {
-		display: flex;
-		flex-direction: column;
-		gap: 0.35rem;
-		text-decoration: none;
-	}
+  @media (max-width: 767px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

@@ -1,0 +1,29 @@
+---
+interface Props {
+  image?: string
+  alt: string
+  title: string
+  subtitle: string
+  topicTag: string
+  tags: string[]
+  href?: string
+}
+
+const { image, alt, title, subtitle, topicTag, tags, href } = Astro.props
+const Tag = href ? 'a' : 'div'
+---
+<Tag class="project-card" href={href}>
+  <div class="project-card__image-wrapper">
+    {image && <img class="project-card__image elevation-lg" src={image} alt={alt} width="392" height="244">}
+  </div>
+  <div class="project-card__content">
+    <div class="project-card__titles">
+      <h3 class="project-card__title">{title}</h3>
+      <span class="project-card__subtitle">{subtitle}</span>
+    </div>
+    <div class="project-card__tags">
+      <span class="tag tag--topic">{topicTag}</span>
+      {tags.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</Tag>

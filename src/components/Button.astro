@@ -1,0 +1,69 @@
+---
+interface Props {
+  href: string
+  variant?: 'primary' | 'secondary'
+  icon?: boolean
+  target?: string
+  [key: string]: unknown
+}
+
+const { href, variant = 'primary', icon = false, target, class: className, ...rest } = Astro.props
+---
+
+<a
+  class:list={['btn', variant === 'secondary' ? 'btn--secondary' : 'btn--primary', className]}
+  href={href}
+  target={target}
+  {...rest}
+>
+  {icon && (
+    <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.275 14.1038C12.6366 13.7422 12.6366 13.1559 12.275 12.7943L9.689 10.2083L12.275 7.62232C12.6366 7.26073 12.6366 6.67446 12.275 6.31287C11.9134 5.95127 11.3271 5.95127 10.9656 6.31286L7.72481 9.55361C7.36321 9.9152 7.36321 10.5015 7.72481 10.8631L10.9656 14.1038C11.3271 14.4654 11.9134 14.4654 12.275 14.1038Z" fill="currentColor"/>
+    </svg>
+  )}
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-out;
+    white-space: nowrap;
+  }
+
+  .btn--primary {
+    color: var(--black);
+  }
+
+  .btn--primary:hover {
+    background-color: var(--light-grey);
+  }
+
+  .btn--secondary {
+    background-color: var(--black);
+    color: var(--white);
+  }
+
+  .btn--secondary:hover {
+    background-color: #292929;
+  }
+
+  .btn__icon {
+    flex-shrink: 0;
+  }
+
+  /* Dark mode */
+  :global([data-theme='dark']) .btn--secondary:hover {
+    background-color: #c8d093;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+interface Props {
+  date: string
+  title: string
+  description: string
+  href: string
+}
+
+const { date, title, description, href } = Astro.props
+---
+<a class="blog-card" href={href}>
+  <span class="blog-card__date">{date}</span>
+  <p class="blog-card__title">{title}</p>
+  <p class="blog-card__desc">{description}</p>
+</a>
+
+<style>
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    background-color: var(--light-grey);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+  }
+
+  .blog-card:hover {
+    background-color: #ebebeb;
+  }
+
+  :global([data-theme='dark']) .blog-card:hover {
+    background-color: var(--light-grey);
+    border-color: #a8b87a;
+  }
+
+  .blog-card__date {
+    font-size: 0.75rem;
+    color: var(--dark-grey);
+    line-height: 1;
+  }
+
+  .blog-card__title {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .blog-card__desc {
+    font-size: 1rem;
+    color: var(--dark-grey);
+    line-height: 1.4;
+  }
+</style>
