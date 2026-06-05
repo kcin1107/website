@@ -69,10 +69,10 @@ export const projects: Project[] = [
   // Web Projects
   {
     slug: 'boomerang-landing-page',
-    image: '/assets/images/card1.png',
+    image: '/assets/images/project-card-boomerang-20260605.png',
     images: [
       {
-        src: '/assets/images/projects/boomerangpack-live.png',
+        src: '/assets/images/projects/boomerang-live-20260605.png',
         alt: 'Boomerang live website screenshot',
       },
     ],
@@ -86,10 +86,10 @@ export const projects: Project[] = [
   },
   {
     slug: 'loeffelholz-care',
-    image: '/assets/images/card3.png',
+    image: '/assets/images/project-card-loeffelholz-care-20260605.png',
     images: [
       {
-        src: '/assets/images/projects/loeffelholz-care-live.png',
+        src: '/assets/images/projects/loeffelholz-care-live-20260605.png',
         alt: 'Löffelholz Care Mobil live website screenshot',
       },
     ],
@@ -103,10 +103,10 @@ export const projects: Project[] = [
   },
   {
     slug: '1300etc',
-    image: '/assets/images/card4.png',
+    image: '/assets/images/project-card-1300etc-20260605.png',
     images: [
       {
-        src: '/assets/images/projects/1300etc-live.png',
+        src: '/assets/images/projects/1300etc-live-20260605.png',
         alt: '1300ETC live website screenshot',
       },
     ],
@@ -131,7 +131,7 @@ export const projects: Project[] = [
     category: 'side',
   },
   {
-    image: '/assets/images/card7.png',
+    image: '/assets/images/project-card-nickringelmann-20260605.png',
     alt: 'My Website',
     title: 'My Website',
     client: 'nickringelmann.com',
