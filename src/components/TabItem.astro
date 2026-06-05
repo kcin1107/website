@@ -68,23 +68,23 @@ const { label, selected = false, disabled = false, href, ...rest } = Astro.props
 
   /* Dark mode */
   :global([data-theme='dark']) .tab-item {
-    color: #a8b87a;
+    color: var(--dark-grey);
   }
 
   :global([data-theme='dark']) .tab-item:hover:not(:disabled):not(.tab-item--disabled) {
-    background-color: #1e546e;
-    color: #d9e0a4;
+    background-color: var(--hover-grey);
+    color: var(--black);
   }
 
   :global([data-theme='dark']) .tab-item--selected,
   :global([data-theme='dark']) .tab-item[aria-selected="true"] {
-    background-color: #1e546e;
-    border-color: #2a6a85;
-    color: #d9e0a4;
+    background-color: var(--hover-grey);
+    border-color: var(--border-grey);
+    color: var(--black);
   }
 
   :global([data-theme='dark']) .tab-item:disabled,
   :global([data-theme='dark']) .tab-item--disabled {
-    color: #5a7855;
+    color: #525252;
   }
 </style>

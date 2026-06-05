@@ -58,6 +58,10 @@ const formatter = new Intl.DateTimeFormat('en-US', {
     background-color: #ebebeb;
   }
 
+  :global([data-theme='dark']) .blog-card:hover {
+    background-color: var(--hover-grey);
+  }
+
   .blog-card__meta {
     margin-bottom: 8px;
   }
