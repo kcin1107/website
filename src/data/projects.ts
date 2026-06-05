@@ -6,6 +6,11 @@ export interface Category {
   description: string
 }
 
+export interface ProjectImage {
+  src: string
+  alt: string
+}
+
 export const categories: Category[] = [
   {
     id: 'business',
@@ -27,6 +32,7 @@ export const categories: Category[] = [
 export interface Project {
   slug?: string
   image?: string
+  images?: ProjectImage[]
   alt: string
   title: string
   client: string
@@ -34,6 +40,7 @@ export interface Project {
   tags: string[]
   description?: string
   category: ProjectCategory
+  showOnHome?: boolean
 }
 
 export const projects: Project[] = [
@@ -63,31 +70,52 @@ export const projects: Project[] = [
   {
     slug: 'boomerang-landing-page',
     image: '/assets/images/card1.png',
+    images: [
+      {
+        src: '/assets/images/projects/boomerangpack-live.png',
+        alt: 'Boomerang live website screenshot',
+      },
+    ],
     alt: 'Boomerang Systems Landing Page',
     title: 'Landing Page for a Logistics Start-Up',
     client: 'Boomerang Systems',
     topicTag: 'Web Design',
     tags: ['Webflow', 'B2B', 'B2C', 'Frontend'],
+    description: 'A Webflow landing page for Boomerang Systems, presenting reusable shipping boxes and bags for online shops, B2B logistics, and circular shipping processes.',
     category: 'web',
   },
   {
     slug: 'loeffelholz-care',
     image: '/assets/images/card3.png',
-    alt: 'Löffelholz Care Landing Page',
+    images: [
+      {
+        src: '/assets/images/projects/loeffelholz-care-live.png',
+        alt: 'Löffelholz Care Mobil live website screenshot',
+      },
+    ],
+    alt: 'Löffelholz Care Mobil Landing Page',
     title: 'Landing Page for a Nursing Business',
     client: 'Löffelholz Care',
     topicTag: 'Web Design',
     tags: ['Webflow', 'Mobile-First', 'Frontend'],
+    description: 'A mobile-first Webflow website for Löffelholz Care, an ambulatory care provider in Hamburg offering nursing care, housekeeping, personal assistance, and care consulting.',
     category: 'web',
   },
   {
     slug: '1300etc',
     image: '/assets/images/card4.png',
+    images: [
+      {
+        src: '/assets/images/projects/1300etc-live.png',
+        alt: '1300ETC live website screenshot',
+      },
+    ],
     alt: '1300ETC Landing Page',
     title: 'Landing Page for a Racing Series',
     client: '1300ETC',
     topicTag: 'Web Design',
     tags: ['Mobile-First', 'WordPress', 'Frontend'],
+    description: 'A WordPress landing page for 1300ETC, a historic motorsport racing series for touring cars up to 1300cc inspired by the former European Touring Car Championship.',
     category: 'web',
   },
 
@@ -103,12 +131,14 @@ export const projects: Project[] = [
     category: 'side',
   },
   {
+    image: '/assets/images/card7.png',
     alt: 'My Website',
     title: 'My Website',
-    client: 'Coming soon',
-    topicTag: 'Web Design',
-    tags: ['B2B', 'Frontend', 'Astro', 'MCP'],
+    client: 'nickringelmann.com',
+    topicTag: 'Portfolio',
+    tags: ['Astro', 'Frontend', 'UX Design'],
     category: 'side',
+    showOnHome: false,
   },
   {
     alt: 'Cleankey – macOS keyboard cleaner',

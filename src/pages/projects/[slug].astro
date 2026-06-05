@@ -13,6 +13,11 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props
+const projectImages = project.images?.length
+  ? project.images
+  : project.image
+    ? [{ src: project.image, alt: project.alt }]
+    : []
 ---
 <Layout title={`${project.title} – ${project.client} · Nick Ringelmann`}>
 
@@ -37,9 +42,13 @@ const { project } = Astro.props
       <!-- Description -->
       <p class="text-lg project-detail__description">{project.description ?? 'This is a project description'}</p>
 
-      <!-- Preview image -->
-      <div class="project-detail__image-wrapper">
-        <img class="project-detail__image" src={project.image} alt={project.alt}>
+      <!-- Preview images -->
+      <div class="project-detail__images">
+        {projectImages.map(image => (
+          <div class="project-detail__image-wrapper">
+            <img class="project-detail__image" src={image.src} alt={image.alt}>
+          </div>
+        ))}
       </div>
 
     </div>

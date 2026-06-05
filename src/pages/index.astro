@@ -11,6 +11,8 @@ const recentPosts = (await getCollection('blog'))
   .sort((a: { data: { date: Date } }, b: { data: { date: Date } }) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3)
 
+const homeProjects = projects.filter(project => project.showOnHome !== false).slice(0, 6)
+
 const approaches = [
   {
     icon: '&#x1F6E0;&#xFE0F;',
@@ -24,7 +26,7 @@ const approaches = [
   },
   {
     icon: '&#x1F4AC;',
-    title: 'Communication is key!',
+    title: 'Communication is key',
     text: 'Facilitating collaboration also means facilitating process, hence being a part of the team is a must.',
   },
   {
@@ -48,7 +50,7 @@ const approaches = [
 
   <!-- Hero -->
   <section class="section">
-    <div class="container" style="display: flex; justify-content: center; align-items: center;">
+    <div class="container hero-container">
       <div class="hero">
         <div class="hero__images">
           <img class="hero__image-1 elevation-md" src="/assets/images/hero1.jpg" alt="Nick Ringelmann" width="525" height="525">
@@ -75,11 +77,11 @@ const approaches = [
               <span class="status__text">Germany/Remote</span>
             </div>
           </div>
-          <h1 class="hero__title">Hi, I'm Nick and a <u>Freelance Product Designer</u>, currently based in Hamburg, Germany.</h1>
-          <p class="hero__subtitle">Product Designer with 3+ years of experience currently turning renewable energy data into actionable insights @ Asset Ocean. In general, I love helping businesses to create impactful digital products &amp; user experiences for a sustainable future.</p>
+          <h1>Hi, I'm Nick, a <strong>Freelance Product Designer</strong> based in Hamburg, Germany.</h1>
+          <p class="subtitle">I design clear, useful digital products for teams that care about thoughtful experiences and long-term impact. My work connects UX in all facets, technical understanding, and sustainability to make complex services easier to understand and use.</p>
           <div class="hero__links">
-            <a class="primaryButton" href="https://www.linkedin.com/in/nick-ringelmann/" target="_blank">LinkedIn</a>
-            <a class="primaryButton" href="mailto:work@nickringelmann.com" target="_blank">E-Mail</a>
+            <a class="secondaryButton" href="mailto:work@nickringelmann.com" target="_blank">Send a Mail</a>
+            <a class="primaryButton" href="https://www.linkedin.com/in/nick-ringelmann/" target="_blank">Connect on LinkedIn</a>
           </div>
         </div>
       </div>
@@ -94,7 +96,7 @@ const approaches = [
         <a class="primaryButton" href="/projects">All Projects</a>
       </div>
       <div class="projects-grid">
-        {projects.slice(0, 6).map(p => (
+        {homeProjects.map(p => (
           <ProjectCard
             image={p.image}
             alt={p.alt}
