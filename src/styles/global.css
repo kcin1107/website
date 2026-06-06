@@ -201,8 +201,20 @@ ul {
   width: 100%;
   padding: 0 24px;
   background-color: var(--white);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease;
+}
+
+.nav--scrolled {
+  background-color: hsl(0 0% 100% / 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .nav--scrolled {
+  background-color: hsl(0 0% 8% / 0.85);
 }
 
 .nav__wrapper {
@@ -213,7 +225,6 @@ ul {
   width: 100%;
   max-width: 1200px;
   padding: 24px 0;
-  background-color: var(--white);
   position: relative;
   z-index: 1000;
 }
@@ -484,6 +495,7 @@ ul {
   line-height: 140%;
   margin-bottom: 0;
   text-wrap: pretty;
+  color: var(--dark-grey);
 }
 
 .hero__links {

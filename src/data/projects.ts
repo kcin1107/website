@@ -131,12 +131,20 @@ export const projects: Project[] = [
     category: 'side',
   },
   {
+    slug: 'my-website',
     image: '/assets/images/project-card-nickringelmann-20260605.png',
+    images: [
+      {
+        src: '/assets/images/projects/nickringelmann-live-20260605.png',
+        alt: 'nickringelmann.com live website screenshot',
+      },
+    ],
     alt: 'My Website',
     title: 'My Website',
     client: 'nickringelmann.com',
     topicTag: 'Portfolio',
     tags: ['Astro', 'Frontend', 'UX Design'],
+    description: 'A personal portfolio built with Astro 6 as a fully static site — no UI framework, just TypeScript for data, a single global stylesheet, and a few lines of vanilla JS for the theme toggle and mobile nav. Designed and developed entirely by me, self-hosted on IONOS.',
     category: 'side',
     showOnHome: false,
   },
