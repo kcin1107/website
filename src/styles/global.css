@@ -204,17 +204,19 @@ ul {
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: background-color 0.2s ease, backdrop-filter 0.2s ease;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav--scrolled {
   background-color: hsl(0 0% 100% / 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.14), 0px 6px 32px 0px rgba(0,0,0,0.10);
 }
 
 [data-theme='dark'] .nav--scrolled {
   background-color: hsl(0 0% 8% / 0.85);
+  box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.20), 0px 6px 32px 0px rgba(0,0,0,0.16);
 }
 
 .nav__wrapper {
