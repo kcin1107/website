@@ -185,7 +185,7 @@ ul {
   width: 100%;
   padding: 0 24px;
   background-color: var(--white);
-  border-bottom: 1px solid #254e5c1f;
+  border-bottom: 1px solid #0000001f;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -196,6 +196,10 @@ ul {
   background-color: hsl(0 0% 100% / 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .nav {
+  border-bottom: 1px solid #ffffff26;
 }
 
 [data-theme='dark'] .nav--scrolled {
