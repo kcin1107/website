@@ -1168,8 +1168,8 @@ a.project-card {
   }
 
   .footer__wrapper {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column-reverse;
+    align-items: center;
     gap: 16px;
   }
 }
