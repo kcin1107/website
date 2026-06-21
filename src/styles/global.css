@@ -1166,6 +1166,22 @@ a.project-card {
   .approach-grid {
     grid-template-columns: 1fr;
   }
+
+  .footer__wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .footer__links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer__links a {
+    flex: 1 0 0;
+    text-align: center;
+  }
 }
 
 @media (max-width: 360px) {
