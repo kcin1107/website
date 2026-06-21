@@ -1174,7 +1174,12 @@ a.project-card {
   }
 
   .footer__copyright {
+    order: 2;
     text-align: center;
+  }
+
+  .footer__links {
+    order: 1;
   }
 
   .footer__links {
