@@ -38,7 +38,7 @@ File-based routing under `src/pages/`. Every page wraps its content in `src/layo
 **Asset layout** (`public/assets/`, served as-is from the site root):
 - `images/` — hero images, project card previews, client logos (SVG/PNG/JPG)
 - `icons/` — favicon variants, back arrow
-- `fonts/` — self-hosted Roboto WOFF files (weights 300, 400, 500, 700)
+- `fonts/` — self-hosted variable fonts: Roboto (body/UI) and Inter (logo)
 
 **Theme:** dark/light via a `data-theme` attribute on `<html>`, persisted in `localStorage`. An inline script in `Layout.astro` sets it before paint to avoid flashing. The actual color swap happens through the CSS custom properties (see CSS Conventions).
 
@@ -54,3 +54,7 @@ File-based routing under `src/pages/`. Every page wraps its content in `src/layo
 ## Figma Integration
 
 The project is connected to a Figma MCP server (configured in `.vscode/mcp.json`, local HTTP on port 3845). When the user shares a Figma URL or asks about design changes, use the Figma MCP tools to pull design context before editing components or CSS.
+
+## Keeping docs in sync
+
+`README.md` is a structural snapshot of the repo (file tree, routes, data sources, conventions). When a change you make alters that structure — new/removed top-level files or directories, new routes, changed font/asset setup, changed conventions — update `README.md` accordingly, including its "Last updated" date.

@@ -1,9 +1,9 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-05-30
+> Last updated: 2026-06-21
 
-**Stack:** Astro 6.1.5 · TypeScript · static output · no UI framework · self-hosted Roboto.
+**Stack:** Astro 6.1.5 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
 ```
 website/
@@ -11,11 +11,12 @@ website/
 ├── tsconfig.json
 ├── package.json              # scripts: dev / build / preview
 ├── CLAUDE.md                 # guidance for Claude Code
+├── AGENTS.md                 # guidance for other AI coding agents (e.g. OpenAI Codex)
 ├── README.md                 # this file
 │
 ├── public/
 │   └── assets/
-│       ├── fonts/            # Roboto 300/400/500/700 (.woff)
+│       ├── fonts/            # Roboto & Inter variable fonts (.ttf)
 │       ├── icons/            # favicons, backArrow.svg
 │       └── images/           # hero, project cards, client logos
 │
