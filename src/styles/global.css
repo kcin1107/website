@@ -185,25 +185,23 @@ ul {
   width: 100%;
   padding: 0 24px;
   background-color: var(--white);
-  border-bottom: 1px solid #0000001f;
+  border-bottom: 1px solid transparent;
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: background-color 0.2s ease, backdrop-filter 0.2s ease;
+  transition: background-color 0.2s ease, backdrop-filter 0.2s ease, border-bottom-color 0.2s ease;
 }
 
 .nav--scrolled {
   background-color: hsl(0 0% 100% / 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-}
-
-[data-theme='dark'] .nav {
-  border-bottom: 1px solid #ffffff26;
+  border-bottom-color: #0000001f;
 }
 
 [data-theme='dark'] .nav--scrolled {
   background-color: hsl(0 0% 8% / 0.85);
+  border-bottom-color: #ffffff26;
 }
 
 .nav__wrapper {
