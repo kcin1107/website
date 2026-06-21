@@ -1173,6 +1173,10 @@ a.project-card {
     gap: 16px;
   }
 
+  .footer__copyright {
+    text-align: center;
+  }
+
   .footer__links {
     width: 100%;
     justify-content: center;
