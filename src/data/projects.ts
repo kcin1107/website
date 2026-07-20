@@ -69,19 +69,19 @@ export const projects: Project[] = [
   // Web Projects
   {
     slug: 'boomerang-landing-page',
-    image: '/assets/images/project-card-boomerang-20260605.png',
+    image: '/assets/images/project-card-boomerang-20260720.png',
     images: [
       {
-        src: '/assets/images/projects/boomerang-live-20260605.png',
-        alt: 'Boomerang live website screenshot',
+        src: '/assets/images/projects/boomerang-live-20260720.png',
+        alt: 'Boomerang website showing reusable shipping boxes and bags',
       },
     ],
-    alt: 'Boomerang Systems Landing Page',
-    title: 'Landing Page for a Logistics Start-Up',
+    alt: 'Boomerang Systems Website',
+    title: 'Website for a Logistics Start-Up',
     client: 'Boomerang Systems',
     topicTag: 'Web Design',
-    tags: ['Webflow', 'B2B', 'B2C', 'Frontend'],
-    description: 'A Webflow landing page for Boomerang Systems, presenting reusable shipping boxes and bags for online shops, B2B logistics, and circular shipping processes.',
+    tags: ['Astro', 'B2B', 'B2C', 'Frontend', 'SEO'],
+    description: 'A complete rebuild of the Boomerang Systems website as a static Astro site, preserving its established visual language while introducing reusable components, responsive image optimization, technical SEO checks, and release-based deployment with GitHub Actions.',
     category: 'web',
   },
   {
