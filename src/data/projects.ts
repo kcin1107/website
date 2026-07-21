@@ -120,15 +120,15 @@ export const projects: Project[] = [
     images: [
       {
         src: '/assets/images/projects/1300etc-live-20260605.png',
-        alt: '1300ETC live website screenshot',
+        alt: '1300ETC homepage hero showing historic touring cars racing in wet conditions',
       },
     ],
-    alt: '1300ETC Landing Page',
-    title: 'Landing Page for a Racing Series',
+    alt: '1300ETC website relaunch',
+    title: 'Website Relaunch for a Historic Racing Series',
     client: '1300ETC',
     topicTag: 'Web Design',
-    tags: ['Mobile-First', 'WordPress', 'Frontend'],
-    description: 'A WordPress landing page for 1300ETC, a historic motorsport racing series for touring cars up to 1300cc inspired by the former European Touring Car Championship.',
+    tags: ['Astro', 'WordPress Migration', 'Multilingual', 'Frontend', 'CMS', 'Technical SEO'],
+    description: 'The existing 1300ETC site ran on WordPress and Oxygen Builder, with TranslatePress handling German, English, French and Dutch. For the relaunch, I kept the established motorsport identity while rebuilding the experience around the tasks drivers and fans return for: the race calendar, results, history, registration documents, FAQs and contact details. I created shared Astro page components to keep those routes consistent across all four languages, with the same information structure on desktop and mobile.\n\nI replaced WordPress with a fully static Astro build and moved the race dates, tracks, results, sponsors, history and page copy into typed Content Collections. The included Sveltia CMS provides a browser-based way to maintain the structured material without editing source files. Astro turns local imagery into modern formats, while canonical URLs and hreflang alternates identify the correct language version of each page for search engines. Every push to the main branch runs Astro and TypeScript checks, builds the site, then deploys the static output to the existing 1blu hosting over FTP.',
     category: 'web',
   },
 
