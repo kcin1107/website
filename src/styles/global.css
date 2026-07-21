@@ -293,10 +293,6 @@ ul {
   gap: 8px;
 }
 
-.nav__links .primaryButton:hover {
-  background-color: color-mix(in srgb, var(--black) 8%, transparent);
-}
-
 .primaryButton {
   display: inline-block;
   color: color-mix(in srgb, var(--black) 80%, transparent);
@@ -312,7 +308,7 @@ ul {
 }
 
 .primaryButton:hover {
-  background-color: var(--light-grey);
+  background-color: color-mix(in srgb, var(--black) 8%, transparent);
 }
 
 .secondaryButton {
@@ -324,7 +320,7 @@ ul {
   font-size: 14px;
   line-height: 1.4;
   text-decoration: none;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.1px;
   padding: 8px 12px;
   border-radius: 8px;
   transition: background-color 0.2s ease-out;
@@ -848,6 +844,12 @@ ul {
 
 .clients-grid img {
   width: 128px;
+  filter: grayscale(1);
+  transition: filter 0.2s ease-out;
+}
+
+.clients-grid a:hover img {
+  filter: grayscale(0);
 }
 
 /* ==========================================================================
