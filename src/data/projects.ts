@@ -100,18 +100,30 @@ export const projects: Project[] = [
   {
     slug: 'loeffelholz-care',
     image: '/assets/images/project-card-loeffelholz-care-20260605.png',
+    mobileImage: {
+      src: '/assets/images/projects/loeffelholz-care-mobile-20260721.jpg',
+      alt: 'Löffelholz Care homepage on mobile, scrolled through the Hamburg Speicherstadt hero, the founder photo, and the "Ein Rundum-Sorglospaket" section',
+    },
     images: [
       {
-        src: '/assets/images/projects/loeffelholz-care-live-20260605.png',
-        alt: 'Löffelholz Care Mobil live website screenshot',
+        src: '/assets/images/projects/loeffelholz-care-hero-20260721.png',
+        alt: 'Löffelholz Care homepage hero showing Hamburg\'s Speicherstadt at dusk with the headline "Dein ambulanter Pflegedienst"',
+      },
+      {
+        src: '/assets/images/projects/loeffelholz-care-hauswirtschaft-20260721.png',
+        alt: 'Illustrated Hauswirtschaft service card listing grocery shopping, cleaning, laundry, and meal preparation',
+      },
+      {
+        src: '/assets/images/projects/loeffelholz-care-kontakt-20260721.png',
+        alt: 'Contact form on the Kontakt page with fields for name, email, phone, and message',
       },
     ],
-    alt: 'Löffelholz Care Mobil Landing Page',
-    title: 'Landing Page for a Nursing Business',
+    alt: 'Löffelholz Care Website',
+    title: 'Website for a Home Care Provider',
     client: 'Löffelholz Care',
     topicTag: 'Web Design',
     tags: ['Webflow', 'Mobile-First', 'Frontend'],
-    description: 'A mobile-first Webflow website for Löffelholz Care, an ambulatory care provider in Hamburg offering nursing care, housekeeping, personal assistance, and care consulting.',
+    description: 'Löffelholz Care is an ambulatory care service in Hamburg, run by founder Martin Löffelholz with about 60 staff. The site focuses on showing their services clearly, mobile-first with large text for easy readability, since many clients are older. Since 2023 the company has partnered with Schwulenberatung Berlin\'s Lebensort Vielfalt project and joined the Welcoming Out network. The homepage shows the Progress Pride flag next to both partner badges.\n\nThe site runs on Webflow, with the phone number in a fixed bar above the navigation on every page. Cookiebot handles cookie consent. Webflow\'s CMS lets the Löffelholz Care team update pages themselves without a developer.',
     category: 'web',
   },
   {

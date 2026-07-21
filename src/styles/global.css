@@ -923,12 +923,6 @@ a.project-card {
 
 .project-detail__back {
   align-self: flex-start;
-  margin-left: -12px;
-  color: var(--dark-grey);
-}
-
-[data-theme='dark'] .project-detail__back {
-  color: var(--dark-grey);
 }
 
 .project-detail__header {
@@ -1188,19 +1182,15 @@ a.project-card {
   }
 
   .hero__links {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
     gap: 10px;
     margin-top: 4px;
+    width: 100%;
   }
 
   .hero__links .primaryButton,
   .hero__links .secondaryButton {
-    width: 100%;
+    flex: 1 1 0;
     text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
   }
 
   h1 {
@@ -1209,11 +1199,8 @@ a.project-card {
   }
 
   .subtitle {
-    padding-left: 16px;
-    border-left: 3px solid #d97757;
-    color: var(--dark-grey);
     font-size: 1rem;
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
   .status__dot {

@@ -45,6 +45,15 @@ const approaches = [
     text: 'Passionate about digital products that aim to help humans, animals, aim to reduce impact on nature.',
   },
 ]
+
+const toolsList = [
+  'Figma', 'MCPs', 'Claude Code', 'OpenAI Codex', 'VS Code', 'Xcode', 'Astro.js',
+  'Svelte', 'Webflow', 'WordPress', 'Affinity',
+]
+
+const designSystems = [
+  'Human Interface Guidelines', 'Material Design', 'HeroUI (NextUI)', 'SAP Fiori', 'Tailwind',
+]
 ---
 <Layout title="Nick Ringelmann – Product Designer">
 
@@ -78,7 +87,7 @@ const approaches = [
             </div>
           </div>
           <h1>Hi, I'm Nick, a <strong>Freelance Product Designer</strong> based in Hamburg, Germany.</h1>
-          <p class="subtitle">I design clear, useful digital products for teams that care about thoughtful experiences and long-term impact. My work connects UX in all facets, technical understanding, and sustainability to make complex services easier to understand and use.</p>
+          <p class="subtitle">I design clear digital products for teams that care about long-term impact, blending UX and sustainable thinking to make complex services easier to use.</p>
           <div class="hero__links">
             <a class="secondaryButton" href="mailto:work@nickringelmann.com" target="_blank">Send a Mail</a>
             <a class="primaryButton" href="https://www.linkedin.com/in/nick-ringelmann/" target="_blank">Connect on LinkedIn</a>
@@ -117,6 +126,26 @@ const approaches = [
       <h2 class="section__title">Approach</h2>
       <div class="approach-grid">
         {approaches.map(a => <ApproachCard {...a} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section class="section" id="tools">
+    <div class="container">
+      <div class="tools-columns">
+        <div class="tools-column">
+          <h2 class="section__title tools-column__label">Tools</h2>
+          <p class="tools-column__list">
+            {toolsList.map(t => <span class="tools-item">{t}</span>)}
+          </p>
+        </div>
+        <div class="tools-column">
+          <h2 class="section__title tools-column__label">Design Systems</h2>
+          <p class="tools-column__list">
+            {designSystems.map(t => <span class="tools-item">{t}</span>)}
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -181,6 +210,57 @@ const approaches = [
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     width: 100%;
+  }
+
+  .tools-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    width: 100%;
+  }
+
+  .tools-column {
+    text-align: center;
+  }
+
+  .tools-column__label {
+    display: block;
+  }
+
+  .tools-column__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--dark-grey);
+  }
+
+  .tools-item {
+    color: inherit;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .tools-item:hover {
+    color: var(--black);
+  }
+
+  @media (max-width: 767px) {
+    .tools-columns {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .tools-column {
+      text-align: left;
+    }
+
+    .tools-column__list {
+      justify-content: flex-start;
+    }
   }
 
   @media (max-width: 1023px) {

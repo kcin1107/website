@@ -35,18 +35,19 @@ const { href, variant = 'primary', icon = false, target, class: className, ...re
     line-height: 1.4;
     letter-spacing: 0.5px;
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
     transition: background-color 0.2s ease-out;
     white-space: nowrap;
   }
 
   .btn--primary {
+    background-color: var(--light-grey);
     color: var(--black);
   }
 
   .btn--primary:hover {
-    background-color: var(--light-grey);
+    background-color: color-mix(in srgb, var(--light-grey) 70%, var(--black) 10%);
   }
 
   .btn--secondary {
