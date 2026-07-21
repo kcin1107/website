@@ -117,10 +117,22 @@ export const projects: Project[] = [
   {
     slug: '1300etc',
     image: '/assets/images/project-card-1300etc-20260605.png',
+    mobileImage: {
+      src: '/assets/images/projects/1300etc-mobile-20260721.jpg',
+      alt: '1300ETC homepage on mobile, scrolled through the hero, vehicle info slider, stats banner and next-events cards',
+    },
     images: [
       {
-        src: '/assets/images/projects/1300etc-live-20260605.png',
-        alt: '1300ETC homepage hero showing historic touring cars racing in wet conditions',
+        src: '/assets/images/projects/1300etc-hero-20260721.png',
+        alt: '1300ETC homepage hero showing a grid of historic touring cars racing at Circuit de Spa-Francorchamps in the rain',
+      },
+      {
+        src: '/assets/images/projects/1300etc-termine-20260721.png',
+        alt: 'Race calendar detail cards for the 2026 season showing real dates, tracks and country flags for Spa, Hockenheim and Zolder',
+      },
+      {
+        src: '/assets/images/projects/1300etc-strecken-20260721.png',
+        alt: 'Interactive Leaflet map pinning every 2026 season race track across Germany, Belgium, the Netherlands and France',
       },
     ],
     alt: '1300ETC website relaunch',
@@ -128,7 +140,7 @@ export const projects: Project[] = [
     client: '1300ETC',
     topicTag: 'Web Design',
     tags: ['Astro', 'WordPress Migration', 'Multilingual', 'Frontend', 'CMS', 'Technical SEO'],
-    description: 'The existing 1300ETC site ran on WordPress and Oxygen Builder, with TranslatePress handling German, English, French and Dutch. For the relaunch, I kept the established motorsport identity while rebuilding the experience around the tasks drivers and fans return for: the race calendar, results, history, registration documents, FAQs and contact details. I created shared Astro page components to keep those routes consistent across all four languages, with the same information structure on desktop and mobile.\n\nI replaced WordPress with a fully static Astro build and moved the race dates, tracks, results, sponsors, history and page copy into typed Content Collections. The included Sveltia CMS provides a browser-based way to maintain the structured material without editing source files. Astro turns local imagery into modern formats, while canonical URLs and hreflang alternates identify the correct language version of each page for search engines. Every push to the main branch runs Astro and TypeScript checks, builds the site, then deploys the static output to the existing 1blu hosting over FTP.',
+    description: 'The existing 1300ETC site ran on WordPress and Oxygen Builder, with TranslatePress handling German, English, French and Dutch. For the relaunch, I kept the established motorsport identity while rebuilding the experience around the tasks drivers and fans return for: the race calendar, results, history, registration documents, FAQs and contact details. I created shared Astro page components to keep those routes consistent across all four languages, with the same information structure on desktop and mobile.\n\nI replaced WordPress with a fully static Astro build styled with Tailwind CSS, and moved the race dates, tracks, results, sponsors, history and page copy into typed Content Collections. Each track\'s address and coordinates now feed an interactive Leaflet map on the schedule page, so fans can see where the season actually takes them instead of scanning a list of city names. The included Sveltia CMS gives a browser-based way to maintain that structured content without editing source files. Astro turns local imagery into modern formats, while canonical URLs and hreflang alternates identify the correct language version of each page for search engines. Every push to the main branch runs Astro and TypeScript checks, builds the site, then deploys the static output to the existing hosting over FTP.',
     category: 'web',
   },
 
