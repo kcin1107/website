@@ -13,11 +13,13 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props
-const projectImages = project.images?.length
-  ? project.images
-  : project.image
-    ? [{ src: project.image, alt: project.alt }]
-    : []
+const mobileImage = project.mobileImage
+const desktopImages = project.images ?? []
+const hasShowcase = Boolean(mobileImage && desktopImages.length)
+const singleImage = !hasShowcase
+  ? (project.images?.[0] ?? (project.image ? { src: project.image, alt: project.alt } : undefined))
+  : undefined
+const descriptionParagraphs = (project.description ?? 'This is a project description').split('\n\n')
 ---
 <Layout title={`${project.title} – ${project.client} · Nick Ringelmann`}>
 
@@ -40,15 +42,28 @@ const projectImages = project.images?.length
       </div>
 
       <!-- Description -->
-      <p class="text-lg project-detail__description">{project.description ?? 'This is a project description'}</p>
+      <div class="project-detail__description">
+        {descriptionParagraphs.map(paragraph => <p class="text-md">{paragraph}</p>)}
+      </div>
 
       <!-- Preview images -->
       <div class="project-detail__images">
-        {projectImages.map(image => (
-          <div class="project-detail__image-wrapper">
-            <img class="project-detail__image" src={image.src} alt={image.alt}>
+        {hasShowcase && mobileImage ? (
+          <div class="project-detail__showcase">
+            <div class="project-detail__showcase-mobile">
+              <img src={mobileImage.src} alt={mobileImage.alt}>
+            </div>
+            {desktopImages.map(image => (
+              <div class="project-detail__showcase-item">
+                <img src={image.src} alt={image.alt}>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : singleImage && (
+          <div class="project-detail__image-wrapper">
+            <img class="project-detail__image" src={singleImage.src} alt={singleImage.alt}>
+          </div>
+        )}
       </div>
 
     </div>

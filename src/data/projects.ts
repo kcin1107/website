@@ -33,6 +33,7 @@ export interface Project {
   slug?: string
   image?: string
   images?: ProjectImage[]
+  mobileImage?: ProjectImage
   alt: string
   title: string
   client: string
@@ -70,18 +71,30 @@ export const projects: Project[] = [
   {
     slug: 'boomerang-landing-page',
     image: '/assets/images/project-card-boomerang-20260720.png',
+    mobileImage: {
+      src: '/assets/images/projects/boomerang-mobile-20260721.jpg',
+      alt: 'Boomerang homepage on mobile, scrolled through the hero, box highlights, and partner logos',
+    },
     images: [
       {
         src: '/assets/images/projects/boomerang-live-20260720.png',
-        alt: 'Boomerang website showing reusable shipping boxes and bags',
+        alt: 'Boomerang homepage hero showing a courier holding a reusable shipping bag',
+      },
+      {
+        src: '/assets/images/projects/boomerang-boxen-20260721.png',
+        alt: 'Boomerang product grid showing the Briefkasten, Automatikboden, and Pick & Ship reusable box models',
+      },
+      {
+        src: '/assets/images/projects/boomerang-testimonial-20260721.png',
+        alt: 'Boomerang testimonial from WMF Group citing an 84 percent CO2 reduction from switching to reusable boxes',
       },
     ],
     alt: 'Boomerang Systems Website',
-    title: 'Website for a Logistics Start-Up',
+    title: 'Website Relaunch for a Logistics Start-Up',
     client: 'Boomerang Systems',
     topicTag: 'Web Design',
-    tags: ['Astro', 'B2B', 'B2C', 'Frontend', 'SEO'],
-    description: 'A complete rebuild of the Boomerang Systems website as a static Astro site, preserving its established visual language while introducing reusable components, responsive image optimization, technical SEO checks, and release-based deployment with GitHub Actions.',
+    tags: ['Astro', 'Webflow Migration', 'B2B', 'B2C', 'Frontend', 'Technical SEO'],
+    description: 'Boomerang Systems needed to leave Webflow, but their customers already knew the look of boomerangpack.eu, so a full redesign was off the table. I rebuilt the site as a static Astro build and handled the design and the frontend myself. The old pages were a pile of copy-pasted markup, so I turned the repeating pieces into proper components. I also kept a handful of old Webflow class names in place instead of renaming everything: renaming every selector risked breaking something for no real benefit to the customer, so I left them alone and spent the time on parts of the rebuild that mattered more.\n\nThe content team was used to dropping in images the Webflow way, a plain path like /images/foo.jpg, so I built a small layer that keeps that habit working while Astro serves properly sized, optimized versions behind the scenes. I also added structured data across the site so Google can read what Boomerang sells: the company info, the products, the services, the FAQ answers, instead of guessing from the page text. The sitemap now builds itself and gives product pages and news pages the right priority, while pages marked "don\'t index" stay out of it automatically. For deployment, publishing a GitHub release triggers the real build and push to the live server. Marking something a pre-release instead runs the identical pipeline as a dry run first, so I can catch problems before anything reaches customers.',
     category: 'web',
   },
   {

@@ -1,9 +1,9 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-06-21
+> Last updated: 2026-07-21
 
-**Stack:** Astro 6.1.5 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
+**Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
 ```
 website/
