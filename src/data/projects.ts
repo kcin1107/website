@@ -116,7 +116,7 @@ export const projects: Project[] = [
   },
   {
     slug: '1300etc',
-    image: '/assets/images/project-card-1300etc-20260605.png',
+    image: '/assets/images/project-card-1300etc-20260721.png',
     mobileImage: {
       src: '/assets/images/projects/1300etc-mobile-20260721.jpg',
       alt: '1300ETC homepage on mobile, scrolled through the hero, vehicle info slider, stats banner and next-events cards',

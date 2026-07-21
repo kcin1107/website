@@ -243,14 +243,14 @@ ul {
   font-weight: 700;
   color: var(--black);
   max-width: 42px;
-  margin-right: 0.15em;
+  margin-right: 0;
 }
 
 .nav__logo-last {
   font-weight: 300;
   color: var(--black);
   max-width: 105px;
-  margin-left: 0.15em;
+  margin-left: 0;
 }
 
 .nav__logo-letter {
@@ -293,18 +293,22 @@ ul {
   gap: 8px;
 }
 
+.nav__links .primaryButton:hover {
+  background-color: color-mix(in srgb, var(--black) 8%, transparent);
+}
+
 .primaryButton {
   display: inline-block;
-  color: var(--black);
+  color: color-mix(in srgb, var(--black) 80%, transparent);
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.4;
   text-decoration: none;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.1px;
   padding: 8px 12px;
   border-radius: 8px;
-  transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
 }
 
 .primaryButton:hover {
@@ -673,7 +677,7 @@ ul {
 .projects-categories {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 96px;
   width: 100%;
 }
 
@@ -686,7 +690,7 @@ ul {
 .projects-category__intro {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .projects-category__heading {
