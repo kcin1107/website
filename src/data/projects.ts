@@ -127,6 +127,35 @@ export const projects: Project[] = [
     category: 'web',
   },
   {
+    slug: 'loeffelholz-care-mobil',
+    image: '/assets/images/project-card-loeffelholz-care-mobil-20260722.png',
+    mobileImage: {
+      src: '/assets/images/projects/loeffelholz-care-mobil-mobile-20260722.jpg',
+      alt: 'Löffelholz Care Mobil homepage on mobile, scrolled through the hero, service cards, and footer with partner link to Löffelholz Care',
+    },
+    images: [
+      {
+        src: '/assets/images/projects/loeffelholz-care-mobil-jobs-hero-20260722.png',
+        alt: 'Löffelholz Care Mobil jobs page hero with the headline "Ein Job mit Herz und fairen Bedingungen!" next to a driver portrait at Hamburg harbour',
+      },
+      {
+        src: '/assets/images/projects/loeffelholz-care-mobil-kontakt-20260722.png',
+        alt: 'Kontakt page request form with fields for name, email, phone, and message',
+      },
+      {
+        src: '/assets/images/projects/loeffelholz-care-mobil-leistungen-20260722.png',
+        alt: 'Service grid showing Krankenfahrten, Rollstuhlfahrten, and Ausflüge, each with an illustrated card',
+      },
+    ],
+    alt: 'Löffelholz Care Mobil Website',
+    title: 'Website for a Patient Transport Service',
+    client: 'Löffelholz Care Mobil',
+    topicTag: 'Web Design',
+    tags: ['Webflow', 'Mobile-First', 'Frontend'],
+    description: 'Löffelholz Care Mobil is the patient transport side of the Löffelholz Care family: Krankenfahrten, Rollstuhlfahrten, and organized outings for people who need a driver they can rely on, not just a taxi. The site keeps the same visual language as the main Löffelholz Care site (the "care" wordmark, the Speicherstadt hero, the same warm tone), so returning visitors recognize the brand instantly, and each site links to the other in the footer since many families need both services.\n\nThe site runs on Webflow, the same setup as the sister site, so the Löffelholz Care team can update service descriptions and job listings themselves. The Jobs page carries its own application form for driver positions, separate from the general contact form on Kontakt, since staffing drivers is an ongoing need for the business.',
+    category: 'web',
+  },
+  {
     slug: '1300etc',
     image: '/assets/images/project-card-1300etc-20260721.png',
     mobileImage: {
