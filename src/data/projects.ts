@@ -82,7 +82,7 @@ export const projects: Project[] = [
       },
       {
         src: '/assets/images/projects/boomerang-boxen-20260721.png',
-        alt: 'Boomerang product grid showing the Briefkasten, Automatikboden, and Pick & Ship reusable box models',
+        alt: 'Boomerang product grid showing the letterbox-slot, auto-bottom, and Pick & Ship reusable box models',
       },
       {
         src: '/assets/images/projects/boomerang-testimonial-20260721.png',
@@ -102,20 +102,20 @@ export const projects: Project[] = [
     image: '/assets/images/project-card-loeffelholz-care-20260605.png',
     mobileImage: {
       src: '/assets/images/projects/loeffelholz-care-mobile-20260721.jpg',
-      alt: 'Löffelholz Care homepage on mobile, scrolled through the Hamburg Speicherstadt hero, the founder photo, and the "Ein Rundum-Sorglospaket" section',
+      alt: 'Löffelholz Care homepage on mobile, scrolled through the Hamburg Speicherstadt hero, the founder photo, and the "all-inclusive care package" section',
     },
     images: [
       {
         src: '/assets/images/projects/loeffelholz-care-hero-20260721.png',
-        alt: 'Löffelholz Care homepage hero showing Hamburg\'s Speicherstadt at dusk with the headline "Dein ambulanter Pflegedienst"',
+        alt: 'Löffelholz Care homepage hero showing Hamburg\'s Speicherstadt at dusk with the headline "Your Ambulatory Care Service"',
       },
       {
         src: '/assets/images/projects/loeffelholz-care-hauswirtschaft-20260721.png',
-        alt: 'Illustrated Hauswirtschaft service card listing grocery shopping, cleaning, laundry, and meal preparation',
+        alt: 'Illustrated household help service card listing grocery shopping, cleaning, laundry, and meal preparation',
       },
       {
         src: '/assets/images/projects/loeffelholz-care-kontakt-20260721.png',
-        alt: 'Contact form on the Kontakt page with fields for name, email, phone, and message',
+        alt: 'Contact form on the Contact page with fields for name, email, phone, and message',
       },
     ],
     alt: 'Löffelholz Care Website',
@@ -136,15 +136,15 @@ export const projects: Project[] = [
     images: [
       {
         src: '/assets/images/projects/loeffelholz-care-mobil-jobs-hero-20260722.png',
-        alt: 'Löffelholz Care Mobil jobs page hero with the headline "Ein Job mit Herz und fairen Bedingungen!" next to a driver portrait at Hamburg harbour',
+        alt: 'Löffelholz Care Mobil jobs page hero with the headline "A Job with Heart and Fair Conditions!" next to a driver portrait at Hamburg harbour',
       },
       {
         src: '/assets/images/projects/loeffelholz-care-mobil-kontakt-20260722.png',
-        alt: 'Kontakt page request form with fields for name, email, phone, and message',
+        alt: 'Contact page request form with fields for name, email, phone, and message',
       },
       {
         src: '/assets/images/projects/loeffelholz-care-mobil-leistungen-20260722.png',
-        alt: 'Service grid showing Krankenfahrten, Rollstuhlfahrten, and Ausflüge, each with an illustrated card',
+        alt: 'Service grid showing non-emergency medical transport, wheelchair transport, and outings, each with an illustrated card',
       },
     ],
     alt: 'Löffelholz Care Mobil Website',
@@ -152,7 +152,7 @@ export const projects: Project[] = [
     client: 'Löffelholz Care Mobil',
     topicTag: 'Web Design',
     tags: ['Webflow', 'Mobile-First', 'Frontend'],
-    description: 'Löffelholz Care Mobil is the patient transport side of the Löffelholz Care family: Krankenfahrten, Rollstuhlfahrten, and organized outings for people who need a driver they can rely on, not just a taxi. The site keeps the same visual language as the main Löffelholz Care site (the "care" wordmark, the Speicherstadt hero, the same warm tone), so returning visitors recognize the brand instantly, and each site links to the other in the footer since many families need both services.\n\nThe site runs on Webflow, the same setup as the sister site, so the Löffelholz Care team can update service descriptions and job listings themselves. The Jobs page carries its own application form for driver positions, separate from the general contact form on Kontakt, since staffing drivers is an ongoing need for the business.',
+    description: 'Löffelholz Care Mobil is the patient transport side of the Löffelholz Care family: non-emergency medical transport, wheelchair transport, and organized outings for people who need a driver they can rely on, not just a taxi. Like the main Löffelholz Care site, it\'s built mobile-first with large text, since most riders booking a ride are older and need to read the page comfortably. The site keeps the same visual language as the main site too (the "care" wordmark, the Speicherstadt hero, the same warm tone), so returning visitors recognize the brand instantly, and each site links to the other in the footer since many families need both services.\n\nThe site runs on Webflow, the same setup as the sister site, so the Löffelholz Care team can update service descriptions and job listings themselves. The Jobs page carries its own application form for driver positions, separate from the general contact form on Kontakt, since staffing drivers is an ongoing need for the business.',
     category: 'web',
   },
   {
