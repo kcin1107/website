@@ -5,6 +5,9 @@ import ApproachCard from '../components/ApproachCard.astro'
 import { projects } from '../data/projects'
 import { getCollection } from 'astro:content'
 import BlogCard from '../components/BlogCard.astro'
+import { Image } from 'astro:assets'
+import hero1 from '../assets/images/hero1.jpg'
+import hero2 from '../assets/images/hero2.jpg'
 
 const recentPosts = (await getCollection('blog'))
   .filter((post: { data: { draft: boolean } }) => !post.data.draft)
@@ -62,8 +65,8 @@ const designSystems = [
     <div class="container hero-container">
       <div class="hero">
         <div class="hero__images">
-          <img class="hero__image-1 elevation-md" src="/assets/images/hero1.jpg" alt="Nick Ringelmann" width="525" height="525">
-          <img class="hero__image-2 elevation-md" src="/assets/images/hero2.jpg" alt="Nick working" width="617" height="411">
+          <Image class="hero__image-1 elevation-md" src={hero1} alt="Nick Ringelmann" width={525} height={525} format="webp" densities={[1, 2]} loading="eager" />
+          <Image class="hero__image-2 elevation-md" src={hero2} alt="Nick working" width={617} height={411} format="webp" densities={[1, 2]} loading="eager" />
           <div class="status-row status-row--mobile">
             <div class="status">
               <div class="status__dot"></div>
@@ -89,7 +92,7 @@ const designSystems = [
           <h1>Hi, I'm Nick, a <strong>Freelance Product Designer</strong> based in Hamburg, Germany.</h1>
           <p class="subtitle">I design clear digital products for teams that care about long-term impact, blending UX and sustainable thinking to make complex services easier to use.</p>
           <div class="hero__links">
-            <a class="secondaryButton" href="mailto:work@nickringelmann.com" target="_blank">Send a Mail</a>
+            <a class="secondaryButton" href="mailto:work@nickringelmann.com" target="_blank">Get in Touch</a>
             <a class="primaryButton" href="https://www.linkedin.com/in/nick-ringelmann/" target="_blank">Connect on LinkedIn</a>
           </div>
         </div>
@@ -176,19 +179,19 @@ const designSystems = [
       <h2 class="section__title">Clients</h2>
       <div class="clients-grid">
         <a href="https://www.boomerangpack.eu/" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/Boomerang.svg" alt="Logo des Unternehmens Boomerang" width="128">
+          <img src="/assets/images/Boomerang.svg" alt="Logo des Unternehmens Boomerang" width="128" loading="lazy">
         </a>
         <a href="https://www.loeffelholz-care.de/" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/Loeffelholz-Care.svg" alt="Logo der Löffelholz Care GmbH" width="128">
+          <img src="/assets/images/Loeffelholz-Care.svg" alt="Logo der Löffelholz Care GmbH" width="128" loading="lazy">
         </a>
         <a href="https://www.assetocean.io/" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/Asset-Ocean.svg" alt="Logo von Asset Ocean" width="128">
+          <img src="/assets/images/Asset-Ocean.svg" alt="Logo von Asset Ocean" width="128" loading="lazy">
         </a>
         <a href="https://www.encavis.com/en" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/encavis.svg" alt="Logo der Encavis AG" width="128">
+          <img src="/assets/images/encavis.svg" alt="Logo der Encavis AG" width="128" loading="lazy">
         </a>
         <a href="https://www.1300etc.de/" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/1300ETC.svg" alt="Logo der Motorsportserie 1300ETC" width="128">
+          <img src="/assets/images/1300ETC.svg" alt="Logo der Motorsportserie 1300ETC" width="128" loading="lazy">
         </a>
       </div>
     </div>
@@ -251,7 +254,7 @@ const designSystems = [
   @media (max-width: 767px) {
     .tools-columns {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 128px;
     }
 
     .tools-column {

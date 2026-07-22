@@ -26,7 +26,7 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
   <section class="section">
     <div class="container blog-article">
-      <Button class="blog-article__back" href="/#blog" icon={true}>Back to Home</Button>
+      <Button class="back-link blog-article__back" href="/#blog">Back to Home</Button>
       <h1 class="blog-article__title">{post.data.title}</h1>
       <p class="blog-article__date">{formatter.format(post.data.date)}</p>
       <div class="blog-article__body">
