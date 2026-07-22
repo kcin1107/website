@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import Button from '../../components/Button.astro'
+import { Image } from 'astro:assets'
 import { projects } from '../../data/projects'
 
 export function getStaticPaths() {
@@ -51,17 +52,17 @@ const descriptionParagraphs = (project.description ?? 'This is a project descrip
         {hasShowcase && mobileImage ? (
           <div class="project-detail__showcase">
             <div class="project-detail__showcase-mobile">
-              <img src={mobileImage.src} alt={mobileImage.alt}>
+              <Image src={mobileImage.src} alt={mobileImage.alt} width={400} format="webp" densities={[1, 2]} />
             </div>
             {desktopImages.map(image => (
               <div class="project-detail__showcase-item">
-                <img src={image.src} alt={image.alt}>
+                <Image src={image.src} alt={image.alt} width={800} format="webp" densities={[1, 2]} />
               </div>
             ))}
           </div>
         ) : singleImage && (
           <div class="project-detail__image-wrapper">
-            <img class="project-detail__image" src={singleImage.src} alt={singleImage.alt}>
+            <Image class="project-detail__image" src={singleImage.src} alt={singleImage.alt} width={720} format="webp" densities={[1, 2]} />
           </div>
         )}
       </div>

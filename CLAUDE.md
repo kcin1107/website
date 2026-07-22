@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Nick Ringelmann, a product designer based in Hamburg, Germany. Built with **Astro 6** (static output, no UI framework). TypeScript for data/config, a single global stylesheet, and minimal inline vanilla JS for the theme toggle and mobile nav.
+Personal portfolio website for Nick Ringelmann, a product designer based in Hamburg, Germany. Built with **Astro 7** (static output, no UI framework). TypeScript for data/config, a single global stylesheet, and minimal inline vanilla JS for the theme toggle and mobile nav.
 
 ## Local Development
 

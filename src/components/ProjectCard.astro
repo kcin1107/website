@@ -1,6 +1,9 @@
 ---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
 interface Props {
-  image?: string
+  image?: ImageMetadata
   alt: string
   title: string
   subtitle: string
@@ -14,7 +17,7 @@ const Tag = href ? 'a' : 'div'
 ---
 <Tag class="project-card" href={href}>
   <div class="project-card__image-wrapper">
-    {image && <img class="project-card__image elevation-lg" src={image} alt={alt} width="400" height="225">}
+    {image && <Image class="project-card__image elevation-lg" src={image} alt={alt} width={400} height={225} densities={[1, 2]} />}
   </div>
   <div class="project-card__content">
     <div class="project-card__titles">

@@ -1,3 +1,36 @@
+import type { ImageMetadata } from 'astro'
+
+import card2 from '../assets/images/card2.png'
+import card5 from '../assets/images/card5.jpg'
+import card6 from '../assets/images/card6.png'
+
+import boomerangCard from '../assets/images/project-card-boomerang-20260720.png'
+import boomerangMobile from '../assets/images/projects/boomerang-mobile-20260721.jpg'
+import boomerangLive from '../assets/images/projects/boomerang-live-20260720.png'
+import boomerangBoxen from '../assets/images/projects/boomerang-boxen-20260721.png'
+import boomerangTestimonial from '../assets/images/projects/boomerang-testimonial-20260721.png'
+
+import loeffelholzCareCard from '../assets/images/project-card-loeffelholz-care-20260605.png'
+import loeffelholzCareMobile from '../assets/images/projects/loeffelholz-care-mobile-20260721.jpg'
+import loeffelholzCareHero from '../assets/images/projects/loeffelholz-care-hero-20260721.png'
+import loeffelholzCareHauswirtschaft from '../assets/images/projects/loeffelholz-care-hauswirtschaft-20260721.png'
+import loeffelholzCareKontakt from '../assets/images/projects/loeffelholz-care-kontakt-20260721.png'
+
+import loeffelholzCareMobilCard from '../assets/images/project-card-loeffelholz-care-mobil-20260722.png'
+import loeffelholzCareMobilMobile from '../assets/images/projects/loeffelholz-care-mobil-mobile-20260722.jpg'
+import loeffelholzCareMobilJobsHero from '../assets/images/projects/loeffelholz-care-mobil-jobs-hero-20260722.png'
+import loeffelholzCareMobilKontakt from '../assets/images/projects/loeffelholz-care-mobil-kontakt-20260722.png'
+import loeffelholzCareMobilLeistungen from '../assets/images/projects/loeffelholz-care-mobil-leistungen-20260722.png'
+
+import etcCard from '../assets/images/project-card-1300etc-20260721.png'
+import etcMobile from '../assets/images/projects/1300etc-mobile-20260721.jpg'
+import etcHero from '../assets/images/projects/1300etc-hero-20260721.png'
+import etcTermine from '../assets/images/projects/1300etc-termine-20260721.png'
+import etcStrecken from '../assets/images/projects/1300etc-strecken-20260721.png'
+
+import nickringelmannCard from '../assets/images/project-card-nickringelmann-20260605.png'
+import nickringelmannLive from '../assets/images/projects/nickringelmann-live-20260605.png'
+
 export type ProjectCategory = 'business' | 'web' | 'side'
 
 export interface Category {
@@ -7,7 +40,7 @@ export interface Category {
 }
 
 export interface ProjectImage {
-  src: string
+  src: ImageMetadata
   alt: string
 }
 
@@ -31,7 +64,7 @@ export const categories: Category[] = [
 
 export interface Project {
   slug?: string
-  image?: string
+  image?: ImageMetadata
   images?: ProjectImage[]
   mobileImage?: ProjectImage
   alt: string
@@ -48,7 +81,7 @@ export const projects: Project[] = [
   // Business Applications
   {
     slug: 'encavis-business-application',
-    image: '/assets/images/card2.png',
+    image: card2,
     alt: 'Encavis AG Asset Data Management Tool',
     title: 'Asset Data Management Tool',
     client: 'Encavis AG (Asset Ocean)',
@@ -58,7 +91,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'boomerang-behavioral-design',
-    image: '/assets/images/card6.png',
+    image: card6,
     alt: 'Boomerang Systems Behavioral Design',
     title: 'Nudging in E-Commerce Checkouts',
     client: 'Boomerang Systems',
@@ -70,22 +103,22 @@ export const projects: Project[] = [
   // Web Projects
   {
     slug: 'boomerang-landing-page',
-    image: '/assets/images/project-card-boomerang-20260720.png',
+    image: boomerangCard,
     mobileImage: {
-      src: '/assets/images/projects/boomerang-mobile-20260721.jpg',
+      src: boomerangMobile,
       alt: 'Boomerang homepage on mobile, scrolled through the hero, box highlights, and partner logos',
     },
     images: [
       {
-        src: '/assets/images/projects/boomerang-live-20260720.png',
+        src: boomerangLive,
         alt: 'Boomerang homepage hero showing a courier holding a reusable shipping bag',
       },
       {
-        src: '/assets/images/projects/boomerang-boxen-20260721.png',
+        src: boomerangBoxen,
         alt: 'Boomerang product grid showing the letterbox-slot, auto-bottom, and Pick & Ship reusable box models',
       },
       {
-        src: '/assets/images/projects/boomerang-testimonial-20260721.png',
+        src: boomerangTestimonial,
         alt: 'Boomerang testimonial from WMF Group citing an 84 percent CO2 reduction from switching to reusable boxes',
       },
     ],
@@ -99,22 +132,22 @@ export const projects: Project[] = [
   },
   {
     slug: 'loeffelholz-care',
-    image: '/assets/images/project-card-loeffelholz-care-20260605.png',
+    image: loeffelholzCareCard,
     mobileImage: {
-      src: '/assets/images/projects/loeffelholz-care-mobile-20260721.jpg',
+      src: loeffelholzCareMobile,
       alt: 'Löffelholz Care homepage on mobile, scrolled through the Hamburg Speicherstadt hero, the founder photo, and the "all-inclusive care package" section',
     },
     images: [
       {
-        src: '/assets/images/projects/loeffelholz-care-hero-20260721.png',
+        src: loeffelholzCareHero,
         alt: 'Löffelholz Care homepage hero showing Hamburg\'s Speicherstadt at dusk with the headline "Your Ambulatory Care Service"',
       },
       {
-        src: '/assets/images/projects/loeffelholz-care-hauswirtschaft-20260721.png',
+        src: loeffelholzCareHauswirtschaft,
         alt: 'Illustrated household help service card listing grocery shopping, cleaning, laundry, and meal preparation',
       },
       {
-        src: '/assets/images/projects/loeffelholz-care-kontakt-20260721.png',
+        src: loeffelholzCareKontakt,
         alt: 'Contact form on the Contact page with fields for name, email, phone, and message',
       },
     ],
@@ -128,22 +161,22 @@ export const projects: Project[] = [
   },
   {
     slug: 'loeffelholz-care-mobil',
-    image: '/assets/images/project-card-loeffelholz-care-mobil-20260722.png',
+    image: loeffelholzCareMobilCard,
     mobileImage: {
-      src: '/assets/images/projects/loeffelholz-care-mobil-mobile-20260722.jpg',
+      src: loeffelholzCareMobilMobile,
       alt: 'Löffelholz Care Mobil homepage on mobile, scrolled through the hero, service cards, and footer with partner link to Löffelholz Care',
     },
     images: [
       {
-        src: '/assets/images/projects/loeffelholz-care-mobil-jobs-hero-20260722.png',
+        src: loeffelholzCareMobilJobsHero,
         alt: 'Löffelholz Care Mobil jobs page hero with the headline "A Job with Heart and Fair Conditions!" next to a driver portrait at Hamburg harbour',
       },
       {
-        src: '/assets/images/projects/loeffelholz-care-mobil-kontakt-20260722.png',
+        src: loeffelholzCareMobilKontakt,
         alt: 'Contact page request form with fields for name, email, phone, and message',
       },
       {
-        src: '/assets/images/projects/loeffelholz-care-mobil-leistungen-20260722.png',
+        src: loeffelholzCareMobilLeistungen,
         alt: 'Service grid showing non-emergency medical transport, wheelchair transport, and outings, each with an illustrated card',
       },
     ],
@@ -157,22 +190,22 @@ export const projects: Project[] = [
   },
   {
     slug: '1300etc',
-    image: '/assets/images/project-card-1300etc-20260721.png',
+    image: etcCard,
     mobileImage: {
-      src: '/assets/images/projects/1300etc-mobile-20260721.jpg',
+      src: etcMobile,
       alt: '1300ETC homepage on mobile, scrolled through the hero, vehicle info slider, stats banner and next-events cards',
     },
     images: [
       {
-        src: '/assets/images/projects/1300etc-hero-20260721.png',
+        src: etcHero,
         alt: '1300ETC homepage hero showing a grid of historic touring cars racing at Circuit de Spa-Francorchamps in the rain',
       },
       {
-        src: '/assets/images/projects/1300etc-termine-20260721.png',
+        src: etcTermine,
         alt: 'Race calendar detail cards for the 2026 season showing real dates, tracks and country flags for Spa, Hockenheim and Zolder',
       },
       {
-        src: '/assets/images/projects/1300etc-strecken-20260721.png',
+        src: etcStrecken,
         alt: 'Interactive Leaflet map pinning every 2026 season race track across Germany, Belgium, the Netherlands and France',
       },
     ],
@@ -188,7 +221,7 @@ export const projects: Project[] = [
   // Side Projects
   {
     slug: 'scorer',
-    image: '/assets/images/card5.jpg',
+    image: card5,
     alt: 'Scorer – iOS Darts App',
     title: 'Scorer',
     client: 'Get The Score Done',
@@ -198,10 +231,10 @@ export const projects: Project[] = [
   },
   {
     slug: 'my-website',
-    image: '/assets/images/project-card-nickringelmann-20260605.png',
+    image: nickringelmannCard,
     images: [
       {
-        src: '/assets/images/projects/nickringelmann-live-20260605.png',
+        src: nickringelmannLive,
         alt: 'nickringelmann.com live website screenshot',
       },
     ],

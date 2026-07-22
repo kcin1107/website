@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-07-21
+> Last updated: 2026-07-22
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
@@ -18,9 +18,12 @@ website/
 │   └── assets/
 │       ├── fonts/            # Roboto & Inter variable fonts (.ttf)
 │       ├── icons/            # favicons, backArrow.svg
-│       └── images/           # hero, project cards, client logos
+│       └── images/           # hero, client logos (served as-is, unoptimized)
 │
 ├── src/
+│   ├── assets/
+│   │   └── images/           # project cards & screenshots (optimized via astro:assets)
+│   │
 │   ├── layouts/
 │   │   └── Layout.astro      # head, nav, footer, theme toggle, mobile nav
 │   │
@@ -69,7 +72,7 @@ website/
 | `/imprint`, `/privacy` | `pages/*.astro` | Legal pages |
 
 ## Data sources
-- **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards).
+- **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards). Images are imported from `src/assets/images/` as `ImageMetadata` and rendered via Astro's `<Image>` component (`astro:assets`), which generates resized, WebP, retina-aware output instead of shipping full-resolution screenshots.
 - **Blog** — `src/content/blog/*.md` via Astro Content Collection; schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`).
 
 ## Conventions
