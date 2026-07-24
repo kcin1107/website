@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-07-22
+> Last updated: 2026-07-24
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
@@ -15,6 +15,10 @@ website/
 ├── README.md                 # this file
 │
 ├── public/
+│   ├── api/
+│   │   ├── contact.php       # self-hosted contact form endpoint (PHP + PHPMailer, SMTP)
+│   │   ├── config.example.php # template — copy to config.php on the server, not in git
+│   │   └── PHPMailer/        # vendored PHPMailer source (no Composer on shared hosting)
 │   └── assets/
 │       ├── fonts/            # Roboto & Inter variable fonts (.ttf)
 │       ├── icons/            # favicons, backArrow.svg
@@ -31,6 +35,7 @@ website/
 │   │   ├── index.astro       # home: Hero, Projects, Approach, Blog, Clients
 │   │   ├── imprint.astro     # /imprint
 │   │   ├── privacy.astro     # /privacy
+│   │   ├── contact.astro     # /contact
 │   │   ├── projects/
 │   │   │   ├── index.astro   # /projects
 │   │   │   └── [slug].astro  # /projects/<slug> (dynamic)
@@ -70,10 +75,14 @@ website/
 | `/blog` | `pages/blog/index.astro` | All non-draft posts |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/imprint`, `/privacy` | `pages/*.astro` | Legal pages |
+| `/contact` | `pages/contact.astro` | Contact form, submits via `fetch` to `public/api/contact.php` (self-hosted, sends over SMTP through the IONOS mailbox) |
 
 ## Data sources
 - **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards). Images are imported from `src/assets/images/` as `ImageMetadata` and rendered via Astro's `<Image>` component (`astro:assets`), which generates resized, WebP, retina-aware output instead of shipping full-resolution screenshots.
 - **Blog** — `src/content/blog/*.md` via Astro Content Collection; schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`).
+
+## Deployment
+`.github/workflows/deploy.yml` builds the static site and pushes `dist/*` to IONOS shared hosting over SFTP on every push to `main`. It's an upload-only sync (no remote deletion), so `public/api/config.php` — containing the real SMTP password for the contact form, git-ignored — can be uploaded once by hand directly to the server and will survive every future deploy untouched. See `public/api/config.example.php` for the required fields.
 
 ## Conventions
 - Spacing unit 8px · radii 8–32px · breakpoints 1023px / 767px

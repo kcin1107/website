@@ -15,6 +15,7 @@ node_modules/
 # env
 .env
 .env.*
+public/api/config.php
 
 # Claude Code internal
 .claude/
