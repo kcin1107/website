@@ -28,7 +28,7 @@ const descriptionParagraphs = (project.description ?? 'This is a project descrip
     <div class="container project-detail">
 
       <!-- Back link -->
-      <Button class="back-link project-detail__back" href="/#projects">Back to Home</Button>
+      <Button class="project-detail__back" href="/projects" icon>Back to Projects</Button>
 
       <!-- Header -->
       <div class="project-detail__header">
@@ -72,19 +72,3 @@ const descriptionParagraphs = (project.description ?? 'This is a project descrip
 
 </Layout>
 
-<script is:inline>
-  (function () {
-    var btn = document.querySelector('.project-detail__back');
-    if (!btn) return;
-    try {
-      var ref = document.referrer;
-      if (ref && new URL(ref).pathname.startsWith('/projects')) {
-        btn.href = '/projects';
-        var textNode = Array.from(btn.childNodes).find(function (n) {
-          return n.nodeType === 3 && n.textContent.trim();
-        });
-        if (textNode) textNode.textContent = 'Back to Projects';
-      }
-    } catch (e) {}
-  })();
-</script>

@@ -29,7 +29,10 @@ import etcTermine from '../assets/images/projects/1300etc-termine-20260721.png'
 import etcStrecken from '../assets/images/projects/1300etc-strecken-20260721.png'
 
 import nickringelmannCard from '../assets/images/project-card-nickringelmann-20260605.png'
-import nickringelmannLive from '../assets/images/projects/nickringelmann-live-20260605.png'
+import nickringelmannMobile from '../assets/images/projects/nickringelmann-mobile-20260724.jpg'
+import nickringelmannHero from '../assets/images/projects/nickringelmann-hero-20260724.png'
+import nickringelmannProjects from '../assets/images/projects/nickringelmann-projects-20260724.png'
+import nickringelmannApproach from '../assets/images/projects/nickringelmann-approach-20260724.png'
 
 export type ProjectCategory = 'business' | 'web' | 'side'
 
@@ -232,18 +235,30 @@ export const projects: Project[] = [
   {
     slug: 'my-website',
     image: nickringelmannCard,
+    mobileImage: {
+      src: nickringelmannMobile,
+      alt: 'nickringelmann.com on mobile, scrolled through the hero, project grid, and approach sections',
+    },
     images: [
       {
-        src: nickringelmannLive,
-        alt: 'nickringelmann.com live website screenshot',
+        src: nickringelmannHero,
+        alt: 'nickringelmann.com homepage hero introducing Nick as a freelance product designer based in Hamburg',
+      },
+      {
+        src: nickringelmannProjects,
+        alt: 'nickringelmann.com projects section showing real client and side projects with their tags',
+      },
+      {
+        src: nickringelmannApproach,
+        alt: 'nickringelmann.com approach section listing six product design principles, from lean UX to sustainability',
       },
     ],
     alt: 'My Website',
-    title: 'My Website',
+    title: 'Rework of My Personal Website',
     client: 'nickringelmann.com',
     topicTag: 'Portfolio',
-    tags: ['Astro', 'Frontend', 'UX Design'],
-    description: 'A personal portfolio built with Astro 6 as a fully static site — no UI framework, just TypeScript for data, a single global stylesheet, and a few lines of vanilla JS for the theme toggle and mobile nav. Designed and developed entirely by me, self-hosted on IONOS.',
+    tags: ['Astro', 'TypeScript', 'Frontend', 'UX Design', 'Self-Hosted Backend'],
+    description: 'My own site is the one project where I\'m both client and designer, so I use it to test decisions before I\'d recommend them to anyone else. It\'s deliberately plain: no page builder, no component library pulled in from npm, a handful of Astro components and one stylesheet I can read start to finish. When I added a contact page, I skipped the usual third-party form service and built a small PHP backend instead, so a message sent through the form gets mailed straight from my own IONOS inbox rather than passing through someone else\'s server first.\n\nThe site runs on Astro 7 as a fully static build. I type project data in TypeScript and write blog posts in Markdown through Astro\'s Content Collections. Dark mode comes down to a single data attribute on the html tag: I persist it in localStorage and set it before paint so the page never flashes the wrong theme. Screenshots and photos go through Astro\'s image pipeline, which resizes everything to WebP with retina versions instead of me shipping full-resolution files. A GitHub Actions workflow builds the site and pushes it straight to IONOS shared hosting over SFTP on every push to main, so publishing a change is a single git push.',
     category: 'side',
     showOnHome: false,
   },

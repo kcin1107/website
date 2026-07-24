@@ -8,11 +8,14 @@ import { projects, categories } from '../../data/projects'
   <section class="section">
     <div class="container">
       <h1 class="section__title">Projects</h1>
+      <nav class="projects-nav">
+        {categories.map(cat => <a class="tag projects-nav__link" href={`#${cat.id}`}>{cat.title}</a>)}
+      </nav>
       <div class="projects-categories">
         {categories.map(cat => {
           const catProjects = projects.filter(p => p.category === cat.id)
           return (
-            <div class="projects-category">
+            <div class="projects-category" id={cat.id}>
               <div class="projects-category__intro">
                 <h2 class="projects-category__heading">{cat.title}</h2>
                 <p class="text-md">{cat.description}</p>

@@ -21,7 +21,7 @@ const { href, variant = 'primary', icon = false, target, class: className, ...re
       <path fill-rule="evenodd" clip-rule="evenodd" d="M12.275 14.1038C12.6366 13.7422 12.6366 13.1559 12.275 12.7943L9.689 10.2083L12.275 7.62232C12.6366 7.26073 12.6366 6.67446 12.275 6.31287C11.9134 5.95127 11.3271 5.95127 10.9656 6.31286L7.72481 9.55361C7.36321 9.9152 7.36321 10.5015 7.72481 10.8631L10.9656 14.1038C11.3271 14.4654 11.9134 14.4654 12.275 14.1038Z" fill="currentColor"/>
     </svg>
   )}
-  <slot />
+  <span class="btn__label"><slot /></span>
 </a>
 
 <style>
@@ -42,12 +42,13 @@ const { href, variant = 'primary', icon = false, target, class: className, ...re
   }
 
   .btn--primary {
-    background-color: var(--light-grey);
+    background-color: transparent;
     color: var(--black);
   }
 
-  .btn--primary:hover {
-    background-color: color-mix(in srgb, var(--light-grey) 70%, var(--black) 10%);
+  .btn--primary:hover .btn__label {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .btn--secondary {
