@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Button from '../components/Button.astro'
 ---
 <Layout title="Contact – Nick Ringelmann">
 
@@ -10,11 +9,11 @@ import Button from '../components/Button.astro'
 
         <div class="contact-intro">
           <h1>Let's <strong>talk</strong>.</h1>
-          <p class="subtitle">Feel free to shoot me a message for whatever project or if it's regarding one of my own projects.</p>
+          <p class="subtitle">Want to collaborate, get support, or give feedback on one of my projects? Shoot me a message!</p>
           <p class="contact-direct">Prefer writing directly? <a class="contact-email-link" href="mailto:work@nickringelmann.com">work@nickringelmann.com</a></p>
         </div>
 
-        <form id="contact-form" class="contact-form elevation-sm" novalidate>
+        <form id="contact-form" class="contact-form" novalidate>
           <div class="contact-honeypot" aria-hidden="true">
             <label for="contact-company">Company</label>
             <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off">
@@ -36,13 +35,13 @@ import Button from '../components/Button.astro'
             <span class="contact-field__label">Subject</span>
             <div class="subject-pills" role="radiogroup" aria-label="Subject">
               <input type="radio" id="subject-project" name="subject" value="Project Request" required>
-              <label class="subject-pill" for="subject-project">Project Request</label>
+              <label class="tag subject-pill" for="subject-project">Project Request</label>
 
               <input type="radio" id="subject-scorer" name="subject" value="Scorer (Support/Feedback)" required>
-              <label class="subject-pill" for="subject-scorer">Scorer (Support/Feedback)</label>
+              <label class="tag subject-pill" for="subject-scorer">Scorer (Support/Feedback)</label>
 
               <input type="radio" id="subject-other" name="subject" value="Something Else" required>
-              <label class="subject-pill" for="subject-other">Something Else</label>
+              <label class="tag subject-pill" for="subject-other">Something Else</label>
             </div>
           </div>
 
@@ -58,7 +57,7 @@ import Button from '../components/Button.astro'
 
           <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
 
-          <Button href="#" id="contact-submit" class="contact-submit" variant="secondary">Send</Button>
+          <a href="#" id="contact-submit" class="secondaryButton contact-submit">Send Message</a>
         </form>
 
       </div>
@@ -116,7 +115,7 @@ import Button from '../components/Button.astro'
           const data = await response.json().catch(() => ({}))
           if (!response.ok || !data.ok) throw new Error(data.error || 'Something went wrong.')
 
-          status.textContent = "Thanks — your message is on its way. I'll get back to you soon."
+          status.textContent = "Thanks, your message is on its way. I'll get back to you soon."
           form.reset()
           otherField.hidden = true
         })
@@ -182,8 +181,6 @@ import Button from '../components/Button.astro'
     gap: 28px;
     width: 100%;
     background-color: var(--surface-grey);
-    border: 1px solid var(--border-grey);
-    border-radius: 24px;
     padding: 40px;
   }
 
@@ -212,7 +209,7 @@ import Button from '../components/Button.astro'
     display: none;
   }
 
-  .contact-field label,
+  .contact-field label:not(.tag),
   .contact-field__label {
     font-size: 0.875rem;
     font-weight: 500;
@@ -225,7 +222,6 @@ import Button from '../components/Button.astro'
     color: var(--black);
     background-color: var(--white);
     border: 1px solid var(--border-grey);
-    border-radius: 12px;
     padding: 12px 16px;
     resize: vertical;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -257,22 +253,14 @@ import Button from '../components/Button.astro'
   }
 
   .subject-pill {
-    display: inline-flex;
-    align-items: center;
     cursor: pointer;
-    font-size: 0.875rem;
-    color: var(--black);
-    background-color: var(--white);
-    border: 1px solid var(--border-grey);
-    border-radius: 999px;
-    padding: 10px 18px;
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     user-select: none;
   }
 
   .subject-pills input[type='radio']:checked + .subject-pill {
-    background-color: var(--black);
     color: var(--white);
+    background-color: var(--black);
     border-color: var(--black);
   }
 
@@ -293,7 +281,8 @@ import Button from '../components/Button.astro'
   }
 
   #contact-submit {
-    align-self: start;
+    align-self: stretch;
+    text-align: center;
     padding: 12px 28px;
     font-size: 1rem;
   }
@@ -339,6 +328,11 @@ import Button from '../components/Button.astro'
     .contact-intro {
       position: static;
     }
+
+    .contact-form {
+      background-color: transparent;
+      padding: 0;
+    }
   }
 
   @media (max-width: 767px) {
@@ -347,8 +341,7 @@ import Button from '../components/Button.astro'
     }
 
     .contact-form {
-      padding: 24px;
-      border-radius: 16px;
+      padding: 0;
       gap: 24px;
     }
 
