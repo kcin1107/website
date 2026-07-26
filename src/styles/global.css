@@ -30,6 +30,9 @@
   --surface-grey: #f7f7f7;
   --hover-grey: #ebebeb;
   --border-grey: #eeeeee;
+  /* Boundary of interactive controls — needs 3:1 per WCAG 1.4.11,
+     unlike the decorative --border-grey. */
+  --border-interactive: #8a8a8a;
 }
 
 [data-theme='dark'] {
@@ -40,6 +43,7 @@
   --surface-grey: #141414;
   --hover-grey: #1c1c1c;
   --border-grey: #2a2a2a;
+  --border-interactive: #6a6a6a;
 }
 
 ::selection {
@@ -398,11 +402,6 @@ ul {
 [data-theme='dark'] .icon-moon { display: none; }
 [data-theme='dark'] .icon-sun  { display: block; }
 
-/* Hamburger toggle (hidden checkbox) */
-.nav__toggle {
-  display: none;
-}
-
 /* Hamburger button — hidden on desktop, shown on mobile */
 .nav__hamburger {
   display: none;
@@ -411,6 +410,10 @@ ul {
   gap: 6px;
   width: 32px;
   height: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -486,22 +489,30 @@ ul {
   width: 100%;
 }
 
+/* The overlay only exists on mobile — keep it out of the document entirely
+   above the breakpoint so it can never collect focus there. */
+@media (min-width: 768px) {
+  .nav__overlay {
+    display: none;
+  }
+}
+
 /* Open state */
-.nav:has(.nav__toggle:checked) ~ .nav__overlay {
+body.nav-open .nav__overlay {
   transform: translateY(0);
   pointer-events: auto;
 }
 
-.nav__toggle:checked ~ .nav__wrapper .nav__hamburger span:nth-child(1) {
+body.nav-open .nav__hamburger span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
 
-.nav__toggle:checked ~ .nav__wrapper .nav__hamburger span:nth-child(2) {
+body.nav-open .nav__hamburger span:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
 
-.nav__toggle:checked ~ .nav__wrapper .nav__hamburger span:nth-child(3) {
+body.nav-open .nav__hamburger span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
@@ -899,6 +910,17 @@ ul {
 
 .clients-grid a:hover img {
   filter: grayscale(0);
+}
+
+/* Most client logos are dark artwork, so they vanish on the dark background.
+   Grayscale first, then invert — inverting the brand colours directly would
+   flip them to their complements. */
+[data-theme='dark'] .clients-grid img {
+  filter: grayscale(1) invert(1);
+}
+
+[data-theme='dark'] .clients-grid a:hover img {
+  filter: none;
 }
 
 /* ==========================================================================

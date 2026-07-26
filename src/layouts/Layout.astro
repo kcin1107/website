@@ -10,7 +10,7 @@ interface Props {
 const { title } = Astro.props
 ---
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,7 +65,6 @@ const { title } = Astro.props
 
   <!-- Navigation -->
   <nav class="nav">
-    <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
     <div class="nav__wrapper">
       <a class="nav__logo" href="/" aria-label="Nick Ringelmann – Product Designer">
         <span class="nav__logo-name"><span class="nav__logo-first"><span class="nav__logo-letter">N</span><span class="nav__logo-collapse">ick</span></span><span class="nav__logo-space"> </span><span class="nav__logo-last"><span class="nav__logo-letter">R</span><span class="nav__logo-collapse">ingelmann</span></span></span>
@@ -87,14 +86,14 @@ const { title } = Astro.props
       </button>
       <a class="secondaryButton nav__cta" href="/contact">Get in Touch</a>
       </div>
-      <label for="nav-toggle" class="nav__hamburger" aria-label="Menu">
+      <button type="button" id="nav-toggle" class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-overlay">
         <span></span>
         <span></span>
         <span></span>
-      </label>
+      </button>
     </div>
   </nav>
-  <div class="nav__overlay">
+  <div class="nav__overlay" id="nav-overlay" inert>
     <div class="nav__overlay-links">
       <a class="nav__overlay-link" href="/projects">Projects</a>
       <a class="nav__overlay-link" href="/#approach">Approach</a>
@@ -140,18 +139,41 @@ const { title } = Astro.props
   </script>
 
   <script is:inline>
-    var navToggle = document.getElementById('nav-toggle');
+    (function () {
+      var navToggle = document.getElementById('nav-toggle');
+      var navOverlay = document.getElementById('nav-overlay');
 
-    navToggle.addEventListener('change', function () {
-      document.body.style.overflow = this.checked ? 'hidden' : '';
-    });
+      function setNav(open) {
+        document.body.classList.toggle('nav-open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        navOverlay.inert = !open;
+      }
 
-    document.querySelectorAll('.nav__overlay-link, .nav__overlay-cta').forEach(function (el) {
-      el.addEventListener('click', function () {
-        navToggle.checked = false;
-        document.body.style.overflow = '';
+      function closeNav(refocus) {
+        setNav(false);
+        if (refocus) navToggle.focus();
+      }
+
+      navToggle.addEventListener('click', function () {
+        var open = navToggle.getAttribute('aria-expanded') !== 'true';
+        setNav(open);
+        if (open) navOverlay.querySelector('.nav__overlay-link').focus();
       });
-    });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+          closeNav(true);
+        }
+      });
+
+      navOverlay.querySelectorAll('.nav__overlay-link, .nav__overlay-cta').forEach(function (el) {
+        el.addEventListener('click', function () {
+          closeNav(false);
+        });
+      });
+    })();
   </script>
 
   <script is:inline>
