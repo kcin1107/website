@@ -919,8 +919,11 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   filter: grayscale(1) invert(1);
 }
 
+/* The light-mode hover reveals brand colour by dropping grayscale — not
+   possible in dark mode since these logos aren't designed for a dark
+   background, so hover is a no-op here instead of going invisible. */
 [data-theme='dark'] .clients-grid a:hover img {
-  filter: none;
+  filter: grayscale(1) invert(1);
 }
 
 /* ==========================================================================
