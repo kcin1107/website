@@ -30,6 +30,15 @@ const descriptionParagraphs = (project.description ?? 'This is a project descrip
       <!-- Back link -->
       <Button class="project-detail__back" href="/projects" icon>Back to Projects</Button>
 
+      <!-- Mobile lead image: first desktop shot, shown between back link and header on small screens -->
+      {hasShowcase && desktopImages[0] && (
+        <div class="project-detail__mobile-lead">
+          <div class="project-detail__showcase-item">
+            <Image src={desktopImages[0].src} alt={desktopImages[0].alt} width={800} format="webp" densities={[1, 2]} />
+          </div>
+        </div>
+      )}
+
       <!-- Header -->
       <div class="project-detail__header">
         <div class="project-detail__titles">
@@ -54,8 +63,8 @@ const descriptionParagraphs = (project.description ?? 'This is a project descrip
             <div class="project-detail__showcase-mobile">
               <Image src={mobileImage.src} alt={mobileImage.alt} width={400} format="webp" densities={[1, 2]} />
             </div>
-            {desktopImages.map(image => (
-              <div class="project-detail__showcase-item">
+            {desktopImages.map((image, i) => (
+              <div class={`project-detail__showcase-item${i === 0 ? ' project-detail__showcase-item--lead' : ''}`}>
                 <Image src={image.src} alt={image.alt} width={800} format="webp" densities={[1, 2]} />
               </div>
             ))}

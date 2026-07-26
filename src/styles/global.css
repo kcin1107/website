@@ -1160,12 +1160,30 @@ a.project-card {
   display: block;
 }
 
+.project-detail__mobile-lead {
+  display: none;
+  width: 100%;
+}
+
 .project-detail__showcase-item img {
   width: 100%;
   height: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
+}
+
+/* Dark mode: soften image frames. In light mode these are an intentional
+   high-contrast frame (black on projects, light-grey mat on the hero), but
+   they invert to a harsh near-white on dark. Recolor to a subtle grey so the
+   screenshots read as framed, not glaringly outlined. */
+[data-theme='dark'] .hero__image-1,
+[data-theme='dark'] .hero__image-2,
+[data-theme='dark'] .project-card__image,
+[data-theme='dark'] .project-detail__image,
+[data-theme='dark'] .project-detail__showcase-mobile,
+[data-theme='dark'] .project-detail__showcase-item {
+  border-color: #3a3a3a;
 }
 
 @media (max-width: 767px) {
@@ -1247,6 +1265,10 @@ a.project-card {
     font-size: 1.1rem;
   }
 
+  .project-detail {
+    gap: 24px;
+  }
+
   .project-detail__showcase {
     grid-template-columns: 1fr;
   }
@@ -1254,9 +1276,28 @@ a.project-card {
   .project-detail__showcase-mobile {
     display: none;
   }
+
+  /* First desktop shot moves up between back link and header; hide the grid copy */
+  .project-detail__mobile-lead {
+    display: block;
+  }
+
+  .project-detail__showcase-item--lead {
+    display: none;
+  }
 }
 
 @media (max-width: 767px) {
+  /* Shorten back-link label to just "Back" on mobile */
+  .project-detail__back .btn__label {
+    font-size: 0;
+  }
+
+  .project-detail__back .btn__label::after {
+    content: 'Back';
+    font-size: 14px;
+  }
+
   .nav__links {
     display: none;
   }
