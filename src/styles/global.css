@@ -1399,8 +1399,14 @@ a.project-card {
     width: 100%;
   }
 
+  /* The two buttons share a row and stretch to equal height, so once one
+     label wraps to a second line the other's text would sit at the top of
+     its taller box. Centering keeps both labels aligned as width shrinks. */
   .hero__links .primaryButton,
   .hero__links .secondaryButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 1 1 0;
     text-align: center;
   }
