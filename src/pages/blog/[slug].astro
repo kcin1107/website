@@ -62,6 +62,22 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
   .blog-article__body {
     width: 100%;
+    max-width: 68ch;
+    margin: 0 auto;
+  }
+
+  /* Images and code blocks are allowed to break out of the text column,
+     up to the width of the surrounding container. */
+  .blog-article__body :global(img),
+  .blog-article__body :global(pre) {
+    width: min(1000px, calc(100vw - 48px));
+    max-width: none;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .blog-article__body :global(pre) {
+    overflow-x: auto;
   }
 
   .blog-article__body :global(h2) {
@@ -82,6 +98,14 @@ const formatter = new Intl.DateTimeFormat('en-US', {
   .blog-article__body :global(ol) {
     padding-left: 1.5rem;
     margin-bottom: 16px;
+  }
+
+  .blog-article__body :global(ul) {
+    list-style: disc;
+  }
+
+  .blog-article__body :global(ol) {
+    list-style: decimal;
   }
 
   .blog-article__body :global(li) {

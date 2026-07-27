@@ -75,6 +75,12 @@ html {
   color-scheme: light dark;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -99,6 +105,22 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ==========================================================================
+   Focus Visible
+   ========================================================================== */
+
+/* :focus-visible only (never :focus) so the ring shows for keyboard
+   navigation but not mouse clicks. #357DFF is the site's established
+   interactive-focus color (see contact form inputs/subject pills) and
+   clears 3:1 against every surface it can land on: 3.80:1 on var(--white)
+   in light mode (#ffffff), 5.53:1 on var(--white) in dark mode (#000000),
+   5.53:1 on var(--black)/.secondaryButton fill in light mode (#000000),
+   and 3.49:1 on var(--black)/.secondaryButton fill in dark mode (#f5f5f5). */
+:focus-visible {
+  outline: 2px solid #357DFF;
+  outline-offset: 2px;
 }
 
 img {
@@ -623,7 +645,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   gap: 7px;
   min-height: 34px;
   padding: 8px 13px;
-  background: linear-gradient(180deg, rgba(239, 254, 245, 0.96) 0%, rgba(232, 250, 240, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(239, 254, 245, 0.98) 0%, rgba(232, 250, 240, 0.94) 100%);
   border-radius: 999px;
   border: 1px solid rgba(13, 172, 82, 0.22);
   box-shadow: 0 8px 20px rgba(13, 172, 82, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.70);
@@ -638,11 +660,18 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   background-color: #41E788;
   border-radius: 50%;
   box-shadow: 0 0 0 4px rgba(65, 231, 136, 0.16);
-  animation: blink 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .status__dot {
+    animation: blink 1.5s ease-in-out infinite;
+  }
 }
 
 .status__text {
-  color: #0DAC52;
+  /* Darkened from #0DAC52 so 14px/500 text reaches 4.5:1 on the light pill
+     surface (WCAG 1.4.3). Dark mode keeps the brighter #41E788 below. */
+  color: #0A7A3C;
   font-weight: 500;
   font-size: 14px;
   line-height: 1;
@@ -651,14 +680,15 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 .status--blue {
-  color: #357DFF;
-  background: linear-gradient(180deg, rgba(247, 252, 255, 0.96) 0%, rgba(238, 247, 255, 0.88) 100%);
+  /* Darkened from #357DFF for the same reason as .status__text above. */
+  color: #1E5FD9;
+  background: linear-gradient(180deg, rgba(247, 252, 255, 0.98) 0%, rgba(238, 247, 255, 0.94) 100%);
   border-color: rgba(53, 125, 255, 0.18);
   box-shadow: 0 8px 20px rgba(53, 125, 255, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.76);
 }
 
 .status--blue .status__text {
-  color: #357DFF;
+  color: #1E5FD9;
 }
 
 /* Dark mode status pills */
@@ -1020,6 +1050,48 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 /* ==========================================================================
+   Touch Targets (WCAG 2.5.8)
+   ========================================================================== */
+
+/* Footer social icons render at 20x20 by design, but the clickable area must
+   reach 44x44. An absolutely-positioned, transparent ::after centered over
+   the icon expands the hit area without affecting layout or visual size. */
+.footer__linkedin,
+.footer__github {
+  position: relative;
+}
+
+.footer__linkedin::after,
+.footer__github::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+/* Contact page subject pills (radio labels sharing .tag's base styling)
+   measured ~34px tall — pad up to a 44px hit area. */
+/* Subject pills keep the plain .tag look. The 44px touch-target floor is met
+   with a transparent overlay instead of extra padding, so the visual design
+   stays identical to the tag component. */
+.subject-pill {
+  position: relative;
+}
+
+.subject-pill::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  min-height: 44px;
+  transform: translateY(-50%);
+}
+
+/* ==========================================================================
    Legal Pages (Imprint & Privacy)
    ========================================================================== */
 
@@ -1370,17 +1442,40 @@ a.project-card {
     display: none;
   }
 
+  /* Restored as the header's only conversion action, kept compact via the
+     same font-size:0 + ::after label-swap trick used by .project-detail__back
+     above — full label hidden, "Contact" substituted, 44px hit area kept. */
   .nav__cta {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 14px;
+    font-size: 0;
+  }
+
+  .nav__cta::after {
+    content: 'Contact';
+    font-size: 14px;
   }
 
   .nav__actions {
     margin-left: auto;
   }
 
+  /* Visual hamburger icon (three 32px bars) stays the same size; the button
+     itself grows to a 44x44 hit area, centered around the bars. */
   .nav__hamburger {
     display: flex;
+    align-items: center;
+    width: 44px;
+    height: 44px;
     margin-left: 16px;
+  }
+
+  /* Theme toggle measured ~35px tall at this breakpoint — pad up to 44px. */
+  .theme-toggle {
+    padding: 13px;
   }
 
   .hero {
@@ -1445,6 +1540,15 @@ a.project-card {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+  }
+
+  /* .primaryButton text links (hero "Connect on LinkedIn", section "All
+     Projects"/"All Posts", footer Contact/Imprint/Privacy) measured ~36px
+     tall at this breakpoint — pad up to 44px. The hero row's secondaryButton
+     sibling stretches to match via the flex row's default cross-axis
+     stretch, so it reaches 44px too without a separate rule. */
+  .primaryButton {
+    padding: 13px 12px;
   }
 }
 

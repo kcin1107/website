@@ -47,8 +47,9 @@ File-based routing under `src/pages/`. Every page wraps its content in `src/layo
 - Base spacing unit: 8px
 - Border radii: 8px–32px
 - Responsive breakpoints: 1023px (tablet) and 767px (mobile)
-- Theming via CSS custom properties in `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--status-blue`. Note the naming is value-based, not semantic — e.g. `--white` resolves to a dark teal in dark mode, so use the variables (not raw hex) for anything that should adapt to the theme.
-- Status green `#41E788` is still a hardcoded hex; status blue uses `--status-blue` (`#357DFF`)
+- Theming via CSS custom properties in `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`. Note the naming is value-based, not semantic — e.g. `--white` resolves to black in dark mode — so use the variables (not raw hex) for anything that should adapt to the theme.
+- `--border-grey` is decorative; `--border-interactive` is for the boundary of interactive controls, which needs 3:1 contrast per WCAG 1.4.11. Don't swap one for the other.
+- There is no `--status-blue` variable. The status colours are hardcoded hex: green `#41E788` (dark) / `#0A7A3C` (light), blue `#357DFF` (dark) / `#1E5FD9` (light). Light-mode values are set to clear 4.5:1 on the pill surface — don't lighten them back.
 - BEM-style class names (`nav__wrapper`, `hero__title`, `status--blue`)
 
 ## Figma Integration

@@ -73,7 +73,7 @@ export interface Project {
   alt: string
   title: string
   client: string
-  topicTag: string
+  topicTag?: string
   tags: string[]
   description?: string
   category: ProjectCategory
@@ -274,16 +274,14 @@ export const projects: Project[] = [
     alt: 'Fuel Station App',
     title: 'Fuel Station App',
     client: 'Coming soon',
-    topicTag: '-',
-    tags: ['-'],
+    tags: [],
     category: 'side',
   },
   {
     alt: 'Hylla',
     title: 'Hylla',
     client: 'Coming soon',
-    topicTag: '-',
-    tags: ['-'],
+    tags: [],
     category: 'side',
   },
 ]

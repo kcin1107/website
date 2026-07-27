@@ -19,30 +19,40 @@ import Layout from '../layouts/Layout.astro'
             <input type="text" id="contact-company" name="company" tabindex="-1" autocomplete="off">
           </div>
 
+          <p class="contact-required-note">Fields marked with <span class="required-marker" aria-hidden="true">*</span> are required.</p>
+
           <div class="contact-row">
             <div class="contact-field">
-              <label for="contact-name">Name</label>
+              <label for="contact-name">Name<span class="required-marker" aria-hidden="true">*</span></label>
               <input type="text" id="contact-name" name="name" autocomplete="name" required>
             </div>
 
             <div class="contact-field">
-              <label for="contact-email">Mail</label>
+              <label for="contact-email">Mail<span class="required-marker" aria-hidden="true">*</span></label>
               <input type="email" id="contact-email" name="email" autocomplete="email" required>
             </div>
           </div>
 
           <div class="contact-field">
-            <span class="contact-field__label">Subject</span>
-            <div class="subject-pills" role="radiogroup" aria-label="Subject">
-              <input type="radio" id="subject-project" name="subject" value="Project Request" required>
+            <span class="contact-field__label">Subject<span class="required-marker" aria-hidden="true">*</span></span>
+            <div class="subject-pills" role="radiogroup" aria-label="Subject" aria-required="true">
+              <input type="radio" id="subject-project" name="subject" value="Project Request">
               <label class="tag subject-pill" for="subject-project">Project Request</label>
 
-              <input type="radio" id="subject-scorer" name="subject" value="Scorer (Support/Feedback)" required>
+              <input type="radio" id="subject-scorer" name="subject" value="Scorer (Support/Feedback)">
               <label class="tag subject-pill" for="subject-scorer">Scorer (Support/Feedback)</label>
 
-              <input type="radio" id="subject-other" name="subject" value="Something Else" required>
+              <input type="radio" id="subject-other" name="subject" value="Something Else">
               <label class="tag subject-pill" for="subject-other">Something Else</label>
             </div>
+            <p class="subject-error" id="subject-error" hidden>
+              <svg class="status-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+                <path d="M10 2.5 1.8 17h16.4L10 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M10 8v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="10" cy="14.6" r="0.9" fill="currentColor"/>
+              </svg>
+              <span>Choose a subject above before sending your message.</span>
+            </p>
           </div>
 
           <div class="contact-field" id="contact-subject-other-field" hidden>
@@ -51,13 +61,15 @@ import Layout from '../layouts/Layout.astro'
           </div>
 
           <div class="contact-field">
-            <label for="contact-message">Message</label>
+            <label for="contact-message">Message<span class="required-marker" aria-hidden="true">*</span></label>
             <textarea id="contact-message" name="message" rows="5" required></textarea>
           </div>
 
+          <a href="#" id="contact-submit" class="secondaryButton contact-submit">Send Message</a>
+
           <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
 
-          <a href="#" id="contact-submit" class="secondaryButton contact-submit">Send Message</a>
+          <p class="contact-meta">I use your name, email and message only to reply to you. The <a href="/privacy">privacy policy</a> has the details. Expect a reply within two working days.</p>
         </form>
 
       </div>
@@ -68,14 +80,52 @@ import Layout from '../layouts/Layout.astro'
     const form = document.getElementById('contact-form') as HTMLFormElement
     const submit = document.getElementById('contact-submit') as HTMLAnchorElement
     const subjectRadios = document.querySelectorAll<HTMLInputElement>('input[name="subject"]')
+    const subjectGroup = document.querySelector('.subject-pills') as HTMLElement
+    const subjectError = document.getElementById('subject-error') as HTMLElement
+    const firstSubjectPill = document.getElementById('subject-project') as HTMLInputElement
     const otherField = document.getElementById('contact-subject-other-field') as HTMLElement
     const otherInput = document.getElementById('contact-subject-other-input') as HTMLInputElement
     const status = document.getElementById('contact-status') as HTMLElement
+
+    const errorIconMarkup = '<svg class="status-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M10 2.5 1.8 17h16.4L10 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.6" r="0.9" fill="currentColor"/></svg>'
+    const successIconMarkup = '<svg class="status-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.2 10.3l2.6 2.6 5-5.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+    function setStatus(message: string, variant?: 'success' | 'error') {
+      status.classList.remove('contact-status--success', 'contact-status--error')
+      status.replaceChildren()
+      if (!message) return
+
+      if (variant) status.classList.add(`contact-status--${variant}`)
+
+      const icon = document.createElement('span')
+      icon.innerHTML = variant === 'success' ? successIconMarkup : errorIconMarkup // static, developer-controlled markup only
+
+      const text = document.createElement('span')
+      text.textContent = message // untrusted content (e.g. server error) stays out of innerHTML
+
+      status.append(icon, text)
+    }
 
     function selectedSubject(): string {
       const checked = document.querySelector<HTMLInputElement>('input[name="subject"]:checked')
       if (!checked) return ''
       return checked.value === 'Something Else' ? otherInput.value.trim() : checked.value
+    }
+
+    function showSubjectError() {
+      subjectGroup.classList.add('subject-pills--error')
+      subjectGroup.setAttribute('aria-invalid', 'true')
+      subjectGroup.setAttribute('aria-describedby', 'subject-error')
+      subjectError.hidden = false
+      setStatus('Choose a subject above before sending your message.', 'error')
+      firstSubjectPill.focus()
+    }
+
+    function clearSubjectError() {
+      subjectGroup.classList.remove('subject-pills--error')
+      subjectGroup.removeAttribute('aria-invalid')
+      subjectGroup.removeAttribute('aria-describedby')
+      subjectError.hidden = true
     }
 
     subjectRadios.forEach((radio) => {
@@ -84,6 +134,9 @@ import Layout from '../layouts/Layout.astro'
         otherField.hidden = !isOther
         otherInput.required = isOther
         if (!isOther) otherInput.value = ''
+
+        clearSubjectError()
+        setStatus('')
       })
     })
 
@@ -92,6 +145,12 @@ import Layout from '../layouts/Layout.astro'
 
       if (submit.getAttribute('aria-disabled') === 'true') return
       if (!form.reportValidity()) return
+
+      if (!document.querySelector('input[name="subject"]:checked')) {
+        showSubjectError()
+        return
+      }
+      clearSubjectError()
 
       const name = (document.getElementById('contact-name') as HTMLInputElement).value
       const email = (document.getElementById('contact-email') as HTMLInputElement).value
@@ -103,8 +162,7 @@ import Layout from '../layouts/Layout.astro'
       submit.style.pointerEvents = 'none'
       const originalLabel = submit.textContent
       submit.textContent = 'Sending…'
-      status.textContent = ''
-      status.classList.remove('contact-status--error')
+      setStatus('')
 
       fetch('/api/contact.php', {
         method: 'POST',
@@ -115,13 +173,12 @@ import Layout from '../layouts/Layout.astro'
           const data = await response.json().catch(() => ({}))
           if (!response.ok || !data.ok) throw new Error(data.error || 'Something went wrong.')
 
-          status.textContent = "Thanks, your message is on its way. I'll get back to you soon."
+          setStatus("Thanks, your message is on its way. I read every message myself and reply within two working days.", 'success')
           form.reset()
           otherField.hidden = true
         })
         .catch((error: Error) => {
-          status.textContent = `${error.message} You can also mail me directly at work@nickringelmann.com.`
-          status.classList.add('contact-status--error')
+          setStatus(`${error.message} You can also mail me directly at work@nickringelmann.com.`, 'error')
         })
         .finally(() => {
           submit.removeAttribute('aria-disabled')
@@ -215,6 +272,17 @@ import Layout from '../layouts/Layout.astro'
     font-weight: 500;
   }
 
+  .contact-required-note {
+    font-size: 0.8125rem;
+    color: var(--dark-grey);
+    margin: 0;
+  }
+
+  .required-marker {
+    color: var(--dark-grey);
+    margin-left: 3px;
+  }
+
   .contact-field input,
   .contact-field textarea {
     font-family: 'Roboto', sans-serif;
@@ -252,6 +320,7 @@ import Layout from '../layouts/Layout.astro'
     padding: 0;
   }
 
+  /* Visuals come from .tag — only interaction affordances are added here. */
   .subject-pill {
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -269,15 +338,101 @@ import Layout from '../layouts/Layout.astro'
     outline-offset: 2px;
   }
 
-  .contact-status {
+  /* Error state: border colour change + icon + text below, so the group is
+     never marked by colour alone (WCAG 1.4.1). */
+  .subject-pills--error .subject-pill {
+    border-color: #B3221C;
+  }
+
+  [data-theme='dark'] .subject-pills--error .subject-pill {
+    border-color: #FFB4AB;
+  }
+
+  .subject-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 10px;
     font-size: 0.8125rem;
-    color: var(--dark-grey);
-    margin-top: -8px;
-    min-height: 1.4em;
+    line-height: 1.45;
+    background-color: #FBE9E7;
+    color: #B3221C;
+    border: 1px solid rgba(179, 34, 28, 0.25);
+  }
+
+  .subject-error[hidden] {
+    display: none;
+  }
+
+  [data-theme='dark'] .subject-error {
+    background-color: #3B1616;
+    color: #FFB4AB;
+    border-color: rgba(255, 180, 171, 0.3);
+  }
+
+  .status-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+
+  .contact-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 0;
+  }
+
+  .contact-status:empty {
+    display: none;
+  }
+
+  .contact-status--success {
+    background-color: #E6F9EF;
+    color: #166534;
+    border: 1px solid rgba(22, 101, 52, 0.25);
+  }
+
+  [data-theme='dark'] .contact-status--success {
+    background-color: #123524;
+    color: #41E788;
+    border-color: rgba(65, 231, 136, 0.3);
   }
 
   .contact-status--error {
-    color: #d9534f;
+    background-color: #FBE9E7;
+    color: #B3221C;
+    border: 1px solid rgba(179, 34, 28, 0.25);
+  }
+
+  [data-theme='dark'] .contact-status--error {
+    background-color: #3B1616;
+    color: #FFB4AB;
+    border-color: rgba(255, 180, 171, 0.3);
+  }
+
+  .contact-meta {
+    font-size: 0.8125rem;
+    color: var(--dark-grey);
+    margin: 0;
+  }
+
+  .contact-meta a {
+    color: var(--black);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .contact-meta a:hover {
+    color: #357DFF;
   }
 
   #contact-submit {

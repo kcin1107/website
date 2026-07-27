@@ -7,7 +7,7 @@ interface Props {
   alt: string
   title: string
   subtitle: string
-  topicTag: string
+  topicTag?: string
   tags: string[]
   href?: string
 }
@@ -25,7 +25,7 @@ const Tag = href ? 'a' : 'div'
       <span class="project-card__subtitle">{subtitle}</span>
     </div>
     <div class="project-card__tags">
-      <span class="tag tag--topic">{topicTag}</span>
+      {topicTag && <span class="tag tag--topic">{topicTag}</span>}
       {tags.map(tag => <span class="tag">{tag}</span>)}
     </div>
   </div>
