@@ -1248,26 +1248,27 @@ a.project-card {
     gap: 32px;
   }
 
-  /* Tablet + mobile: single square portrait on the left with the two status
-     pills stacked in the open space to its upper right. */
+  /* Tablet + mobile: single square portrait with the two status pills
+     floating above it, straddling its right edge and staggered so the
+     lower one sits further left. The wrapper shrinks to the photo so the
+     pills' percentage offsets stay anchored to the image at every width
+     (not to the column, which would drift once the photo hits max-width). */
   .status-row--desktop {
     display: none;
   }
 
   .hero__images {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 14px;
-    width: 100%;
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
     min-height: auto;
   }
 
   .hero__image-1 {
     position: static;
     display: block;
-    flex: 0 0 auto;
-    width: min(56%, 340px);
+    width: min(56vw, 360px);
     max-width: 100%;
     aspect-ratio: 1 / 1;
     object-position: 50% 50%;
@@ -1279,10 +1280,42 @@ a.project-card {
 
   .status-row--mobile {
     display: flex;
+    position: absolute;
+    top: 8%;
+    left: 82%;
+    z-index: 2;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-    margin-top: 20px;
+    gap: 10px;
+  }
+
+  /* Stagger: the second pill steps left, so the pair reads as two
+     independent chips resting on the photo rather than one stacked block. */
+  .status-row--mobile .status:nth-child(2) {
+    transform: translateX(-22px);
+  }
+
+  /* Tighter than the desktop pills: these sit on the photo, so they need to
+     read as small chips rather than compete with it. */
+  .status-row--mobile .status {
+    min-height: 0;
+    padding: 6px 11px;
+    gap: 6px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.70);
+  }
+
+  .status-row--mobile .status__text {
+    font-size: 13px;
+  }
+
+  .status-row--mobile .status__dot {
+    width: 7px;
+    height: 7px;
+    box-shadow: 0 0 0 3px rgba(65, 231, 136, 0.16);
+  }
+
+  [data-theme='dark'] .status-row--mobile .status {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.10);
   }
 
   .subtitle {
@@ -1346,6 +1379,14 @@ a.project-card {
 
   .hero {
     gap: 28px;
+  }
+
+  .status-row--mobile .status {
+    padding: 5px 10px;
+  }
+
+  .status-row--mobile .status__text {
+    font-size: 12px;
   }
 
   .hero__content {
