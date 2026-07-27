@@ -1350,6 +1350,12 @@ a.project-card {
 }
 
 @media (max-width: 767px) {
+  /* Section rhythm steps down again on phones: 128px → 64px → 48px */
+  .container {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+
   /* Shorten back-link label to just "Back" on mobile */
   .project-detail__back .btn__label {
     font-size: 0;
