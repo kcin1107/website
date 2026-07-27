@@ -104,7 +104,6 @@ const { title } = Astro.props
       <a class="nav__overlay-link" href="/#approach">Approach</a>
       <a class="nav__overlay-link" href="/blog">Blog</a>
       <a class="nav__overlay-link" href="/#clients">Clients</a>
-      <a class="nav__overlay-cta" href="/contact">Get in Touch</a>
     </div>
   </div>
 
@@ -173,7 +172,7 @@ const { title } = Astro.props
         }
       });
 
-      navOverlay.querySelectorAll('.nav__overlay-link, .nav__overlay-cta').forEach(function (el) {
+      navOverlay.querySelectorAll('.nav__overlay-link').forEach(function (el) {
         el.addEventListener('click', function () {
           closeNav(false);
         });
