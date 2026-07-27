@@ -1248,16 +1248,18 @@ a.project-card {
     gap: 32px;
   }
 
-  /* Tablet + mobile: collapse the dual-photo composition to a single square
-     portrait with the status shown as a glassy badge floating on it. */
+  /* Tablet + mobile: single square portrait with the two status pills in a
+     row beneath it. */
   .status-row--desktop {
     display: none;
   }
 
   .hero__images {
-    position: relative;
-    display: block;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
     min-height: auto;
   }
 
@@ -1276,38 +1278,9 @@ a.project-card {
 
   .status-row--mobile {
     display: flex;
-    position: absolute;
-    top: 14px;
-    right: -14px;
-    z-index: 2;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-    padding: 10px 16px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.32) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.65);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    backdrop-filter: blur(20px) saturate(160%);
-  }
-
-  .status-row--mobile .status {
-    min-height: 0;
-    padding: 0;
-    gap: 7px;
-    background: none;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-
-  [data-theme='dark'] .status-row--mobile {
-    background: linear-gradient(180deg, rgba(32, 32, 32, 0.5) 0%, rgba(18, 18, 18, 0.38) 100%);
-    border-color: rgba(255, 255, 255, 0.16);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 10px;
   }
 
   .subtitle {
