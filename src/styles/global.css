@@ -1248,17 +1248,17 @@ a.project-card {
     gap: 32px;
   }
 
-  /* Tablet + mobile: single square portrait with the two status pills in a
-     row beneath it. */
+  /* Tablet + mobile: single square portrait on the left with the two status
+     pills stacked in the open space to its upper right. */
   .status-row--desktop {
     display: none;
   }
 
   .hero__images {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
     width: 100%;
     min-height: auto;
   }
@@ -1266,7 +1266,8 @@ a.project-card {
   .hero__image-1 {
     position: static;
     display: block;
-    width: min(48vw, 360px);
+    flex: 0 0 auto;
+    width: min(56%, 340px);
     max-width: 100%;
     aspect-ratio: 1 / 1;
     object-position: 50% 50%;
@@ -1278,9 +1279,10 @@ a.project-card {
 
   .status-row--mobile {
     display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 20px;
   }
 
   .subtitle {
@@ -1344,12 +1346,6 @@ a.project-card {
 
   .hero {
     gap: 28px;
-  }
-
-  /* Smaller portrait on phones; the glassy badge styling is inherited
-     from the tablet/mobile rules in the max-width: 1023px block. */
-  .hero__image-1 {
-    width: min(62vw, 300px);
   }
 
   .hero__content {
