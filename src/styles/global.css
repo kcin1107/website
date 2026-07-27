@@ -1459,6 +1459,12 @@ a.project-card {
     font-size: 14px;
   }
 
+  /* The overlay carries its own "Get in Touch" CTA, so hide the bar one
+     while the menu is open rather than showing two contact actions. */
+  body.nav-open .nav__cta {
+    display: none;
+  }
+
   .nav__actions {
     margin-left: auto;
   }
