@@ -1,0 +1,220 @@
+---
+/*
+  The framing nudge, rebuilt as markup rather than shipped as a screenshot so
+  it stays sharp at any zoom and follows the site's theme.
+
+  Copy is verbatim from the Figma component (node 171:1280). This is an
+  illustration: no form controls, nothing focusable.
+*/
+import { Image } from 'astro:assets'
+import mehrwegMark from '../assets/images/projects/mehrweg-mark-20260728.png'
+
+const checks = [
+  'Deposit 3 €',
+  'Fold & drop in the letterbox',
+  'Deposit is automatically returned',
+]
+
+const legend = [
+  { lever: 'Transparency and incentive.', text: 'The benefit arrives as a number, framed as something the customer gains.' },
+  { lever: 'Association.', text: 'Green type, a leaf, and the licensed Mehrweg mark, so the block reads as sustainability before it is read at all.' },
+  { lever: 'Education.', text: 'Three lines covering what the deposit costs, what to do with the packaging, and how the money comes back.' },
+  { lever: 'One target.', text: 'The button comes after the explanation, so anybody who reaches it already knows what the deposit costs and how it comes back.' },
+]
+---
+<figure class="nudge framing">
+  <div class="nudge__surface framing__panel">
+    <div class="framing__copy">
+      <p class="framing__headline">
+        <span class="nudge__badge" aria-hidden="true">1</span>
+        <svg class="framing__leaf" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M20 4c0 9.5-5 14-11 14a6.9 6.9 0 0 1-3.2-.7c1.6-4.4 4.7-7.2 8.2-8.6-3.9.9-7.3 3.4-9.3 7.7C3.3 14.6 3 12.7 3 11 3 6.6 7.9 4 13 4z" />
+        </svg>
+        Up to 80 % less CO2 emissions than disposable packaging
+      </p>
+      <p class="text-sm framing__body">
+        Choose our eco-friendly reusable shipping and help us save the environment by shipping your
+        order with <strong>Boomerang's</strong> reusable packaging. Good for the environment, good
+        for your paper bin. <span class="framing__link">More info</span>
+      </p>
+    </div>
+
+    <div class="framing__aside">
+      <div class="framing__mark">
+        <span class="nudge__badge framing__mark-badge" aria-hidden="true">2</span>
+        <Image src={mehrwegMark} alt="The German Mehrweg mark for reusable packaging" width={56} densities={[1, 2]} />
+      </div>
+
+      <ul class="framing__checks">
+        {checks.map((check, i) => (
+          <li class="text-sm framing__check">
+            {i === 0 && <span class="nudge__badge framing__check-badge" aria-hidden="true">3</span>}
+            <svg class="framing__tick" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+              <path d="M4 12.5 9.5 18 20 6" />
+            </svg>
+            {check}
+          </li>
+        ))}
+      </ul>
+
+      <p class="framing__button">
+        <span class="nudge__badge framing__button-badge" aria-hidden="true">4</span>
+        Use reusable packaging
+      </p>
+    </div>
+  </div>
+
+  <figcaption class="text-sm nudge__legend">
+    {legend.map((entry, i) => (
+      <span class="nudge__legend-item">
+        <span class="nudge__badge" aria-hidden="true">{i + 1}</span>
+        <span class="nudge__legend-text">
+          <strong class="nudge__legend-lever">{entry.lever}</strong> {entry.text}
+        </span>
+      </span>
+    ))}
+  </figcaption>
+</figure>
+
+<style>
+  .framing__panel {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .framing__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .framing__headline {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--accent);
+  }
+
+  .framing__leaf {
+    align-self: center;
+  }
+
+  .framing__body {
+    color: var(--black);
+  }
+
+  .framing__link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .framing__aside {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .framing__mark {
+    position: relative;
+    grid-row: span 2;
+    line-height: 0;
+  }
+
+  .framing__mark :global(img) {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .framing__mark-badge {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+  }
+
+  .framing__checks {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .framing__check {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--black);
+  }
+
+  .framing__check-badge {
+    position: absolute;
+    left: -26px;
+  }
+
+  .framing__tick {
+    flex: 0 0 auto;
+    color: var(--accent);
+  }
+
+  /* Styled as a button, deliberately not one. The whole component is a
+     picture of an interface, so nothing here takes focus. */
+  .framing__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: var(--accent-on);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .framing__button .nudge__badge {
+    position: absolute;
+    top: -9px;
+    left: -9px;
+  }
+
+  @media (max-width: 1023px) {
+    .framing__panel {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .framing__aside {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: 16px;
+    }
+
+    .framing__mark {
+      grid-row: auto;
+    }
+
+    .framing__check-badge {
+      position: static;
+    }
+
+    .framing__button {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-07-24
+> Last updated: 2026-07-28
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
@@ -48,6 +48,10 @@ website/
 │   │   ├── ProjectCard.astro
 │   │   ├── BlogCard.astro
 │   │   ├── ApproachCard.astro
+│   │   ├── ProjectSection.astro  # case-study block dispatcher (see Data sources)
+│   │   ├── ResultMatrix.astro    # bespoke embeds, Boomerang case study only
+│   │   ├── FramingNudge.astro
+│   │   ├── ShippingNudge.astro
 │   │   ├── TabGroup.astro
 │   │   └── TabItem.astro
 │   │
@@ -61,7 +65,7 @@ website/
 │   ├── data/
 │   │   └── projects.ts       # projects[] + categories[] (business|web|side)
 │   └── styles/
-│       └── global.css        # single global stylesheet (~1060 lines)
+│       └── global.css        # single global stylesheet (~1690 lines)
 │
 └── dist/                     # build output (gitignored)
 ```
@@ -79,6 +83,7 @@ website/
 
 ## Data sources
 - **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards). Images are imported from `src/assets/images/` as `ImageMetadata` and rendered via Astro's `<Image>` component (`astro:assets`), which generates resized, WebP, retina-aware output instead of shipping full-resolution screenshots.
+- **Case studies** — a project may optionally carry `lead`, `meta[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `embed`) rendered by `components/ProjectSection.astro`. When `sections` is present, `[slug].astro` renders those instead of the screenshot showcase; projects without it keep the original layout untouched. `embed` sections name a component resolved through a small registry in `[slug].astro`, which is how the three bespoke Boomerang components are wired in. Only `boomerang-behavioral-design` uses this today.
 - **Blog** — `src/content/blog/*.md` via Astro Content Collection; schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`).
 
 ## Deployment
@@ -86,6 +91,8 @@ website/
 
 ## Conventions
 - Spacing unit 8px · radii 8–32px · breakpoints 1023px / 767px
-- Theming via CSS custom properties in `:root`, overridden under `[data-theme="dark"]` (`--white`, `--black`, `--light-grey`, `--dark-grey`, `--status-blue`); value-based naming, so `--white` is dark in dark mode
-- Status green `#41E788` is a hardcoded hex; BEM-style class names
+- Theming via CSS custom properties in `:root`, overridden under `[data-theme="dark"]` (`--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`); value-based naming, so `--white` is dark in dark mode
+- `--border-grey` is decorative; `--border-interactive` is the boundary of interactive controls and needs 3:1 per WCAG 1.4.11
+- There is no `--status-blue`. Status colours are hardcoded hex: green `#41E788` dark / `#0A7A3C` light, blue `#357DFF` dark / `#1E5FD9` light. The light values are set to 4.5:1 on their surface, so don't lighten them
+- BEM-style class names
 - Dark/light theme via `data-theme` on `<html>`, persisted in `localStorage`

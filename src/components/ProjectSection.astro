@@ -1,0 +1,345 @@
+---
+import { Image } from 'astro:assets'
+import type { ProjectSection as ProjectSectionType } from '../data/projects'
+
+interface Props {
+  section: ProjectSectionType
+}
+
+const { section } = Astro.props
+const bodyParagraphs = section.body ? section.body.split('\n\n') : []
+
+/* Container is 1200px max with 24px page padding either side. The compare grid is
+   two equal columns with a 24px gap until it collapses to one column at 1023px. */
+const compareSizes = [
+  '(max-width: 1023px) calc(100vw - 48px)',
+  '(max-width: 1247px) calc((100vw - 72px) / 2)',
+  '588px',
+].join(', ')
+---
+<section class="case">
+  {section.title && <h2 class="case__title">{section.title}</h2>}
+  {bodyParagraphs.map(paragraph => <p class="text-md">{paragraph}</p>)}
+
+  {section.kind === 'prose' && section.list && (
+    <ul class="case__list">
+      {section.list.map(item => <li class="text-md">{item}</li>)}
+    </ul>
+  )}
+
+  {section.kind === 'steps' && section.layout === 'numbered' && (
+    <div class="case__steps">
+      {section.steps.map((step, i) => (
+        <div class="case__steps-item">
+          <span class="case__steps-index">{String(i + 1).padStart(2, '0')}</span>
+          <span class="case__steps-label">{step.label}</span>
+          {step.text && <p class="text-sm case__steps-text">{step.text}</p>}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {section.kind === 'steps' && section.layout === 'chain' && (
+    <div class="case__chain">
+      {section.steps.map((step, i) => (
+        <>
+          <div class={`case__chain-item${step.highlight ? ' case__chain-item--highlight' : ''}`}>
+            <span class="case__chain-label">{step.label}</span>
+            {step.text && <span class="text-sm case__chain-text">{step.text}</span>}
+          </div>
+          {i < section.steps.length - 1 && <span class="case__chain-connector" aria-hidden="true"></span>}
+        </>
+      ))}
+    </div>
+  )}
+
+  {section.kind === 'figure' && (
+    <figure class="case__figure">
+      <div class="case__frame">
+        {/* Full container width (1200px max), so at DPR 2 this slot needs 2400px.
+            `densities` would have capped it at 2x the declared width and shipped a
+            soft, upscaled image; `widths` + `sizes` lets the browser pick by slot. */}
+        <Image
+          src={section.image.src}
+          alt={section.image.alt}
+          widths={[640, 960, 1200, 1800, 2400]}
+          sizes="(max-width: 1247px) calc(100vw - 48px), 1200px"
+          format="webp"
+        />
+      </div>
+      {section.caption && <figcaption class="text-sm case__caption">{section.caption}</figcaption>}
+    </figure>
+  )}
+
+  {section.kind === 'compare' && (
+    <>
+      {/* Half the container on desktop, but full width once the grid collapses at
+          1023px, which is the widest this slot ever gets. Sized by slot rather than
+          by density so the collapsed case stays sharp without oversending on phones. */}
+      <div class="case__compare">
+        <div class="case__compare-side">
+          <span class="tag case__compare-label">{section.before.label}</span>
+          <div class="case__frame">
+            <Image
+              src={section.before.image.src}
+              alt={section.before.image.alt}
+              widths={[640, 960, 1200, 1600, 2000]}
+              sizes={compareSizes}
+              format="webp"
+            />
+          </div>
+        </div>
+        <div class="case__compare-side">
+          <span class="tag case__compare-label">{section.after.label}</span>
+          <div class="case__frame">
+            <Image
+              src={section.after.image.src}
+              alt={section.after.image.alt}
+              widths={[640, 960, 1200, 1600, 2000]}
+              sizes={compareSizes}
+              format="webp"
+            />
+          </div>
+        </div>
+      </div>
+      {section.caption && <p class="text-sm case__caption">{section.caption}</p>}
+    </>
+  )}
+
+  {section.kind === 'metrics' && (
+    <div class="case__metrics">
+      {section.metrics.map(metric => (
+        <div class="case__metrics-item">
+          <span class="case__metrics-value">{metric.value}</span>
+          <span class="text-sm case__metrics-label">{metric.label}</span>
+          {metric.note && <span class="text-sm case__metrics-note">{metric.note}</span>}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {section.kind === 'embed' && (
+    <div class="case__embed">
+      <slot />
+    </div>
+  )}
+</section>
+
+<style>
+  .case__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .case__list > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .case__list > li::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.55em;
+    background-color: var(--dark-grey);
+  }
+
+  /* Numbered steps: the numeral is the structural device, kept small and
+     letterspaced rather than oversized so the label does the talking. */
+  .case__steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+  }
+
+  .case__steps-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .case__steps-index {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--dark-grey);
+  }
+
+  .case__steps-label {
+    font-size: 1.125rem;
+    font-weight: 400;
+  }
+
+  .case__steps-text {
+    color: var(--dark-grey);
+  }
+
+  /* Chain: an ordered left-to-right flow of chips joined by a thin
+     connector. Wraps on narrow viewports; the connector rides along. */
+  .case__chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    row-gap: 16px;
+  }
+
+  .case__chain-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    padding: 8px 16px;
+    border: 1px solid var(--border-grey);
+    border-radius: 12px;
+    background-color: var(--light-grey);
+  }
+
+  .case__chain-label {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .case__chain-text {
+    color: var(--dark-grey);
+  }
+
+  .case__chain-connector {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 1px;
+    background-color: var(--border-grey);
+  }
+
+  /* Highlighted chain steps use the page's hardcoded accent green, not a
+     CSS variable — there is no --status-blue-style token for it. */
+  .case__chain-item--highlight {
+    border-color: rgba(10, 122, 60, 0.35);
+    background-color: rgba(10, 122, 60, 0.08);
+  }
+
+  .case__chain-item--highlight .case__chain-label {
+    color: #0A7A3C;
+  }
+
+  :global([data-theme='dark']) .case__chain-item--highlight {
+    border-color: rgba(65, 231, 136, 0.3);
+    background-color: rgba(65, 231, 136, 0.08);
+  }
+
+  :global([data-theme='dark']) .case__chain-item--highlight .case__chain-label {
+    color: #41E788;
+  }
+
+  /* Frame: matches .project-detail__showcase-item's treatment (16px radius,
+     2px black border, elevation-lg-style shadow, softened border in dark). */
+  .case__figure {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .case__frame {
+    border-radius: 16px;
+    border: 2px solid var(--black);
+    overflow: hidden;
+    box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
+  }
+
+  .case__frame :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  :global([data-theme='dark']) .case__frame {
+    border-color: #3a3a3a;
+  }
+
+  .case__caption {
+    color: var(--dark-grey);
+  }
+
+  .case__compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .case__compare-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .case__compare-label {
+    align-self: flex-start;
+  }
+
+  @media (max-width: 1023px) {
+    .case__compare {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .case__metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .case__metrics-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 24px;
+    border-left: 1px solid var(--border-grey);
+  }
+
+  .case__metrics-item:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .case__metrics-value {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .case__metrics-label {
+    color: var(--dark-grey);
+  }
+
+  .case__metrics-note {
+    display: block;
+    color: var(--dark-grey);
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 767px) {
+    .case__metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .case__metrics-item {
+      padding: 16px 0;
+      border-left: none;
+      border-top: 1px solid var(--border-grey);
+    }
+
+    .case__metrics-item:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+
+  .case__embed {
+    width: 100%;
+  }
+</style>
