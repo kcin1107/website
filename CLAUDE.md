@@ -56,6 +56,28 @@ File-based routing under `src/pages/`. Every page wraps its content in `src/layo
 
 The project is connected to a Figma MCP server (configured in `.vscode/mcp.json`, local HTTP on port 3845). When the user shares a Figma URL or asks about design changes, use the Figma MCP tools to pull design context before editing components or CSS.
 
+## Browser verification (Safari MCP)
+
+A Safari MCP server is available for driving a real browser (screenshots, console, DOM, network). It is **opt-in, not the default**. Starting a dev server and looping through navigate/screenshot cycles costs minutes; most changes here don't need it.
+
+Default: make the change, reason about it from the source, and report. `npm run build` is the standard check — it catches Astro/TypeScript/import errors without a browser.
+
+**Use Safari MCP when:**
+- The user asks to see it, look at it, screenshot it, or check it in the browser
+- The change is visual and its result isn't predictable from the CSS alone — new layout, responsive/breakpoint behaviour, overflow, z-index/stacking, sticky or scroll behaviour
+- Debugging runtime JS: theme toggle, mobile nav overlay, anything with `localStorage` or event handlers
+- Verifying a fix for a bug that was originally reported as "looks wrong in the browser"
+- Contrast/theme checks where the rendered computed colour matters
+
+**Do not use Safari MCP for:**
+- Copy, content, and data edits — `src/content/blog/*.md`, `src/data/projects.ts`, page text, metadata, alt text
+- Single-property or token-swap CSS edits with an obvious rendered result (colour, font-size, spacing, a `--var` swap)
+- Renames, refactors, comment/doc changes, config edits
+- Anything already verified by `npm run build`
+- Re-confirming a change of the same kind you just verified in this session
+
+When in doubt, ask "would a screenshot actually change what I do next?" If no, skip it. One targeted screenshot beats a navigate/inspect/re-screenshot loop — if two passes haven't answered the question, stop and describe what you see instead of iterating.
+
 ## Keeping docs in sync
 
 `README.md` is a structural snapshot of the repo (file tree, routes, data sources, conventions). When a change you make alters that structure — new/removed top-level files or directories, new routes, changed font/asset setup, changed conventions — update `README.md` accordingly, including its "Last updated" date.
