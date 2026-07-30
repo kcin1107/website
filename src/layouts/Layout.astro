@@ -152,10 +152,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
   <script is:inline>
     (function () {
       var nav = document.querySelector('.nav');
-      function updateNav() {
-        nav.classList.toggle('nav--scrolled', window.scrollY > 0);
+      var scrolled = null;
+      var queued = false;
+
+      /* Reading scrollY straight out of the scroll handler forces the browser
+         to flush the style change the previous call just made, which shows up
+         as a forced reflow. Deferring the read into rAF puts it after layout
+         instead, and the null check keeps the class off the DOM entirely while
+         the state is unchanged. */
+      function readNav() {
+        queued = false;
+        var next = window.scrollY > 0;
+        if (next === scrolled) return;
+        scrolled = next;
+        nav.classList.toggle('nav--scrolled', next);
       }
-      updateNav();
+
+      function updateNav() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(readNav);
+      }
+
+      /* The first run stays synchronous: a reload that restores a scroll
+         position would otherwise paint one frame of unscrolled nav. */
+      readNav();
       window.addEventListener('scroll', updateNav, { passive: true });
     })();
   </script>
