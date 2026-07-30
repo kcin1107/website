@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 import Button from '../../components/Button.astro'
 import ProjectSection from '../../components/ProjectSection.astro'
-import ResultMatrix from '../../components/ResultMatrix.astro'
+import ResultLines from '../../components/ResultLines.astro'
 import FramingNudge from '../../components/FramingNudge.astro'
 import ShippingNudge from '../../components/ShippingNudge.astro'
 import { Image } from 'astro:assets'
@@ -18,7 +18,7 @@ export function getStaticPaths() {
 }
 
 const embeds = {
-  'result-matrix': ResultMatrix,
+  'result-lines': ResultLines,
   'framing-nudge': FramingNudge,
   'shipping-nudge': ShippingNudge,
 }
@@ -37,8 +37,12 @@ const hasSections = Boolean(project.sections?.length)
    is set, and pages without sections keep the old fallback untouched. */
 const showDescription = Boolean(project.description) || !hasSections
 const meta = (project.meta ?? []).filter(item => item.value.trim() !== '')
+/* `lead` is the one-paragraph summary a case study opens with, which is what a
+   search result should show. Older entries without one fall back to the tags. */
+const metaDescription = project.lead
+  ?? `${project.title} for ${project.client}. ${project.tags.join(', ')}.`
 ---
-<Layout title={`${project.title} – ${project.client} · Nick Ringelmann`}>
+<Layout title={`${project.title} – ${project.client} · Nick Ringelmann`} description={metaDescription}>
 
   <section class="section">
     <div class="container project-detail">

@@ -8,6 +8,9 @@ interface Props {
 
 const { section } = Astro.props
 const bodyParagraphs = section.body ? section.body.split('\n\n') : []
+/* Opt-in surface panel, same treatment as the contact form: --surface-grey at
+   40px padding on desktop, dropped back to plain flow below 1023px. */
+const isPanel = section.kind === 'embed' && section.panel
 
 /* Container is 1200px max with 24px page padding either side. The compare grid is
    two equal columns with a 24px gap until it collapses to one column at 1023px. */
@@ -17,7 +20,7 @@ const compareSizes = [
   '588px',
 ].join(', ')
 ---
-<section class="case">
+<section class={`case${isPanel ? ' case--panel' : ''}`}>
   {section.title && <h2 class="case__title">{section.title}</h2>}
   {bodyParagraphs.map(paragraph => <p class="text-md">{paragraph}</p>)}
 
@@ -341,5 +344,17 @@ const compareSizes = [
 
   .case__embed {
     width: 100%;
+  }
+
+  .case--panel {
+    background-color: var(--surface-grey);
+    padding: 40px;
+  }
+
+  @media (max-width: 1023px) {
+    .case--panel {
+      background-color: transparent;
+      padding: 0;
+    }
   }
 </style>

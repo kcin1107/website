@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-07-28
+> Last updated: 2026-07-30
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
 
@@ -49,7 +49,7 @@ website/
 │   │   ├── BlogCard.astro
 │   │   ├── ApproachCard.astro
 │   │   ├── ProjectSection.astro  # case-study block dispatcher (see Data sources)
-│   │   ├── ResultMatrix.astro    # bespoke embeds, Boomerang case study only
+│   │   ├── ResultLines.astro     # bespoke embeds, Boomerang case study only
 │   │   ├── FramingNudge.astro
 │   │   ├── ShippingNudge.astro
 │   │   ├── TabGroup.astro

@@ -1,10 +1,18 @@
 ---
 /*
   The framing nudge, rebuilt as markup rather than shipped as a screenshot so
-  it stays sharp at any zoom and follows the site's theme.
+  it stays sharp at any zoom.
 
-  Copy is verbatim from the Figma component (node 171:1280). This is an
+  Copy and layout are verbatim from the Figma component (file
+  1g9jt4XIdgpNuhoyupZ5zI, English cart variant, node 6803:2052). This is an
   illustration: no form controls, nothing focusable.
+
+  Unlike the rest of the site, the panel below is intentionally NOT
+  theme-aware: it's a fixed reproduction of a specific design artifact, so it
+  carries the design's own literal colours in both light and dark mode rather
+  than adapting through --white/--black/--surface-grey. The headline green
+  (#92CB3C on #F8F6F0) is the contrast the design shipped with, reproduced
+  as-is rather than swapped for the site's tuned accent colours.
 */
 import { Image } from 'astro:assets'
 import mehrwegMark from '../assets/images/projects/mehrweg-mark-20260728.png'
@@ -23,34 +31,31 @@ const legend = [
 ]
 ---
 <figure class="nudge framing">
-  <div class="nudge__surface framing__panel">
-    <div class="framing__copy">
+  <div class="framing__panel">
+    <div class="framing__left">
       <p class="framing__headline">
         <span class="nudge__badge" aria-hidden="true">1</span>
-        <svg class="framing__leaf" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-          <path d="M20 4c0 9.5-5 14-11 14a6.9 6.9 0 0 1-3.2-.7c1.6-4.4 4.7-7.2 8.2-8.6-3.9.9-7.3 3.4-9.3 7.7C3.3 14.6 3 12.7 3 11 3 6.6 7.9 4 13 4z" />
-        </svg>
+        <span class="framing__icon">
+          <svg viewBox="0 0 16.1975 22.9688" width="16.1975" height="22.9688" fill="none" aria-hidden="true">
+            <path d="M1.72266 6.13991C-1.1884 11.0845 1.1951 15.0451 1.99745 16.1462C1.02061 17.9423 0.269433 19.92 0.00693022 21.996C-0.0529388 22.4693 0.281714 22.9017 0.754525 22.9606C0.791368 22.9657 0.82821 22.9688 0.864541 22.9688C1.29283 22.9677 1.66433 22.6495 1.71959 22.213C2.58846 15.3536 9.69854 9.36261 10.7429 8.51626C11.0167 8.45639 11.5274 8.4308 11.7812 8.964C11.9848 9.39076 11.8513 9.69112 11.7981 9.78323C7.4399 13.9121 5.54865 16.7572 6.32899 18.0134C6.4912 18.2744 6.79311 18.4223 7.08887 18.4202C10.2548 18.3205 12.6459 17.1875 14.1964 15.0522C17.897 9.95721 15.3528 1.0009 15.2428 0.622239C15.1579 0.330058 14.9251 0.103886 14.6303 0.0276427C14.3366 -0.0486008 14.0234 0.0353175 13.807 0.249209C12.275 1.76487 10.4011 2.09031 8.41622 2.43469C5.94522 2.86247 3.38927 3.30611 1.72266 6.13991Z" fill="#92CB3C" />
+          </svg>
+        </span>
         Up to 80 % less CO2 emissions than disposable packaging
       </p>
-      <p class="text-sm framing__body">
+      <p class="framing__body">
         Choose our eco-friendly reusable shipping and help us save the environment by shipping your
-        order with <strong>Boomerang's</strong> reusable packaging. Good for the environment, good
-        for your paper bin. <span class="framing__link">More info</span>
+        order with Boomerang's reusable packaging. Good for the environment, good for your paper
+        bin. More info
       </p>
     </div>
 
-    <div class="framing__aside">
-      <div class="framing__mark">
-        <span class="nudge__badge framing__mark-badge" aria-hidden="true">2</span>
-        <Image src={mehrwegMark} alt="The German Mehrweg mark for reusable packaging" width={56} densities={[1, 2]} />
-      </div>
-
+    <div class="framing__right">
       <ul class="framing__checks">
         {checks.map((check, i) => (
-          <li class="text-sm framing__check">
+          <li class="framing__check">
             {i === 0 && <span class="nudge__badge framing__check-badge" aria-hidden="true">3</span>}
-            <svg class="framing__tick" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path d="M4 12.5 9.5 18 20 6" />
+            <svg class="framing__tick" viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true">
+              <path d="M7.1625 13.5L2.8875 9.225L3.95625 8.15625L7.1625 11.3625L14.0437 4.48125L15.1125 5.55L7.1625 13.5Z" fill="#92CB3C" />
             </svg>
             {check}
           </li>
@@ -61,6 +66,11 @@ const legend = [
         <span class="nudge__badge framing__button-badge" aria-hidden="true">4</span>
         Use reusable packaging
       </p>
+
+      <div class="framing__mark">
+        <span class="nudge__badge framing__mark-badge" aria-hidden="true">2</span>
+        <Image src={mehrwegMark} alt="The German Mehrweg mark for reusable packaging" width={47} densities={[1, 2]} />
+      </div>
     </div>
   </div>
 
@@ -77,77 +87,67 @@ const legend = [
 </figure>
 
 <style>
+  /* Fixed reproduction of the Figma panel: literal hex values, no theme
+     tokens, no border/radius from .nudge__surface (this component doesn't
+     use that shared class, since none of its styling applies here). */
   .framing__panel {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 32px;
-    align-items: start;
+    width: 100%;
+    padding: 24px 72px;
+    background-color: #F8F6F0;
   }
 
-  .framing__copy {
+  .framing__left {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    min-width: 0;
+    gap: 8px;
+    max-width: 522px;
   }
 
   .framing__headline {
     display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--accent);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.32px;
+    line-height: 1.5;
+    color: #92CB3C;
   }
 
-  .framing__leaf {
-    align-self: center;
+  .framing__icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
   }
 
   .framing__body {
-    color: var(--black);
+    font-size: 14px;
+    letter-spacing: 0.28px;
+    line-height: 1.4;
+    color: #121212;
   }
 
-  .framing__link {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .framing__aside {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px;
-    align-items: center;
-    min-width: 0;
-  }
-
-  .framing__mark {
+  .framing__right {
     position: relative;
-    grid-row: span 2;
-    line-height: 0;
-  }
-
-  .framing__mark :global(img) {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: block;
-  }
-
-  .framing__mark-badge {
-    position: absolute;
-    top: -6px;
-    left: -6px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 357px;
   }
 
   .framing__checks {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    min-width: 0;
+    gap: 4px;
+    width: 100%;
   }
 
   .framing__check {
@@ -155,7 +155,10 @@ const legend = [
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--black);
+    font-size: 14px;
+    letter-spacing: 0.28px;
+    line-height: 1;
+    color: #121212;
   }
 
   .framing__check-badge {
@@ -165,56 +168,89 @@ const legend = [
 
   .framing__tick {
     flex: 0 0 auto;
-    color: var(--accent);
   }
 
-  /* Styled as a button, deliberately not one. The whole component is a
-     picture of an interface, so nothing here takes focus. */
+  /* Styled to look like a button, deliberately not one. The whole component
+     is a picture of an interface, so nothing here takes focus. */
   .framing__button {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    background-color: var(--accent);
-    color: var(--accent-on);
-    font-size: 0.875rem;
-    font-weight: 500;
+    width: 100%;
+    padding: 16px;
+    background-color: #AACC77;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.64px;
     text-align: center;
   }
 
-  .framing__button .nudge__badge {
+  .framing__button-badge {
     position: absolute;
     top: -9px;
     left: -9px;
   }
 
+  .framing__mark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 47px;
+    height: 47px;
+    line-height: 0;
+  }
+
+  .framing__mark :global(img) {
+    display: block;
+    width: 47px;
+    height: 47px;
+  }
+
+  .framing__mark-badge {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+  }
+
+  /* The panel is fixed-palette, so its badges stay dark-on-light in both
+     themes rather than following the shared --black/--white swap. */
+  .framing__panel .nudge__badge {
+    background-color: #121212;
+    color: #FFFFFF;
+  }
+
   @media (max-width: 1023px) {
     .framing__panel {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      align-items: flex-start;
       gap: 24px;
+      padding: 24px;
     }
   }
 
   @media (max-width: 767px) {
-    .framing__aside {
-      grid-template-columns: 1fr;
-      justify-items: start;
-      gap: 16px;
+    .framing__panel {
+      padding: 16px;
     }
 
+    .framing__right {
+      width: 100%;
+    }
+
+    /* In flow rather than pinned, so it can't land on top of the checks in
+       the narrow column. Stays position: relative so its badge still anchors
+       to the mark instead of to the column. */
     .framing__mark {
-      grid-row: auto;
+      position: relative;
+      top: auto;
+      right: auto;
+      align-self: flex-end;
     }
 
+    /* Inline, because the negative offset would hang off the panel edge at
+       this padding. */
     .framing__check-badge {
       position: static;
-    }
-
-    .framing__button {
-      width: 100%;
+      order: -1;
     }
   }
 </style>

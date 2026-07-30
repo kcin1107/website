@@ -13,6 +13,7 @@ import boomerangNudgingCard from '../assets/images/project-card-boomerang-nudgin
 import boomerangNudgingCartControl from '../assets/images/projects/boomerang-nudging-cart-control-20260728.png'
 import boomerangNudgingShippingControl from '../assets/images/projects/boomerang-nudging-shipping-control-20260728.png'
 import boomerangNudgingShippingRedesign from '../assets/images/projects/boomerang-nudging-shipping-redesign-20260728.png'
+import boomerangNudgingCartRedesign from '../assets/images/projects/boomerang-nudging-cart-redesign-20260730.png'
 
 import loeffelholzCareCard from '../assets/images/project-card-loeffelholz-care-20260605.png'
 import loeffelholzCareMobile from '../assets/images/projects/loeffelholz-care-mobile-20260721.jpg'
@@ -63,8 +64,8 @@ export type ProjectSection =
       after:  { image: ProjectImage; label: string } }
   | { kind: 'metrics'; title?: string; body?: string;
       metrics: { value: string; label: string; note?: string }[] }
-  | { kind: 'embed';   name: 'result-matrix' | 'framing-nudge' | 'shipping-nudge';
-      title?: string; body?: string; caption?: string }
+  | { kind: 'embed';   name: 'result-lines' | 'framing-nudge' | 'shipping-nudge';
+      title?: string; body?: string; caption?: string; panel?: boolean }
 
 export const categories: Category[] = [
   {
@@ -131,7 +132,7 @@ export const projects: Project[] = [
     category: 'business',
     lead: 'Reusable shipping packaging exists in German e-commerce. Almost nobody selects it. I rebuilt the checkout around two behavioral nudges and tested it against the current integration.',
     meta: [
-      { label: 'Role', value: 'Research, UX and UI design, test design' },
+      { label: 'Role', value: 'End-to-End design and research process' },
       { label: 'Timeframe', value: '12 weeks' },
       { label: 'Year', value: '2023' },
       { label: 'Tools', value: 'Figma, Maze, jamovi, G*Power' },
@@ -139,8 +140,10 @@ export const projects: Project[] = [
     sections: [
       {
         kind: 'embed',
-        name: 'result-matrix',
-        body: '54 participants, split evenly and at random across two prototypes. Six of the 27 people who saw the current integration ordered with reusable packaging. Fifteen of the 27 who saw the redesign did.',
+        name: 'result-lines',
+        panel: true,
+        title: 'TL;DR',
+        body: 'Boomerang Systems sells reusable shipping packaging, and their widget for it already ran in live Shopify shops. In 2023 I audited that integration, then rebuilt the cart and the shipping step around a framing nudge and a social reference nudge. I tested both versions in Maze with 54 participants, split evenly and at random. The redesign more than doubled the share who ordered with reusable packaging.',
       },
       {
         kind: 'prose',
@@ -161,7 +164,7 @@ export const projects: Project[] = [
       {
         kind: 'prose',
         title: 'What the audit found',
-        body: 'Boomerang was my thesis partner, and their widget for adding reusable packaging to a Shopify cart had already shipped. That widget was the starting point, so the first thing I did was audit it.\n\nI looked at four Shopify shops running two reusable systems, RePack at Hopaal and Skhoop, Boomerang at Dirts and Kaala Yoga, and scored each against Nielsen\'s heuristics plus e-commerce criteria from Bonastre and Granollers and the Baymard Institute. The same four problems showed up in all of them, my partner\'s included.',
+        body: 'Boomerang was the project partner, and their widget for adding reusable packaging to a Shopify cart had already shipped. That widget was the starting point, so the first thing I did was audit it.\n\nI looked at four Shopify shops running two reusable systems, RePack at Hopaal and Skhoop, Boomerang at Dirts and Kaala Yoga, and scored each against Nielsen\'s heuristics plus e-commerce criteria from Bonastre and Granollers and the Baymard Institute. The same four problems showed up in all of them, my partner\'s included.',
         list: [
           'The reusable option sits in the cart as a normal line item, so people can order three of them by accident',
           'Once past the cart, nobody can edit or remove it',
@@ -192,6 +195,14 @@ export const projects: Project[] = [
         name: 'framing-nudge',
         title: 'The cart nudge answers "why would I"',
         body: 'Framing translates the benefit into a number, then explains the deposit mechanic in three lines. Green type, the licensed Mehrweg mark, one prominent button. This one is pure persuasion. It does not change how the cart works.',
+      },
+      {
+        kind: 'figure',
+        image: {
+          src: boomerangNudgingCartRedesign,
+          alt: 'Redesigned cart on the demo shop tripsicher, headed Cart with a Continue shopping link, listing two line items, EcoVenture - 20L Rucksack from tripsicher at 99,99 euros and Deposit Reusable Packaging from Boomerang at 3,00 euros, both quantity 1. Below the line items sits the framing nudge on a cream panel: a green leaf icon and the bold green headline "Up to 80 percent less CO2 emissions than disposable packaging," a paragraph of body copy, and on the right three green check lines, Deposit 3 euros, Fold and drop in the letterbox, Deposit is automatically returned, the blue and white Mehrweg mark, and a pale green Use reusable packaging button. Underneath, a Sub-Total of 102,99 euros, the note incl. VAT plus shipping costs, and a black Checkout button',
+        },
+        caption: 'The redesigned cart, with the framing nudge dropped between the line items and the subtotal, so the explanation shows up right as the deposit turns into a line on the bill.',
       },
       {
         kind: 'embed',

@@ -1,0 +1,72 @@
+---
+/*
+  The finding, stated rather than charted. Two arms of 27 side by side in the
+  same label-over-value pattern as the project meta row at the top of the page,
+  so the result reads as a fact about the project, not as a chart. Keeping the
+  denominator in the line keeps the small sample honest.
+
+  Numbers are hardcoded because this component is wired through the `embed`
+  registry in [slug].astro, which passes no props.
+*/
+const ARM_SIZE = 27
+
+const arms = [
+  { label: 'Current integration', chose: 6, accent: false },
+  { label: 'Redesign', chose: 15, accent: true },
+]
+---
+<dl class="result">
+  {arms.map(arm => (
+    <div class="result__item">
+      <dt class="text-sm result__label">{arm.label}</dt>
+      <dd class="result__value">
+        <span class={`result__count${arm.accent ? ' result__count--accent' : ''}`}>{arm.chose}</span>
+        {' '}of {ARM_SIZE} ordered with reusable packaging
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .result {
+    --accent: #0A7A3C;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+  }
+
+  :global([data-theme='dark']) .result {
+    --accent: #41E788;
+  }
+
+  .result__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .result__label {
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .result__value {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--black);
+  }
+
+  .result__count {
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .result__count--accent {
+    color: var(--accent);
+  }
+</style>
