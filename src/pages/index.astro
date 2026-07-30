@@ -68,8 +68,48 @@ const designSystems = [
     <div class="container hero-container">
       <div class="hero">
         <div class="hero__images">
-          <Image class="hero__image-1 elevation-md" src={hero1} alt="Nick Ringelmann" width={525} height={525} format="webp" densities={[1, 2]} loading="eager" />
-          <Image class="hero__image-2 elevation-md" src={hero2} alt="Nick working" width={617} height={411} format="webp" densities={[1, 2]} loading="eager" />
+          {/*
+            These were on densities={[1, 2]}, which produced a useless srcset: the
+            sources are only 525px and 617px wide, so Astro capped the 2x entry at
+            the source size and both candidates ended up being the same file. Every
+            device downloaded the full-size image regardless of how small it renders.
+
+            The layout never shows them large. .hero__image-1 is 78% of a grid
+            column that maxes out at 360px, so 281px on desktop; below 1024px it is
+            min(56vw, 360px), and 56vw reaches 360px at a 643px viewport — hence the
+            642px breakpoint in sizes. .hero__image-2 is 68% of the same column,
+            so 245px. The widths cover 1x through 2x of those sizes, up to the
+            source width.
+
+            .hero__image-2 is display:none below 1024px but would still be
+            downloaded, so it is loading="lazy": browsers skip lazy images that
+            have no layout box, which drops it from phones entirely. On desktop it
+            sits in the viewport, where a lazy image is fetched right away — just
+            at a lower priority than the eager portrait beside it.
+          */}
+          <Image
+            class="hero__image-1 elevation-md"
+            src={hero1}
+            alt="Nick Ringelmann"
+            width={525}
+            height={525}
+            format="webp"
+            widths={[224, 281, 360, 448, 525]}
+            sizes="(max-width: 642px) 56vw, (max-width: 1023px) 360px, 281px"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <Image
+            class="hero__image-2 elevation-md"
+            src={hero2}
+            alt="Nick working"
+            width={617}
+            height={411}
+            format="webp"
+            widths={[245, 368, 490, 617]}
+            sizes="245px"
+            loading="lazy"
+          />
           <div class="status-row status-row--mobile">
             <div class="status">
               <div class="status__dot"></div>
