@@ -33,12 +33,12 @@ File-based routing under `src/pages/`. Every page wraps its content in `src/layo
 
 **Components** (`src/components/`): `Button`, `ProjectCard`, `BlogCard`, `ApproachCard`, `TabGroup` + `TabItem`.
 
-**Styling:** one unified stylesheet at `src/styles/global.css` (~1060 lines), imported once in `Layout.astro`. Page-specific tweaks live in scoped `<style>` blocks inside the relevant `.astro` file.
+**Styling:** `src/styles/global.css` (~1350 lines) is imported once in `Layout.astro` and therefore ships with every page. Route-specific rules live in their own stylesheet imported by the page that needs them — `legal.css` for `/imprint` + `/privacy`, `project-detail.css` for `/projects/[slug]` — so they stay off the pages that don't. Smaller tweaks still belong in a scoped `<style>` block inside the relevant `.astro` file. Adding route-specific rules to `global.css` puts them on every page; don't.
 
 **Asset layout** (`public/assets/`, served as-is from the site root):
 - `images/` — hero images, project card previews, client logos (SVG/PNG/JPG)
 - `icons/` — favicon variants, back arrow
-- `fonts/` — self-hosted variable fonts: Roboto (body/UI) and Inter (logo)
+- `fonts/` — self-hosted variable woff2 **subsets**: Roboto (body/UI) and Inter (logo). Built by `scripts/build-fonts.sh` from the upstream TTFs in `fonts-src/`, which are never deployed. The Inter subset only contains the glyphs of the nav logo string, so changing that string means rerunning the script.
 
 **Theme:** dark/light via a `data-theme` attribute on `<html>`, persisted in `localStorage`. An inline script in `Layout.astro` sets it before paint to avoid flashing. The actual color swap happens through the CSS custom properties (see CSS Conventions).
 

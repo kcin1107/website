@@ -3,7 +3,7 @@
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
 > Last updated: 2026-07-30
 
-**Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (variable fonts).
+**Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (subsetted variable woff2).
 
 ```
 website/
@@ -14,13 +14,18 @@ website/
 ├── AGENTS.md                 # guidance for other AI coding agents (e.g. OpenAI Codex)
 ├── README.md                 # this file
 │
+├── fonts-src/                # upstream variable TTFs — build input only, never deployed
+├── scripts/
+│   └── build-fonts.sh        # regenerates the woff2 subsets in public/assets/fonts/
+│
 ├── public/
+│   ├── .htaccess             # HTTPS redirect, gzip, cache headers
 │   ├── api/
 │   │   ├── contact.php       # self-hosted contact form endpoint (PHP + PHPMailer, SMTP)
 │   │   ├── config.example.php # template — copy to config.php on the server, not in git
 │   │   └── PHPMailer/        # vendored PHPMailer source (no Composer on shared hosting)
 │   └── assets/
-│       ├── fonts/            # Roboto & Inter variable fonts (.ttf)
+│       ├── fonts/            # Roboto & Inter variable woff2 subsets (51 KB total)
 │       ├── icons/            # favicons, backArrow.svg
 │       └── images/           # hero, client logos (served as-is, unoptimized)
 │
@@ -65,7 +70,9 @@ website/
 │   ├── data/
 │   │   └── projects.ts       # projects[] + categories[] (business|web|side)
 │   └── styles/
-│       └── global.css        # single global stylesheet (~1690 lines)
+│       ├── global.css        # site-wide stylesheet, loaded on every page (~1350 lines)
+│       ├── legal.css         # /imprint + /privacy only
+│       └── project-detail.css # /projects/[slug] only — detail layout, case study, nudges
 │
 └── dist/                     # build output (gitignored)
 ```
@@ -96,3 +103,5 @@ website/
 - There is no `--status-blue`. Status colours are hardcoded hex: green `#41E788` dark / `#0A7A3C` light, blue `#357DFF` dark / `#1E5FD9` light. The light values are set to 4.5:1 on their surface, so don't lighten them
 - BEM-style class names
 - Dark/light theme via `data-theme` on `<html>`, persisted in `localStorage`
+- `global.css` is on every page, so route-specific rules belong in their own stylesheet imported by that page (`legal.css`, `project-detail.css`) rather than in the global one
+- Fonts are subsets built by `scripts/build-fonts.sh` from `fonts-src/`. The Inter subset contains only the glyphs of the nav logo string, so changing that string means rerunning the script

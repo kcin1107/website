@@ -2,20 +2,25 @@
    Fonts
    ========================================================================== */
 
+/* Both files are woff2 subsets of the upstream variable TTFs, cut down from
+   1.36 MB to 51 KB. See scripts/build-fonts.sh — rerun it after replacing an
+   upstream font, and note that the Inter subset only contains the glyphs for
+   the logo string, so changing that string means regenerating the font. */
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 100 700;
   font-display: swap;
-  src: url('/assets/fonts/Roboto-Variable.ttf') format('truetype-variations');
+  src: url('/assets/fonts/Roboto-Variable.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('/assets/fonts/Inter-Variable.ttf') format('truetype-variations');
+  src: url('/assets/fonts/Inter-Variable.woff2') format('woff2');
 }
 
 /* ==========================================================================
@@ -922,6 +927,9 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 
 .clients-grid img {
   width: 128px;
+  /* Keeps the 128×48 aspect ratio from the width/height attributes, which
+     reserve the space before load and stop the logos shifting layout (CLS). */
+  height: auto;
   filter: grayscale(1);
   transition: filter 0.2s ease-out;
 }
@@ -1078,25 +1086,6 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 /* ==========================================================================
-   Legal Pages (Imprint & Privacy)
-   ========================================================================== */
-
-.legal p,
-.legal .text-block {
-  font-size: 14px;
-  line-height: 140%;
-  margin-bottom: 8px;
-}
-
-.legal a {
-  text-decoration: underline;
-}
-
-.legal .text-block b {
-  display: inline;
-}
-
-/* ==========================================================================
    Project Cards – linked variant
    ========================================================================== */
 
@@ -1104,302 +1093,6 @@ a.project-card {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-}
-
-/* ==========================================================================
-   Project Detail Page
-   ========================================================================== */
-
-.project-detail {
-  gap: 48px;
-}
-
-.project-detail__header {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.project-detail__titles {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.project-detail__title {
-  font-size: 2.25rem;
-  font-weight: 400;
-  line-height: 100%;
-}
-
-.project-detail__client {
-  font-size: 1.125rem;
-  font-weight: 300;
-  color: var(--dark-grey);
-  line-height: 100%;
-}
-
-.project-detail__tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.project-detail__description {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.project-detail__meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 24px;
-  width: 100%;
-}
-
-.project-detail__meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.project-detail__meta-label {
-  color: var(--dark-grey);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.project-detail__meta-value {
-  color: var(--black);
-}
-
-.project-detail__images {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-}
-
-.project-detail__image-wrapper {
-  width: 100%;
-  background-color: #F7F7F7;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 64px 48px;
-}
-
-[data-theme='dark'] .project-detail__image-wrapper {
-  background-color: var(--surface-grey);
-}
-
-.project-detail__image {
-  width: 100%;
-  max-width: 720px;
-  height: auto;
-  border-radius: 8px;
-  border: 4px solid var(--black);
-  box-shadow: 0px 24px 48px 0px rgba(0, 0, 0, 0.18);
-}
-
-/* Showcase: a tall mobile screenshot beside a grid of desktop screenshots.
-   The mobile shot spans all 3 rows, so its height is set by the grid itself
-   rather than a hand-measured aspect ratio. */
-.project-detail__showcase {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 24px;
-  width: 100%;
-}
-
-.project-detail__showcase-mobile,
-.project-detail__showcase-item {
-  border-radius: 16px;
-  border: 2px solid var(--black);
-  overflow: hidden;
-  box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14);
-  min-width: 0;
-  min-height: 0;
-}
-
-.project-detail__showcase-mobile {
-  grid-row: 1 / span 3;
-  position: relative;
-}
-
-.project-detail__showcase-mobile img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  display: block;
-}
-
-.project-detail__mobile-lead {
-  display: none;
-  width: 100%;
-}
-
-.project-detail__showcase-item img {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-
-/* Dark mode: soften image frames. In light mode these are an intentional
-   high-contrast frame (black on projects, light-grey mat on the hero), but
-   they invert to a harsh near-white on dark. Recolor to a subtle grey so the
-   screenshots read as framed, not glaringly outlined. */
-[data-theme='dark'] .hero__image-1,
-[data-theme='dark'] .hero__image-2,
-[data-theme='dark'] .project-card__image,
-[data-theme='dark'] .project-detail__image,
-[data-theme='dark'] .project-detail__showcase-mobile,
-[data-theme='dark'] .project-detail__showcase-item {
-  border-color: #3a3a3a;
-}
-
-@media (max-width: 767px) {
-  .project-detail__header {
-    grid-template-columns: 1fr;
-  }
-
-  .project-detail__tags {
-    justify-content: flex-start;
-  }
-
-  .project-detail__title {
-    font-size: 1.5rem;
-  }
-
-  .project-detail__image-wrapper {
-    padding: 32px 24px;
-  }
-
-  .project-detail__meta {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ==========================================================================
-   Project Case Study
-   ========================================================================== */
-
-.project-detail__sections {
-  display: flex;
-  flex-direction: column;
-  gap: 64px;
-  width: 100%;
-}
-
-.case {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-}
-
-.case__title {
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-@media (max-width: 767px) {
-  .project-detail__sections {
-    gap: 48px;
-  }
-
-  .case__title {
-    font-size: 1.25rem;
-  }
-}
-
-/* ==========================================================================
-   Nudge Illustrations
-
-   Shared primitives for the two rebuilt checkout components (FramingNudge,
-   ShippingNudge). They are illustrations, not working controls: nothing
-   inside them is focusable and there are no form elements. Each numbered
-   badge in the component maps to an entry in the legend underneath, naming
-   the behavioural lever that element pulls.
-
-   The accent green has no custom property of its own. Values are the
-   documented status colours: #0A7A3C light (tuned to 4.5:1, do not lighten)
-   and #41E788 dark.
-   ========================================================================== */
-
-.nudge {
-  --accent: #0A7A3C;
-  --accent-on: #ffffff;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin: 0;
-  width: 100%;
-}
-
-[data-theme='dark'] .nudge {
-  --accent: #41E788;
-  --accent-on: #000000;
-}
-
-.nudge__surface {
-  padding: 24px;
-  border: 1px solid var(--border-grey);
-  border-radius: 12px;
-  background-color: var(--surface-grey);
-}
-
-.nudge__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: var(--black);
-  color: var(--white);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.nudge__legend {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px 24px;
-  margin: 0;
-}
-
-.nudge__legend-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.nudge__legend-text {
-  color: var(--dark-grey);
-}
-
-.nudge__legend-lever {
-  color: var(--black);
-}
-
-@media (max-width: 767px) {
-  .nudge__surface {
-    padding: 16px;
-  }
 }
 
 /* ==========================================================================
@@ -1519,32 +1212,6 @@ a.project-card {
   .subtitle {
     font-size: 1.1rem;
   }
-
-  .project-detail {
-    gap: 24px;
-  }
-
-  .project-detail__back {
-    padding-left: 0 !important;
-    gap: 4px !important;
-  }
-
-  .project-detail__showcase {
-    grid-template-columns: 1fr;
-  }
-
-  .project-detail__showcase-mobile {
-    display: none;
-  }
-
-  /* First desktop shot moves up between back link and header; hide the grid copy */
-  .project-detail__mobile-lead {
-    display: block;
-  }
-
-  .project-detail__showcase-item--lead {
-    display: none;
-  }
 }
 
 @media (max-width: 767px) {
@@ -1552,16 +1219,6 @@ a.project-card {
   .container {
     margin-top: 48px;
     margin-bottom: 48px;
-  }
-
-  /* Shorten back-link label to just "Back" on mobile */
-  .project-detail__back .btn__label {
-    font-size: 0;
-  }
-
-  .project-detail__back .btn__label::after {
-    content: 'Back';
-    font-size: 14px;
   }
 
   .nav__links {

@@ -32,6 +32,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
   <link rel="icon" href="/assets/icons/favicon-150.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-300.png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/icons/favicon-300.png">
+  <!-- Both fonts are on every page above the fold. Without a preload the browser
+       only discovers them after the stylesheet parses, which delays first paint
+       of the nav and hero by a round trip. -->
+  <link rel="preload" href="/assets/fonts/Roboto-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="5543b25a-c01b-4682-b581-189a29d5bf87"></script>
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',

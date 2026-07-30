@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Legal Pages (Imprint & Privacy)
+
+   Imported by /imprint and /privacy only. These selectors never appear on any
+   other route, so keeping them out of global.css keeps them off every page.
+   ========================================================================== */
+
+
+.legal p,
+.legal .text-block {
+  font-size: 14px;
+  line-height: 140%;
+  margin-bottom: 8px;
+}
+
+.legal a {
+  text-decoration: underline;
+}
+
+.legal .text-block b {
+  display: inline;
+}

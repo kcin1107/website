@@ -1,9 +1,23 @@
 {
-  "inputs": [],
+  "inputs": [
+    {
+      "id": "ionos-pat",
+      "type": "promptString",
+      "description": "IONOS Personal Access Token",
+      "password": true
+    }
+  ],
   "servers": {
     "figma": {
       "url": "https://mcp.figma.com/mcp",
       "type": "http"
+    },
+    "ionos": {
+      "type": "http",
+      "url": "https://mcp.ionos.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:ionos-pat}"
+      }
     }
   }
 }
