@@ -34,3 +34,16 @@ jobs:
           local_path: ./dist/*
           remote_path: / # absoluter Webroot bei IONOS
           sftp_only: true # SFTP über SSH (Port 22), kein FTP
+
+      # Der Glob oben matcht keine Dateien mit führendem Punkt, deshalb geht
+      # die .htaccess separat mit explizitem Pfad hoch.
+      - name: Deploy .htaccess
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          port: 22
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local_path: ./dist/.htaccess
+          remote_path: /
+          sftp_only: true

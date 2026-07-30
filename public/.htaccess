@@ -1,0 +1,15 @@
+# Force HTTPS with a 301, so every page has exactly one canonical URL.
+#
+# IONOS terminates TLS in front of Apache, which makes %{HTTPS} unreliable on
+# their webspace. Their own documentation tests the port instead, so that is
+# what this uses.
+RewriteEngine On
+
+RewriteCond %{SERVER_PORT} !=443
+RewriteRule ^(.*)$ https://nickringelmann.com/$1 [R=301,L]
+
+# Only fires if the www subdomain ever points at this webspace. Today it is a
+# domain forwarding configured in the IONOS panel, so it never reaches Apache
+# and has to be fixed there instead.
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://nickringelmann.com/$1 [R=301,L]
