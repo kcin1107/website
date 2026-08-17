@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-07-30
+> Last updated: 2026-08-17
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (subsetted variable woff2).
 
@@ -40,6 +40,8 @@ website/
 │   │   ├── index.astro       # home: Hero, Projects, Approach, Blog, Clients
 │   │   ├── imprint.astro     # /imprint
 │   │   ├── privacy.astro     # /privacy
+│   │   ├── scorer/
+│   │   │   └── privacy.astro # /scorer/privacy (unlisted, noindex app policy)
 │   │   ├── contact.astro     # /contact
 │   │   ├── projects/
 │   │   │   ├── index.astro   # /projects
@@ -85,7 +87,8 @@ website/
 | `/projects/<slug>` | `pages/projects/[slug].astro` | One per project with a `slug` |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
-| `/imprint`, `/privacy` | `pages/*.astro` | Legal pages |
+| `/imprint`, `/privacy` | `pages/*.astro` | Website legal pages |
+| `/scorer/privacy` | `pages/scorer/privacy.astro` | Unlisted bilingual Scorer app policy; excluded from indexing and sitemap |
 | `/contact` | `pages/contact.astro` | Contact form, submits via `fetch` to `public/api/contact.php` (self-hosted, sends over SMTP through the IONOS mailbox) |
 
 ## Data sources

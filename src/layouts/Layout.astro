@@ -6,9 +6,10 @@ import linkedinIcon from '../assets/images/linkedin-icon.svg'
 interface Props {
   title: string
   description: string
+  robots?: string
 }
 
-const { title, description } = Astro.props
+const { title, description, robots } = Astro.props
 
 /* Self-referencing canonical on every page. The site is reachable over more
    than one host and scheme, so each page states which URL it wants indexed. */
@@ -22,6 +23,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
   <meta name="color-scheme" content="light dark">
   <title>{title}</title>
   <meta name="description" content={description}>
+  {robots && <meta name="robots" content={robots}>}
   <link rel="canonical" href={canonical}>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Nick Ringelmann">

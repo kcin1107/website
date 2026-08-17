@@ -1,8 +1,9 @@
 /* ==========================================================================
    Legal Pages (Imprint & Privacy)
 
-   Imported by /imprint and /privacy only. These selectors never appear on any
-   other route, so keeping them out of global.css keeps them off every page.
+   Imported by /imprint, /privacy, and /scorer/privacy only. These selectors
+   never appear on other routes, so keeping them out of global.css keeps them
+   off every other page.
    ========================================================================== */
 
 
