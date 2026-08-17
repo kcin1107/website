@@ -12,9 +12,8 @@ import '../../styles/legal.css'
   <section class="section">
     <div class="container legal scorer-privacy-container">
       <div class="legal-heading">
-        <div>
-          <p class="legal-eyebrow">Scorer</p>
-          <h1 id="scorer-privacy-title">Privacy Policy</h1>
+        <div class="legal-title">
+          <h1 id="scorer-privacy-title">Scorer Privacy Policy</h1>
           <p class="legal-updated">Last updated: August 17, 2026</p>
         </div>
 
@@ -192,7 +191,10 @@ import '../../styles/legal.css'
     const title = document.getElementById('scorer-privacy-title')
     const updated = document.querySelector<HTMLElement>('.legal-updated')
 
-    const titles: Record<string, string> = { en: 'Privacy Policy', de: 'Datenschutzerklärung' }
+    const titles: Record<string, string> = {
+      en: 'Scorer Privacy Policy',
+      de: 'Scorer Datenschutzerklärung',
+    }
     const updateLabels: Record<string, string> = {
       en: 'Last updated: August 17, 2026',
       de: 'Stand: 17. August 2026',
@@ -237,23 +239,21 @@ import '../../styles/legal.css'
     margin-bottom: 0;
   }
 
-  .legal-eyebrow {
-    color: var(--dark-grey);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .legal-title {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .legal-updated {
     color: var(--dark-grey);
-    margin-top: 8px;
   }
 
   .legal-sections {
     display: flex;
     flex-direction: column;
     gap: 48px;
-    max-width: 800px;
+    width: 100%;
   }
 
   .legal-section,
@@ -287,19 +287,23 @@ import '../../styles/legal.css'
   }
 
   .legal-body ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     margin: 0;
     padding-left: 20px;
+    list-style: disc;
   }
 
   .legal-body li {
     font-size: 14px;
     line-height: 140%;
-    margin-bottom: 4px;
   }
 
   @media (max-width: 767px) {
     .legal-heading {
       flex-direction: column;
+      gap: 24px;
     }
   }
 </style>
