@@ -576,8 +576,8 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: 'Download v1.0',
-        href: 'https://github.com/seafyre/Cleankey/releases/tag/v1.0',
+        label: 'Download v1.1',
+        href: 'https://github.com/seafyre/Cleankey/releases/tag/v1.1',
         variant: 'primary',
         external: true,
       },
@@ -636,12 +636,12 @@ export const projects: Project[] = [
       {
         kind: 'prose',
         title: 'Blocking at the right level',
-        body: 'A regular SwiftUI keyboard handler only sees input inside its own window. Cleankey installs a CGEvent tap at the HID level instead and discards keyboard events before the active app receives them, which covers ordinary typing along with command shortcuts, function keys, volume and playback controls. Mouse and trackpad events pass through on purpose. An app that can block every key can also lock you out of its own off switch.\n\nmacOS may disable an event tap after a timeout or a burst of input, so Cleankey watches for that and turns it back on. Nothing sits between the menu-bar switch and the system APIs. The universal v1.0 download is 218 KB of native Swift and SwiftUI, with no third-party packages in it.\n\nThose privileges do not fit the Mac App Store sandbox, so Cleankey ships as a free GitHub release, signed with a Developer ID certificate and notarized by Apple, for Macs on macOS 14 or later. The source is public, which is the point for a utility that asks to watch your keyboard. Update checks look at the same releases page and never install anything on their own.',
+        body: 'A regular SwiftUI keyboard handler only sees input inside its own window. Cleankey installs a CGEvent tap at the HID level instead and discards keyboard events before the active app receives them, which covers ordinary typing along with command shortcuts, function keys, volume and playback controls. Mouse and trackpad events pass through on purpose. An app that can block every key can also lock you out of its own off switch.\n\nmacOS may disable an event tap after a timeout or a burst of input, so Cleankey watches for that and turns it back on. Nothing sits between the menu-bar switch and the system APIs. The universal v1.1 download is 225 KB of native Swift and SwiftUI, with no third-party packages in it.\n\nThose privileges do not fit the Mac App Store sandbox, so Cleankey ships as a free GitHub release, signed with a Developer ID certificate and notarized by Apple, for Macs on macOS 14 or later. The source is public, which is the point for a utility that asks to watch your keyboard. Update checks look at the same releases page and never install anything on their own.',
       },
       {
         kind: 'prose',
         title: 'From first commit to v1.0',
-        body: 'The first commit landed in January 2026. By February the core interaction and the system-level blocking worked. The months to August went into the parts that turn that into a release: permission recovery, launch-at-login behavior, update checks, a universal build, code signing, notarization and an automated GitHub release workflow.\n\nI designed and built Cleankey solo, using Codex and Claude Code alongside Xcode, the command line and MCP. Version 1.0 build 5 keeps the constraint I started with: one switch, and nothing between a dirty keyboard and a clean one.',
+        body: 'The first commit landed in January 2026. By February the core interaction and the system-level blocking worked. The months to August went into the parts that turn that into a release: permission recovery, launch-at-login behavior, update checks, a universal build, code signing, notarization and an automated GitHub release workflow.\n\nI designed and built Cleankey solo, using Codex and Claude Code alongside Xcode, the command line and MCP. Version 1.1 build 8 keeps the constraint I started with: one switch, and nothing between a dirty keyboard and a clean one.',
       },
     ],
   },
