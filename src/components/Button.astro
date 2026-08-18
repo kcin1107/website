@@ -1,28 +1,45 @@
 ---
 interface Props {
-  href: string
+  href?: string
   variant?: 'primary' | 'secondary'
   icon?: boolean
   target?: string
+  disabled?: boolean
   [key: string]: unknown
 }
 
-const { href, variant = 'primary', icon = false, target, class: className, ...rest } = Astro.props
+const { href, variant = 'primary', icon = false, target, disabled = false, class: className, ...rest } = Astro.props
 ---
 
-<a
-  class:list={['btn', variant === 'secondary' ? 'btn--secondary' : 'btn--primary', className]}
-  href={href}
-  target={target}
-  {...rest}
->
-  {icon && (
-    <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.275 14.1038C12.6366 13.7422 12.6366 13.1559 12.275 12.7943L9.689 10.2083L12.275 7.62232C12.6366 7.26073 12.6366 6.67446 12.275 6.31287C11.9134 5.95127 11.3271 5.95127 10.9656 6.31286L7.72481 9.55361C7.36321 9.9152 7.36321 10.5015 7.72481 10.8631L10.9656 14.1038C11.3271 14.4654 11.9134 14.4654 12.275 14.1038Z" fill="currentColor"/>
-    </svg>
-  )}
-  <span class="btn__label"><slot /></span>
-</a>
+{disabled || !href ? (
+  <span
+    class:list={[
+      'btn',
+      variant === 'secondary' ? 'btn--secondary' : 'btn--primary',
+      'btn--disabled',
+      className,
+    ]}
+    role="link"
+    aria-disabled="true"
+    {...rest}
+  >
+    <span class="btn__label"><slot /></span>
+  </span>
+) : (
+  <a
+    class:list={['btn', variant === 'secondary' ? 'btn--secondary' : 'btn--primary', className]}
+    href={href}
+    target={target}
+    {...rest}
+  >
+    {icon && (
+      <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.275 14.1038C12.6366 13.7422 12.6366 13.1559 12.275 12.7943L9.689 10.2083L12.275 7.62232C12.6366 7.26073 12.6366 6.67446 12.275 6.31287C11.9134 5.95127 11.3271 5.95127 10.9656 6.31286L7.72481 9.55361C7.36321 9.9152 7.36321 10.5015 7.72481 10.8631L10.9656 14.1038C11.3271 14.4654 11.9134 14.4654 12.275 14.1038Z" fill="currentColor"/>
+      </svg>
+    )}
+    <span class="btn__label"><slot /></span>
+  </a>
+)}
 
 <style>
   .btn {
@@ -58,6 +75,14 @@ const { href, variant = 'primary', icon = false, target, class: className, ...re
 
   .btn--secondary:hover {
     background-color: #292929;
+  }
+
+  .btn--disabled,
+  .btn--disabled:hover {
+    border: 1px solid var(--border-grey);
+    background-color: var(--surface-grey);
+    color: var(--dark-grey);
+    cursor: not-allowed;
   }
 
   .btn__icon {

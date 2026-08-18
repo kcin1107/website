@@ -1,7 +1,6 @@
 import type { ImageMetadata } from 'astro'
 
 import card2 from '../assets/images/card2.png'
-import card5 from '../assets/images/card5.jpg'
 
 import boomerangCard from '../assets/images/project-card-boomerang-20260720.png'
 import boomerangMobile from '../assets/images/projects/boomerang-mobile-20260721.jpg'
@@ -39,6 +38,16 @@ import nickringelmannHero from '../assets/images/projects/nickringelmann-hero-20
 import nickringelmannProjects from '../assets/images/projects/nickringelmann-projects-20260724.png'
 import nickringelmannApproach from '../assets/images/projects/nickringelmann-approach-20260724.png'
 
+import scorerAppIcon from '../assets/images/projects/scorer-app-icon-20260818.png'
+import scorerSetupLight from '../assets/images/projects/scorer-setup-light-20260818.png'
+import scorerResultLight from '../assets/images/projects/scorer-result-light-20260818.png'
+import scorerGameLight from '../assets/images/projects/scorer-game-light-20260818.png'
+import scorerGameDark from '../assets/images/projects/scorer-game-dark-20260818.png'
+import scorerIPadSixPlayers from '../assets/images/projects/scorer-ipad-six-players-20260818.png'
+
+import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-20260818.png'
+import cleankeyMenuActive from '../assets/images/projects/cleankey-menu-active-20260818.png'
+
 export type ProjectCategory = 'business' | 'web' | 'side'
 
 export interface Category {
@@ -54,6 +63,14 @@ export interface ProjectImage {
 
 export interface ProjectMeta { label: string; value: string }
 
+export interface ProjectLink {
+  label: string
+  href?: string
+  variant?: 'primary' | 'secondary'
+  external?: boolean
+  pending?: boolean
+}
+
 export type ProjectSection =
   | { kind: 'prose';   title?: string; body?: string; list?: string[] }
   | { kind: 'steps';   layout: 'numbered' | 'chain'; title?: string; body?: string;
@@ -64,6 +81,12 @@ export type ProjectSection =
       after:  { image: ProjectImage; label: string } }
   | { kind: 'metrics'; title?: string; body?: string;
       metrics: { value: string; label: string; note?: string }[] }
+  | { kind: 'gallery'; title?: string; body?: string; caption?: string;
+      columns: 2 | 3; presentation: 'portrait' | 'landscape' | 'device'; images: ProjectImage[] }
+  | { kind: 'animation'; title?: string; body?: string; caption?: string; layout?: 'aside';
+      src: string; poster: ProjectImage; alt: string; width: number; height: number }
+  | { kind: 'annotated'; title?: string; body?: string; caption?: string;
+      image: ProjectImage; items: { label: string; text: string }[] }
   | { kind: 'embed';   name: 'result-lines' | 'framing-nudge' | 'shipping-nudge';
       title?: string; body?: string; caption?: string; panel?: boolean }
 
@@ -88,6 +111,7 @@ export const categories: Category[] = [
 export interface Project {
   slug?: string
   image?: ImageMetadata
+  appIcon?: ProjectImage
   images?: ProjectImage[]
   mobileImage?: ProjectImage
   alt: string
@@ -100,6 +124,7 @@ export interface Project {
   showOnHome?: boolean
   lead?: string
   meta?: ProjectMeta[]
+  links?: ProjectLink[]
   sections?: ProjectSection[]
 }
 
@@ -410,18 +435,86 @@ export const projects: Project[] = [
   // Side Projects
   {
     slug: 'scorer',
-    image: card5,
-    alt: 'Scorer – iOS Darts App',
+    image: scorerAppIcon,
+    appIcon: {
+      src: scorerAppIcon,
+      alt: '',
+    },
+    alt: 'The Scorer app icon, a dart inside a broken circle, on a warm off-white background',
     title: 'Scorer',
     client: 'Get The Score Done',
     topicTag: 'Darts',
-    tags: ['B2C', 'UI Design', 'iOS', 'Swift', 'MCP'],
+    tags: ['B2C', 'Product Design', 'iOS', 'SwiftUI', 'CloudKit'],
     category: 'side',
+    showOnHome: true,
+    lead: 'A native X01 scorer for iPhone and iPad that keeps game night moving. Play locally with up to eight players, against a configurable bot, or online with a friend. No ads and no account.',
     meta: [
-      { label: 'Role', value: '' },
-      { label: 'Timeframe', value: '' },
-      { label: 'Year', value: '' },
-      { label: 'Tools', value: '' },
+      { label: 'Role', value: 'Solo product design and iOS development' },
+      { label: 'Timeframe', value: 'April 2025 to August 2026' },
+      { label: 'Year', value: '2025 to 2026' },
+      { label: 'Tools', value: 'Figma, Xcode, SwiftUI, CloudKit, Codex, Claude Code, MCP' },
+    ],
+    links: [
+      { label: 'App Store (coming soon)', variant: 'secondary', pending: true },
+    ],
+    sections: [
+      {
+        kind: 'gallery',
+        columns: 2,
+        presentation: 'device',
+        title: 'The game stays in front',
+        body: 'During a leg every player keeps a card with their remaining score, live average, best visit and darts thrown. The active card follows the throwing order and picks up the checkout route as soon as one exists. Total entry runs through a large keypad, while dart-by-dart mode records the exact finish and rejects impossible visits before they reach the scoreline. Undo is one tap away.',
+        images: [
+          {
+            src: scorerGameLight,
+            alt: 'Scorer in light mode during a 501 Double Out match between Alex and Sam, with Alex on 170 and a T20 T20 Bull checkout suggestion',
+          },
+          {
+            src: scorerGameDark,
+            alt: 'The same in-progress Scorer match in dark mode, showing the active player treatment, checkout route, statistics and score keypad',
+          },
+        ],
+      },
+      {
+        kind: 'prose',
+        title: 'The scorer I wanted at the board',
+        body: 'A darts scorer should take a score fast and then stay out of the way. I built Scorer for the nights when the next throw matters more than the phone on the table.\n\nThat kept the product local-first and quiet. The roster and preferences stay on the device, there is no Scorer account, and there are no ads or tracking SDKs. Online play is optional and sends only the match data two players need to stay in sync through CloudKit.',
+      },
+      {
+        kind: 'gallery',
+        columns: 2,
+        presentation: 'portrait',
+        title: 'Play your way',
+        body: 'Setup covers the X01 formats I wanted around a board and stops there. Choose 301, 501 or 701, Straight, Double or Master Out, First to or Best of, and matches across legs and sets. Up to eight players share one phone. The bot plays ten calibrated levels between a 20 and a 110 average, and an online match needs a six-digit lobby code and no account. The app ships in eleven languages.',
+        images: [
+          {
+            src: scorerSetupLight,
+            alt: 'Scorer game setup on iPhone for a 501 Double Out match with Alex, Sam, Maya and Jon selected',
+          },
+          {
+            src: scorerResultLight,
+            alt: 'Scorer leg result on iPhone showing Alex and Sam with their averages, darts thrown and top scores',
+          },
+        ],
+      },
+      {
+        kind: 'gallery',
+        columns: 2,
+        presentation: 'landscape',
+        title: 'Native from phone to tablet',
+        body: 'Scorer is one SwiftUI app with a layout per device. On iPhone the active players move through a horizontal carousel in portrait. iPad uses the extra room: player cards spread across the width, the keypad grows with the device, and landscape becomes a full game-board view. System appearance, six haptic strengths and the language setting carry across both.',
+        images: [
+          {
+            src: scorerIPadSixPlayers,
+            alt: 'Scorer on a 13-inch iPad in landscape at the start of a six-player 501 Double Out match, with a card per player across the full width and a wide three-column keypad below',
+          },
+        ],
+      },
+      {
+        kind: 'prose',
+        title: 'From prototype to v1.0',
+        body: 'The first Scorer commit dates to April 2025. I came back for a rebuild in February 2026 and carried concept, product design, SwiftUI implementation and App Store release through to v1.0 build 8 in August. The app handles the rule cascade from visits to legs, sets and matches, plus a dart-by-dart bot that aims for the checkout routes it shows the player and misses into neighbouring beds. Optional CloudKit sessions keep an online match in sync.\n\nThis was my first shipped native iOS product. I used Codex and Claude Code alongside Xcode, the command line and MCP throughout the build. The product decisions, the darts rules and the visual system stayed mine.',
+      },
     ],
   },
   {
@@ -461,12 +554,96 @@ export const projects: Project[] = [
     showOnHome: false,
   },
   {
-    alt: 'Cleankey – macOS keyboard cleaner',
+    slug: 'cleankey',
+    image: cleankeyAppIcon,
+    appIcon: {
+      src: cleankeyAppIcon,
+      alt: '',
+    },
+    alt: 'Cleankey broom app icon on a warm beige background',
     title: 'Cleankey',
     client: 'Clean Your Keyboard',
-    topicTag: 'macOS',
-    tags: ['B2C', 'UI Design', 'macOS', 'Swift', 'MCP'],
+    topicTag: 'Menu Bar Utility',
+    tags: ['B2C', 'Product Design', 'macOS', 'SwiftUI', 'Open Source'],
     category: 'side',
+    showOnHome: true,
+    lead: 'A tiny native macOS menu bar utility that temporarily blocks every key, including modifiers, function keys and media controls, so you can wipe down a keyboard without accidental input.',
+    meta: [
+      { label: 'Role', value: 'Solo product design and macOS development' },
+      { label: 'Timeframe', value: 'January 2026 to August 2026' },
+      { label: 'Year', value: '2026' },
+      { label: 'Tools', value: 'Xcode, Swift, SwiftUI, ApplicationServices, ServiceManagement, GitHub Actions, Codex, Claude Code, MCP' },
+    ],
+    links: [
+      {
+        label: 'Download v1.0',
+        href: 'https://github.com/seafyre/Cleankey/releases/tag/v1.0',
+        variant: 'primary',
+        external: true,
+      },
+      {
+        label: 'View source',
+        href: 'https://github.com/seafyre/Cleankey',
+        variant: 'secondary',
+        external: true,
+      },
+    ],
+    sections: [
+      {
+        kind: 'animation',
+        layout: 'aside',
+        src: '/assets/images/cleankey-demo-20260818.gif',
+        poster: {
+          src: cleankeyMenuActive,
+          alt: 'Cleankey menu-bar popover with Keyboard Cleaning switched on',
+        },
+        alt: 'Cleankey menu-bar utility switching keyboard cleaning on and off',
+        width: 960,
+        height: 582,
+        caption: 'One switch blocks the keyboard. The pointer stays live, so you can switch it off again.',
+      },
+      {
+        kind: 'prose',
+        title: 'A tiny fix for an irritating moment',
+        body: 'Cleaning a keyboard while the Mac is awake usually means opening apps, typing nonsense, changing the volume or triggering a shortcut. Shutting down works, but it turns a quick wipe into a small ceremony. I wanted the utility I kept looking for: there when the cloth comes out, gone again afterwards.\n\nSo the whole product is one popover. The switch sits first, with an active state you cannot misread, and everything under it stays secondary. Cleankey runs as an accessory app, so it never shows up in the Dock or the app switcher. No window to arrange, no preferences to set up.',
+      },
+      {
+        kind: 'annotated',
+        title: 'Every row in the popover',
+        image: {
+          src: cleankeyMenuActive,
+          alt: 'The Cleankey menu-bar popover with Keyboard Cleaning switched on, Open at Login enabled, both permission rows, an update check and the version and Quit row',
+        },
+        items: [
+          {
+            label: 'Keyboard Cleaning',
+            text: 'The one control the app exists for. While it is on, Cleankey discards every key before the frontmost app sees it.',
+          },
+          {
+            label: 'Open at Login',
+            text: 'Registers the app through ServiceManagement, so it is back in the menu bar after a restart without a helper tool or a stray login item.',
+          },
+          {
+            label: 'Input Monitoring',
+            text: 'The first macOS permission, and the one that lets Cleankey see key events at all. Cleankey uses it only while blocking, and records or sends nothing you type. The row opens the exact pane in System Settings rather than a general privacy page.',
+          },
+          {
+            label: 'Device Control and Data Access',
+            text: 'The second permission. Seeing events is not enough to stop them, so this one lets the tap discard a key instead of passing it along.',
+          },
+        ],
+      },
+      {
+        kind: 'prose',
+        title: 'Blocking at the right level',
+        body: 'A regular SwiftUI keyboard handler only sees input inside its own window. Cleankey installs a CGEvent tap at the HID level instead and discards keyboard events before the active app receives them, which covers ordinary typing along with command shortcuts, function keys, volume and playback controls. Mouse and trackpad events pass through on purpose. An app that can block every key can also lock you out of its own off switch.\n\nmacOS may disable an event tap after a timeout or a burst of input, so Cleankey watches for that and turns it back on. Nothing sits between the menu-bar switch and the system APIs. The universal v1.0 download is 218 KB of native Swift and SwiftUI, with no third-party packages in it.\n\nThose privileges do not fit the Mac App Store sandbox, so Cleankey ships as a free GitHub release, signed with a Developer ID certificate and notarized by Apple, for Macs on macOS 14 or later. The source is public, which is the point for a utility that asks to watch your keyboard. Update checks look at the same releases page and never install anything on their own.',
+      },
+      {
+        kind: 'prose',
+        title: 'From first commit to v1.0',
+        body: 'The first commit landed in January 2026. By February the core interaction and the system-level blocking worked. The months to August went into the parts that turn that into a release: permission recovery, launch-at-login behavior, update checks, a universal build, code signing, notarization and an automated GitHub release workflow.\n\nI designed and built Cleankey solo, using Codex and Claude Code alongside Xcode, the command line and MCP. Version 1.0 build 5 keeps the constraint I started with: one switch, and nothing between a dirty keyboard and a clean one.',
+      },
+    ],
   },
   {
     alt: 'Fuel Station App',

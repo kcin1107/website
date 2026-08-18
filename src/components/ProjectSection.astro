@@ -19,6 +19,25 @@ const compareSizes = [
   '(max-width: 1247px) calc((100vw - 72px) / 2)',
   '588px',
 ].join(', ')
+
+const gallerySizes = section.kind === 'gallery'
+  ? section.images.length === 1
+    ? section.presentation === 'landscape'
+      ? '(max-width: 767px) calc(100vw - 48px), (max-width: 1007px) calc(100vw - 48px), 960px'
+      : '(max-width: 767px) calc(100vw - 48px), 760px'
+    : section.presentation === 'portrait'
+      ? '(max-width: 767px) calc(100vw - 48px), 400px'
+      : section.columns === 3
+        ? '(max-width: 767px) calc(100vw - 48px), (max-width: 1247px) calc((100vw - 96px) / 3), 384px'
+        : '(max-width: 767px) calc(100vw - 48px), (max-width: 1247px) calc((100vw - 72px) / 2), 588px'
+  : undefined
+
+/* A single landscape image is the widest slot a gallery ever gets: 960px, so a
+   retina screen needs 1920. The shared ladder stops at 1200 and would upscale
+   a 1200px file into that slot, which is what made the iPad shot look soft. */
+const galleryWidths = section.kind === 'gallery' && section.presentation === 'landscape'
+  ? [640, 960, 1280, 1600, 1920]
+  : [320, 480, 640, 800, 960, 1200]
 ---
 <section class={`case${isPanel ? ' case--panel' : ''}`}>
   {section.title && <h2 class="case__title">{section.title}</h2>}
@@ -74,6 +93,47 @@ const compareSizes = [
     </figure>
   )}
 
+  {section.kind === 'animation' && (
+    <figure class:list={['case__figure', section.layout === 'aside' && 'case__figure--aside']}>
+      <div class="case__frame">
+        <picture>
+          <source media="(prefers-reduced-motion: reduce)" srcset={section.poster.src.src} />
+          <img
+            src={section.src}
+            alt={section.alt}
+            width={section.width}
+            height={section.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </div>
+      {section.caption && <figcaption class="text-sm case__caption">{section.caption}</figcaption>}
+    </figure>
+  )}
+
+  {section.kind === 'annotated' && (
+    <div class="case__annotated">
+      <div class="case__frame case__annotated-media">
+        <Image
+          src={section.image.src}
+          alt={section.image.alt}
+          widths={[640, 960, 1200]}
+          sizes="(max-width: 1023px) calc(100vw - 48px), 588px"
+          format="webp"
+        />
+      </div>
+      <dl class="case__annotated-list">
+        {section.items.map(item => (
+          <div class="case__annotated-item">
+            <dt class="case__annotated-label">{item.label}</dt>
+            <dd class="text-sm case__annotated-text">{item.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  )}
+
   {section.kind === 'compare' && (
     <>
       {/* Half the container on desktop, but full width once the grid collapses at
@@ -119,6 +179,34 @@ const compareSizes = [
         </div>
       ))}
     </div>
+  )}
+
+  {section.kind === 'gallery' && (
+    <>
+      <div
+        class:list={[
+          'case__gallery',
+          `case__gallery--${section.columns}`,
+          `case__gallery--${section.presentation}`,
+          section.images.length === 1 && 'case__gallery--single',
+        ]}
+      >
+        {section.images.map(image => (
+          <figure class="case__gallery-item">
+            <div class="case__gallery-frame">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                widths={galleryWidths}
+                sizes={gallerySizes}
+                format="webp"
+              />
+            </div>
+          </figure>
+        ))}
+      </div>
+      {section.caption && <p class="text-sm case__caption">{section.caption}</p>}
+    </>
   )}
 
   {section.kind === 'embed' && (
@@ -268,6 +356,53 @@ const compareSizes = [
     color: var(--dark-grey);
   }
 
+  /* Media beside its caption: 3/4 of the row for the frame, 1/4 for the text.
+     The caption sits at the top edge of the frame rather than centred, so it
+     reads as an annotation of the media instead of a second column of copy. */
+  .case__figure--aside {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: start;
+    gap: 24px;
+  }
+
+  /* Screenshot beside the row-by-row explanation. The media column is sticky on
+     desktop so the popover stays in view while the list scrolls past it; the
+     sticky offset clears the fixed nav. */
+  .case__annotated {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 24px;
+  }
+
+  .case__annotated-media {
+    position: sticky;
+    top: 104px;
+  }
+
+  .case__annotated-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 0;
+  }
+
+  .case__annotated-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .case__annotated-label {
+    font-weight: 500;
+  }
+
+  .case__annotated-text {
+    margin: 0;
+    color: var(--dark-grey);
+  }
+
   .case__compare {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -287,6 +422,19 @@ const compareSizes = [
   @media (max-width: 1023px) {
     .case__compare {
       grid-template-columns: 1fr;
+    }
+
+    .case__figure--aside {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .case__annotated {
+      grid-template-columns: 1fr;
+    }
+
+    .case__annotated-media {
+      position: static;
     }
   }
 
@@ -323,6 +471,84 @@ const compareSizes = [
     display: block;
     color: var(--dark-grey);
     font-size: 0.75rem;
+  }
+
+  .case__gallery {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .case__gallery--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case__gallery--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .case__gallery--single {
+    grid-template-columns: minmax(0, 760px);
+    justify-content: center;
+  }
+
+  .case__gallery--landscape.case__gallery--single {
+    grid-template-columns: minmax(0, 960px);
+  }
+
+  .case__gallery-item {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .case__gallery-frame {
+    overflow: hidden;
+    border: 2px solid var(--black);
+    border-radius: 16px;
+    box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
+  }
+
+  .case__gallery-frame :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .case__gallery--device .case__gallery-item {
+    width: 100%;
+    max-width: 460px;
+    justify-self: center;
+  }
+
+  /* A full phone screenshot at half the 1200px container is taller than the
+     viewport, so portrait items keep a phone-sized cap and centre in their
+     column instead of filling it. */
+  .case__gallery--portrait .case__gallery-item {
+    width: 100%;
+    max-width: 400px;
+    justify-self: center;
+  }
+
+  .case__gallery--device .case__gallery-frame {
+    border-radius: 32px;
+  }
+
+  :global([data-theme='dark']) .case__gallery-frame {
+    border-color: #3a3a3a;
+  }
+
+  @media (max-width: 767px) {
+    .case__gallery--2,
+    .case__gallery--3,
+    .case__gallery--single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .case__gallery--portrait .case__gallery-item {
+      width: 100%;
+      max-width: 400px;
+      justify-self: center;
+    }
   }
 
   @media (max-width: 767px) {

@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-08-17
+> Last updated: 2026-08-18
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (subsetted variable woff2).
 
@@ -27,7 +27,7 @@ website/
 │   └── assets/
 │       ├── fonts/            # Roboto & Inter variable woff2 subsets (51 KB total)
 │       ├── icons/            # favicons, backArrow.svg
-│       └── images/           # hero, client logos (served as-is, unoptimized)
+│       └── images/           # hero, client logos, animated demos (served as-is)
 │
 ├── src/
 │   ├── assets/
@@ -37,7 +37,7 @@ website/
 │   │   └── Layout.astro      # head, nav, footer, theme toggle, mobile nav
 │   │
 │   ├── pages/                # file-based routing
-│   │   ├── index.astro       # home: Hero, Projects, Approach, Blog, Clients
+│   │   ├── index.astro       # home: Hero, featured Projects, Approach, Blog, Clients
 │   │   ├── imprint.astro     # /imprint
 │   │   ├── privacy.astro     # /privacy
 │   │   ├── scorer/
@@ -82,7 +82,7 @@ website/
 ## Routes
 | Path | Source | Notes |
 |------|--------|-------|
-| `/` | `pages/index.astro` | Hero, 6 latest projects, approach, 3 latest posts, clients |
+| `/` | `pages/index.astro` | Hero, 6 featured projects, approach, 3 latest posts, clients |
 | `/projects` | `pages/projects/index.astro` | All projects, grouped by category |
 | `/projects/<slug>` | `pages/projects/[slug].astro` | One per project with a `slug` |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts |
@@ -92,8 +92,8 @@ website/
 | `/contact` | `pages/contact.astro` | Contact form, submits via `fetch` to `public/api/contact.php` (self-hosted, sends over SMTP through the IONOS mailbox) |
 
 ## Data sources
-- **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards). Images are imported from `src/assets/images/` as `ImageMetadata` and rendered via Astro's `<Image>` component (`astro:assets`), which generates resized, WebP, retina-aware output instead of shipping full-resolution screenshots.
-- **Case studies** — a project may optionally carry `lead`, `meta[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `embed`) rendered by `components/ProjectSection.astro`. When `sections` is present, `[slug].astro` renders those instead of the screenshot showcase; projects without it keep the original layout untouched. `embed` sections name a component resolved through a small registry in `[slug].astro`, which is how the three bespoke Boomerang components are wired in. Only `boomerang-behavioral-design` uses this today.
+- **Projects** — `src/data/projects.ts` (typed array; `slug`-less entries render as non-linked cards). Projects can optionally provide an `appIcon` for the detail-page identity block. Images are imported from `src/assets/images/` as `ImageMetadata` and rendered via Astro's `<Image>` component (`astro:assets`), which generates resized, WebP, retina-aware output instead of shipping full-resolution screenshots.
+- **Case studies** — a project may optionally carry `lead`, `meta[]`, `links[]` and `sections[]`. Links support active external CTAs and accessible pending states. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`) rendered by `components/ProjectSection.astro`; `gallery` provides reusable two- or three-column portrait, landscape, and device layouts. `animation` provides a reusable GIF demo block with a static poster for reduced-motion visitors, optionally with its caption beside the media (`layout: 'aside'`). `annotated` pairs one sticky screenshot with a labelled list explaining the interface it shows. When `sections` is present, `[slug].astro` renders those instead of the legacy screenshot showcase. `embed` sections name a component resolved through a small registry in `[slug].astro`, which is how the three bespoke Boomerang components are wired in. The Boomerang behavioral-design, Scorer, and Cleankey projects currently use the case-study system.
 - **Blog** — `src/content/blog/*.md` via Astro Content Collection; schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`).
 
 ## Deployment

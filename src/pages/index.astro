@@ -14,7 +14,10 @@ const recentPosts = (await getCollection('blog'))
   .sort((a: { data: { date: Date } }, b: { data: { date: Date } }) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3)
 
-const homeProjects = projects.filter(project => project.showOnHome !== false).slice(0, 6)
+const homeProjects = [
+  ...projects.filter(project => project.showOnHome === true),
+  ...projects.filter(project => project.showOnHome === undefined),
+].slice(0, 6)
 
 const approaches = [
   {

@@ -821,6 +821,12 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   transition: transform 0.3s ease-out;
 }
 
+.project-card__image--app-icon {
+  width: 96px;
+  aspect-ratio: 1;
+  border-radius: 20px;
+}
+
 [data-theme='dark'] .project-card__image {
   box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.16), 0px 12px 24px rgba(0, 0, 0, 0.2);
 }

@@ -62,9 +62,22 @@ const metaDescription = project.lead
 
       <!-- Header -->
       <div class="project-detail__header">
-        <div class="project-detail__titles">
-          <h1 class="project-detail__title">{project.title}</h1>
-          <span class="project-detail__client">{project.client}</span>
+        <div class="project-detail__identity">
+          {project.appIcon && (
+            <div class="project-detail__app-icon">
+              <Image
+                src={project.appIcon.src}
+                alt={project.appIcon.alt}
+                width={80}
+                densities={[1, 2]}
+                format="webp"
+              />
+            </div>
+          )}
+          <div class="project-detail__titles">
+            <h1 class="project-detail__title">{project.title}</h1>
+            <span class="project-detail__client">{project.client}</span>
+          </div>
         </div>
         <div class="project-detail__tags">
           {project.topicTag && <span class="tag tag--topic">{project.topicTag}</span>}
@@ -73,6 +86,22 @@ const metaDescription = project.lead
       </div>
 
       {project.lead && <p class="text-md">{project.lead}</p>}
+
+      {project.links?.length > 0 && (
+        <nav class="project-detail__links" aria-label="Project links">
+          {project.links.map(link => (
+            <Button
+              href={link.href}
+              variant={link.variant}
+              disabled={link.pending || !link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+            >
+              {link.label}
+            </Button>
+          ))}
+        </nav>
+      )}
 
       {meta.length > 0 && (
         <dl class="project-detail__meta">
@@ -135,4 +164,3 @@ const metaDescription = project.lead
   </section>
 
 </Layout>
-
