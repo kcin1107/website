@@ -577,13 +577,13 @@ export const projects: Project[] = [
     links: [
       {
         label: 'Download v1.1',
-        href: 'https://github.com/seafyre/Cleankey/releases/tag/v1.1',
+        href: 'https://github.com/kcin1107/Cleankey/releases/tag/v1.1',
         variant: 'primary',
         external: true,
       },
       {
         label: 'View source',
-        href: 'https://github.com/seafyre/Cleankey',
+        href: 'https://github.com/kcin1107/Cleankey',
         variant: 'secondary',
         external: true,
       },
