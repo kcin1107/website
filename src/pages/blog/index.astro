@@ -7,8 +7,8 @@ const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const formatter = new Intl.DateTimeFormat('en-US', {
-	month: 'long',
-	day: 'numeric',
+	day: '2-digit',
+	month: 'short',
 	year: 'numeric',
 });
 ---
@@ -19,17 +19,16 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 >
 
   <section class="section">
-    <div class="container">
-      <h1 class="section__title">Blog</h1>
+    <div class="container blog-index">
+      <h1>Blog</h1>
       <ul class="blog-list">
         {posts.map((post) => (
           <li>
-            <a class="blog-card" href={`/blog/${post.id}/`}>
-              <div class="blog-card__meta">
-                <span class="blog-card__date">{formatter.format(post.data.date)}</span>
-              </div>
-              <h2 class="blog-card__title">{post.data.title}</h2>
-              <p class="blog-card__desc">{post.data.description}</p>
+            <a class="blog-list__link" href={`/blog/${post.id}/`}>
+              <time class="blog-list__date" datetime={post.data.date.toISOString()}>
+                {formatter.format(post.data.date)}
+              </time>
+              <span class="blog-list__title">{post.data.title}</span>
             </a>
           </li>
         ))}
@@ -40,51 +39,49 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 </Layout>
 
 <style>
-  .blog-list {
-    display: grid;
-    gap: 16px;
-    width: 100%;
-    max-width: 820px;
+  .blog-index {
+    max-width: 68ch;
   }
 
-  .blog-card {
-    display: block;
-    padding: 24px;
-    background-color: var(--light-grey);
-    border-radius: 12px;
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 48px;
+  }
+
+  .blog-list__link {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
     text-decoration: none;
     color: inherit;
-    transition: background-color 0.2s ease-out;
   }
 
-  .blog-card:hover {
-    background-color: #ebebeb;
+  .blog-list__link:hover .blog-list__title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  :global([data-theme='dark']) .blog-card:hover {
-    background-color: var(--hover-grey);
-  }
-
-  .blog-card__meta {
-    margin-bottom: 8px;
-  }
-
-  .blog-card__date {
+  .blog-list__date {
+    flex-shrink: 0;
     font-size: 0.875rem;
+    font-style: italic;
     color: var(--dark-grey);
   }
 
-  .blog-card__title {
-    font-size: 1.25rem;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-
-  .blog-card__desc {
+  .blog-list__title {
     font-size: 1rem;
-    color: var(--dark-grey);
-    line-height: 1.5;
-    margin: 0;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 767px) {
+    .blog-list__link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
   }
 </style>

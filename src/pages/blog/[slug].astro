@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import Button from '../../components/Button.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,21 +13,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
-const formatter = new Intl.DateTimeFormat('en-US', {
-	month: 'long',
-	day: 'numeric',
-	year: 'numeric',
-});
 ---
 
 <Layout title={`${post.data.title} – Nick Ringelmann`} description={post.data.description}>
 
   <section class="section">
     <div class="container blog-article">
-      <Button class="blog-article__back" href="/blog" icon>Back to Blog</Button>
-      <h1 class="blog-article__title">{post.data.title}</h1>
-      <p class="blog-article__date">{formatter.format(post.data.date)}</p>
+      <h1>{post.data.title}</h1>
       <div class="blog-article__body">
         <Content />
       </div>
@@ -39,35 +30,16 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 
 <style>
   .blog-article {
-    max-width: 1200px;
-  }
-
-  .blog-article__back {
-    align-self: flex-start;
-    margin-bottom: 48px;
-  }
-
-  .blog-article__title {
-    font-size: 2.25rem;
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 12px;
-  }
-
-  .blog-article__date {
-    font-size: 0.9rem;
-    color: var(--dark-grey);
-    margin: 0 0 48px;
+    max-width: 68ch;
   }
 
   .blog-article__body {
     width: 100%;
-    max-width: 68ch;
-    margin: 0 auto;
+    margin-top: 48px;
   }
 
   /* Images and code blocks are allowed to break out of the text column,
-     up to the width of the surrounding container. */
+     up to 1000px, regardless of the (now text-width) container. */
   .blog-article__body :global(img),
   .blog-article__body :global(pre) {
     width: min(1000px, calc(100vw - 48px));
@@ -114,9 +86,4 @@ const formatter = new Intl.DateTimeFormat('en-US', {
     margin-bottom: 6px;
   }
 
-  @media (max-width: 767px) {
-    .blog-article__title {
-      font-size: 1.75rem;
-    }
-  }
 </style>

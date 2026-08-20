@@ -1,15 +1,13 @@
 ---
 interface Props {
-  date: string
   title: string
   description: string
   href: string
 }
 
-const { date, title, description, href } = Astro.props
+const { title, description, href } = Astro.props
 ---
 <a class="blog-card" href={href}>
-  <span class="blog-card__date">{date}</span>
   <p class="blog-card__title">{title}</p>
   <p class="blog-card__desc">{description}</p>
 </a>
@@ -35,12 +33,6 @@ const { date, title, description, href } = Astro.props
   :global([data-theme='dark']) .blog-card:hover {
     background-color: var(--hover-grey);
     border-color: var(--border-grey);
-  }
-
-  .blog-card__date {
-    font-size: 0.75rem;
-    color: var(--dark-grey);
-    line-height: 1;
   }
 
   .blog-card__title {

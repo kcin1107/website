@@ -199,10 +199,9 @@ const designSystems = [
         <a class="primaryButton" href="/blog">All Posts</a>
       </div>
       <div class="blog-grid">
-        {recentPosts.map((post: { id: string; data: { title: string; description: string; date: Date } }) => (
+        {recentPosts.map((post: { id: string; data: { title: string; description: string } }) => (
           <BlogCard
             href={`/blog/${post.id}/`}
-            date={new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(post.data.date)}
             title={post.data.title}
             description={post.data.description}
           />
