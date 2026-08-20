@@ -3,16 +3,9 @@ import Layout from '../layouts/Layout.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import ApproachCard from '../components/ApproachCard.astro'
 import { projects } from '../data/projects'
-import { getCollection } from 'astro:content'
-import BlogCard from '../components/BlogCard.astro'
 import { Image } from 'astro:assets'
 import hero1 from '../assets/images/hero1.jpg'
 import hero2 from '../assets/images/hero2.jpg'
-
-const recentPosts = (await getCollection('blog'))
-  .filter((post: { data: { draft: boolean } }) => !post.data.draft)
-  .sort((a: { data: { date: Date } }, b: { data: { date: Date } }) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3)
 
 const homeProjects = [
   ...projects.filter(project => project.showOnHome === true),
@@ -191,25 +184,6 @@ const designSystems = [
     </div>
   </section>
 
-  <!-- Blog -->
-  <section class="section" id="blog">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section__title" style="margin-bottom: 0;">Blog</h2>
-        <a class="primaryButton" href="/blog">All Posts</a>
-      </div>
-      <div class="blog-grid">
-        {recentPosts.map((post: { id: string; data: { title: string; description: string } }) => (
-          <BlogCard
-            href={`/blog/${post.id}/`}
-            title={post.data.title}
-            description={post.data.description}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- Clients -->
   <section class="section" id="clients">
     <div class="container">
@@ -243,13 +217,6 @@ const designSystems = [
     justify-content: space-between;
     width: 100%;
     margin-bottom: 48px;
-  }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    width: 100%;
   }
 
   .tools-columns {
@@ -300,18 +267,6 @@ const designSystems = [
 
     .tools-column__list {
       justify-content: flex-start;
-    }
-  }
-
-  @media (max-width: 1023px) {
-    .blog-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .blog-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>

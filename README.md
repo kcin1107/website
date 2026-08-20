@@ -1,7 +1,7 @@
 # Project Structure
 
 > Reference snapshot of the repo layout — handy as context for future chats/updates.
-> Last updated: 2026-08-18
+> Last updated: 2026-08-20
 
 **Stack:** Astro 7.1.3 · TypeScript · static output · no UI framework · self-hosted Roboto & Inter (subsetted variable woff2).
 
@@ -37,7 +37,7 @@ website/
 │   │   └── Layout.astro      # head, nav, footer, theme toggle, mobile nav
 │   │
 │   ├── pages/                # file-based routing
-│   │   ├── index.astro       # home: Hero, featured Projects, Approach, Blog, Clients
+│   │   ├── index.astro       # home: Hero, featured Projects, Approach, Tools, Clients
 │   │   ├── imprint.astro     # /imprint
 │   │   ├── privacy.astro     # /privacy
 │   │   ├── scorer/
@@ -53,7 +53,6 @@ website/
 │   ├── components/
 │   │   ├── Button.astro
 │   │   ├── ProjectCard.astro
-│   │   ├── BlogCard.astro
 │   │   ├── ApproachCard.astro
 │   │   ├── ProjectSection.astro  # case-study block dispatcher (see Data sources)
 │   │   ├── ResultLines.astro     # bespoke embeds, Boomerang case study only
