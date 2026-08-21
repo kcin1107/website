@@ -28,7 +28,7 @@
    ========================================================================== */
 
 :root {
-  --white: #ffffff;
+  --white: #f4efe6;
   --black: #000000;
   --light-grey: #f5f5f5;
   --dark-grey: #706e6e;
@@ -38,6 +38,9 @@
   /* Boundary of interactive controls — needs 3:1 per WCAG 1.4.11,
      unlike the decorative --border-grey. */
   --border-interactive: #8a8a8a;
+  /* Idle/unselected tag-pill fill — a touch darker than --white so pills
+     stay visible against the cream canvas instead of blending into it. */
+  --tag-idle: #f5f4ed;
 }
 
 [data-theme='dark'] {
@@ -49,6 +52,7 @@
   --hover-grey: #1c1c1c;
   --border-grey: #2a2a2a;
   --border-interactive: #6a6a6a;
+  --tag-idle: var(--white);
 }
 
 ::selection {
@@ -119,8 +123,8 @@ body {
 /* :focus-visible only (never :focus) so the ring shows for keyboard
    navigation but not mouse clicks. #357DFF is the site's established
    interactive-focus color (see contact form inputs/subject pills) and
-   clears 3:1 against every surface it can land on: 3.80:1 on var(--white)
-   in light mode (#ffffff), 5.53:1 on var(--white) in dark mode (#000000),
+   clears 3:1 against every surface it can land on: 3.32:1 on var(--white)
+   in light mode (#f4efe6), 5.53:1 on var(--white) in dark mode (#000000),
    5.53:1 on var(--black)/.secondaryButton fill in light mode (#000000),
    and 3.49:1 on var(--black)/.secondaryButton fill in dark mode (#f5f5f5). */
 :focus-visible {
@@ -243,7 +247,7 @@ ul {
 }
 
 .nav--scrolled {
-  background-color: hsl(0 0% 100% / 0.85);
+  background-color: hsl(43 60% 95% / 0.85);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-bottom-color: #0000001f;
@@ -385,6 +389,7 @@ ul {
   text-decoration: none;
   letter-spacing: -0.1px;
   padding: 8px 12px;
+  border-radius: 4px;
   transition: background-color 0.2s ease-out;
 }
 
@@ -791,48 +796,32 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 .project-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
+  padding: 24px;
+  background-color: #E9E2D7;
+  border-radius: 16px;
 }
 
-.project-card__image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 256px;
-  background-color: #F7F7F7;
-  overflow: hidden;
-}
-
-[data-theme='dark'] .project-card__image-wrapper {
+[data-theme='dark'] .project-card {
   background-color: var(--surface-grey);
 }
 
 .project-card__image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200px;
-  aspect-ratio: 16 / 9;
-  height: auto;
+  width: 170px;
+  height: 96px;
   object-fit: cover;
   border: 2px solid var(--black);
-  box-shadow: 0px 19px 25px 0px rgba(0, 0, 0, 0.25);
-  transform: translate(-50%, -50%);
-  transform-origin: center center;
-  transition: transform 0.3s ease-out;
+  border-radius: 8px;
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
 }
 
 .project-card__image--app-icon {
   width: 96px;
-  aspect-ratio: 1;
   border-radius: 20px;
 }
 
 [data-theme='dark'] .project-card__image {
   box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.16), 0px 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.project-card:hover .project-card__image {
-  transform: translate(-50%, calc(-50% - 8px));
 }
 
 .project-card__content {
@@ -848,6 +837,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 .project-card__title {
+  margin-bottom: 0;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 100%;
@@ -857,7 +847,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   color: var(--dark-grey);
   font-weight: 300;
   font-size: 1rem;
-  line-height: 100%;
+  line-height: 1.4;
 }
 
 .project-card__tags {
@@ -879,7 +869,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   letter-spacing: 0.5px;
   padding: 6px 12px;
   color: var(--black);
-  background-color: var(--white);
+  background-color: var(--tag-idle);
   border: 1px solid var(--border-grey);
   border-radius: 16px;
 }

@@ -15,20 +15,21 @@ interface Props {
 const { image, alt, title, subtitle, topicTag, tags, href } = Astro.props
 const Tag = href ? 'a' : 'div'
 const isSquareImage = image?.width === image?.height
+
+const maxTags = 3
+const visibleTags = tags.slice(0, topicTag ? maxTags - 1 : maxTags)
 ---
 <Tag class="project-card" href={href}>
-  <div class="project-card__image-wrapper">
-    {image && (
-      <Image
-        class:list={['project-card__image', 'elevation-lg', { 'project-card__image--app-icon': isSquareImage }]}
-        src={image}
-        alt={alt}
-        width={isSquareImage ? 96 : 400}
-        height={isSquareImage ? 96 : 225}
-        densities={[1, 2]}
-      />
-    )}
-  </div>
+  {image && (
+    <Image
+      class:list={['project-card__image', { 'project-card__image--app-icon': isSquareImage }]}
+      src={image}
+      alt={alt}
+      width={isSquareImage ? 96 : 170}
+      height={96}
+      densities={[1, 2]}
+    />
+  )}
   <div class="project-card__content">
     <div class="project-card__titles">
       <h3 class="project-card__title">{title}</h3>
@@ -36,7 +37,7 @@ const isSquareImage = image?.width === image?.height
     </div>
     <div class="project-card__tags">
       {topicTag && <span class="tag tag--topic">{topicTag}</span>}
-      {tags.map(tag => <span class="tag">{tag}</span>)}
+      {visibleTags.map(tag => <span class="tag">{tag}</span>)}
     </div>
   </div>
 </Tag>
