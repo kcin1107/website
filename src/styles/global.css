@@ -250,7 +250,7 @@ ul {
   background-color: hsl(43 60% 95% / 0.85);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  border-bottom-color: #0000001f;
+  border-bottom-color: #E9E2D7;
 }
 
 [data-theme='dark'] .nav--scrolled {
@@ -624,11 +624,6 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   flex-wrap: wrap;
 }
 
-/* On desktop: show inside hero content, hide in hero images */
-.status-row--desktop {
-  display: flex;
-}
-
 .status-row--mobile {
   display: none;
 }
@@ -799,7 +794,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   gap: 32px;
   padding: 24px;
   background-color: #E9E2D7;
-  border-radius: 16px;
+  border-radius: 32px;
 }
 
 [data-theme='dark'] .project-card {
@@ -817,7 +812,6 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 
 .project-card__image--app-icon {
   width: 96px;
-  border-radius: 20px;
 }
 
 [data-theme='dark'] .project-card__image {
@@ -957,7 +951,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   justify-content: center;
   align-items: center;
   padding: 0 24px;
-  border-top: 1px solid var(--border-grey);
+  border-top: 1px solid #E9E2D7;
 }
 
 .footer__wrapper {
@@ -1140,10 +1134,6 @@ a.project-card {
      lower one sits further left. The wrapper shrinks to the photo so the
      pills' percentage offsets stay anchored to the image at every width
      (not to the column, which would drift once the photo hits max-width). */
-  .status-row--desktop {
-    display: none;
-  }
-
   .hero__images {
     position: relative;
     display: block;
