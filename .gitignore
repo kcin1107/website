@@ -20,3 +20,5 @@ public/api/config.php
 # Claude Code internal
 .claude/
 .agents/
+CLAUDE.md
+AGENTS.md
