@@ -16,7 +16,7 @@ const { image, alt, title, subtitle, topicTag, tags, href } = Astro.props
 const Tag = href ? 'a' : 'div'
 const isSquareImage = image?.width === image?.height
 
-const maxTags = 3
+const maxTags = 2
 const visibleTags = tags.slice(0, topicTag ? maxTags - 1 : maxTags)
 ---
 <Tag class="project-card" href={href}>
