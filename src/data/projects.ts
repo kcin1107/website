@@ -444,15 +444,15 @@ export const projects: Project[] = [
     title: 'Scorer',
     client: 'Get The Score Done',
     topicTag: 'Darts',
-    tags: ['B2C', 'Product Design', 'iOS', 'SwiftUI', 'CloudKit'],
+    tags: ['B2C', 'Product Design', 'iOS', 'SwiftUI', 'WebSockets'],
     category: 'side',
     showOnHome: true,
-    lead: 'A native X01 scorer for iPhone and iPad that keeps game night moving. Play locally with up to eight players, against a configurable bot, or online with a friend. No ads and no account.',
+    lead: 'A native X01 scorer for iPhone and iPad that keeps game night moving. Play locally or online with up to eight players, or against a configurable bot. No ads and no account.',
     meta: [
       { label: 'Role', value: 'Solo product design and iOS development' },
       { label: 'Timeframe', value: 'April 2025 to August 2026' },
       { label: 'Year', value: '2025 to 2026' },
-      { label: 'Tools', value: 'Figma, Xcode, SwiftUI, CloudKit, Codex, Claude Code, MCP' },
+      { label: 'Tools', value: 'Figma, Xcode, SwiftUI, Hummingbird, Docker, Codex, Claude Code, MCP' },
     ],
     links: [
       { label: 'App Store (coming soon)', variant: 'secondary', pending: true },
@@ -478,7 +478,7 @@ export const projects: Project[] = [
       {
         kind: 'prose',
         title: 'The scorer I wanted at the board',
-        body: 'A darts scorer should take a score fast and then stay out of the way. I built Scorer for the nights when the next throw matters more than the phone on the table.\n\nThat kept the product local-first and quiet. The roster and preferences stay on the device, there is no Scorer account, and there are no ads or tracking SDKs. Online play is optional and sends only the match data two players need to stay in sync through CloudKit.',
+        body: 'A darts scorer should take a score fast and then stay out of the way. I built Scorer for the nights when the next throw matters more than the phone on the table.\n\nThat kept the product local-first and quiet. The roster and preferences stay on the device, there is no Scorer account, and there are no ads or tracking SDKs. Online play is optional and sends only the match data the players need to stay in sync, through a small relay server I run myself.',
       },
       {
         kind: 'gallery',
@@ -513,7 +513,7 @@ export const projects: Project[] = [
       {
         kind: 'prose',
         title: 'From prototype to v1.0',
-        body: 'The first Scorer commit dates to April 2025. I came back for a rebuild in February 2026 and carried concept, product design, SwiftUI implementation and App Store release through to v1.0 build 8 in August. The app handles the rule cascade from visits to legs, sets and matches, plus a dart-by-dart bot that aims for the checkout routes it shows the player and misses into neighbouring beds. Optional CloudKit sessions keep an online match in sync.\n\nThis was my first shipped native iOS product. I used Codex and Claude Code alongside Xcode, the command line and MCP throughout the build. The product decisions, the darts rules and the visual system stayed mine.',
+        body: 'The first Scorer commit dates to April 2025. I came back for a rebuild in February 2026 and carried concept, product design, SwiftUI implementation and App Store release through to v1.0 build 8 in August. The app handles the rule cascade from visits to legs, sets and matches, plus a dart-by-dart bot that aims for the checkout routes it shows the player and misses into neighbouring beds. Optional online matches for up to eight players run through a relay server I wrote and host myself.\n\nThis was my first shipped native iOS product. I used Codex and Claude Code alongside Xcode, the command line and MCP throughout the build. The product decisions, the darts rules and the visual system stayed mine.',
       },
     ],
   },

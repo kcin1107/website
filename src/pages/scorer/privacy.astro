@@ -14,7 +14,7 @@ import '../../styles/legal.css'
       <div class="legal-heading">
         <div class="legal-title">
           <h1 id="scorer-privacy-title">Scorer Privacy Policy</h1>
-          <p class="legal-updated">Last updated: August 17, 2026</p>
+          <p class="legal-updated">Last updated: September 3, 2026</p>
         </div>
 
         <div class="scorer-privacy-tabs">
@@ -53,22 +53,27 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>3. Optional Online Games</h2>
             <div class="legal-body">
-              <p>When you choose to host or join an online game, Scorer sends the data needed to run and synchronize that match to Apple CloudKit. This includes:</p>
+              <p>Scorer can host or join an online match for up to eight players. When you use that function, the app connects to a relay server I operate at relay.nickringelmann.com and sends the data needed to run and synchronise the match:</p>
               <ul>
-                <li>your chosen username and your opponent’s username;</li>
-                <li>the six-digit lobby code, session status, and creation time;</li>
+                <li>the display name you choose, and the display names of the other participants;</li>
+                <li>the six-digit lobby code, and a random session token that lets you rejoin after losing connection;</li>
+                <li>your place in the throwing order and whether you are currently connected;</li>
                 <li>match settings such as starting score, out rule, legs, and sets; and</li>
-                <li>gameplay data such as entered scores, remaining scores, turns, busts, finish information, timestamps, legs, sets, winners, and rematch status.</li>
+                <li>gameplay data such as entered scores, remaining scores, turns, busts, finish information, timestamps, legs, sets, and winners.</li>
               </ul>
-              <p>This processing is necessary to provide the online-game function you request (Art. 6(1)(b) GDPR). Online play is optional; local games remain available without sending match data to CloudKit.</p>
-              <p>Scorer uses CloudKit’s public database so participants can exchange match data. Your opponent receives the usernames and gameplay data required for the match. Other Scorer users may technically be able to retrieve a session if they know or guess its lobby code. Do not use a real name or include sensitive information in your username.</p>
+              <p>This processing is necessary to provide the online-game function you request (Art. 6(1)(b) GDPR). Online play is optional, and local games work without sending anything to the relay.</p>
+              <p>Earlier versions of Scorer used Apple CloudKit for online play. They no longer do, and Apple is not involved in this processing.</p>
+              <p>The relay passes match data between the participants of a single lobby. Everyone in your lobby sees the display names and gameplay data of everyone else. Someone who guesses your lobby code while the lobby is still open can join the match; once the host starts it, nobody else can join. Choose a nickname rather than your real name, and do not put personal information in it.</p>
             </div>
           </section>
 
           <section class="legal-section">
-            <h2>4. Service Provider and International Processing</h2>
+            <h2>4. Hosting, Server Logs, and International Processing</h2>
             <div class="legal-body">
-              <p>Apple provides CloudKit and processes the online-session data on my behalf. Apple may also process technical connection, account, and service metadata under its terms and <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">privacy policy</a>. Depending on Apple’s infrastructure, data may be processed outside the European Economic Area. Apple provides the applicable safeguards, including adequacy decisions or Standard Contractual Clauses where required.</p>
+              <p>The relay runs on a virtual server I rent from netcup GmbH, Daimlerstraße 25, 76185 Karlsruhe, Germany, in a data centre in Vienna, Austria. netcup acts as a processor on my behalf under a data processing agreement pursuant to Art. 28 GDPR. Processing takes place within the European Union, so no transfer to a third country is involved.</p>
+              <p>The connection between the app and the relay is encrypted with TLS. The certificate is issued automatically by the Let’s Encrypt certificate authority.</p>
+              <p>The relay holds match data in memory only. It writes no match data to a database or to disk.</p>
+              <p>The web server in front of the relay writes technical access logs containing the IP address of the connecting device, the time of the request, and its result. I use these to operate the service and to detect faults and abuse (Art. 6(1)(f) GDPR). They rotate automatically and are capped in size, so older entries are overwritten in normal operation. They are not combined with match data and are not used to build a profile. The relay’s own log records lobby codes and connection events, but no player names, session tokens, or IP addresses.</p>
               <p>I do not sell this data or use it for advertising, marketing, analytics, tracking, or profiling. Scorer contains no advertising or third-party analytics SDK.</p>
             </div>
           </section>
@@ -76,7 +81,15 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>5. Retention and Deletion</h2>
             <div class="legal-body">
-              <p>Scorer currently does not automatically delete an online-session record when a match ends or a player disconnects. The record can therefore remain in CloudKit until I delete it. You may request access to or deletion of an online-session record by emailing <a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a>. To help me locate it, include the lobby code and, if available, the username and approximate date of the match. I will delete data when it is no longer required for the online service or when a valid deletion request applies, unless a legal obligation requires longer retention.</p>
+              <p>Match data stays in the relay’s memory only for as long as the match needs it:</p>
+              <ul>
+                <li>when the host leaves, or any player leaves a match already in progress, the lobby closes and its data is discarded at once;</li>
+                <li>once everyone has disconnected, the lobby is discarded about ten minutes later, which is the window that lets you rejoin after losing signal;</li>
+                <li>a lobby that sees no activity at all is discarded after six hours; and</li>
+                <li>restarting the relay clears every lobby immediately.</li>
+              </ul>
+              <p>No lasting record of a match therefore exists for me to keep or hand over, and no deletion request is needed for match data. Technical access logs are overwritten as they rotate, as described above.</p>
+              <p>The session token that lets you rejoin a match is stored on your device, not by me. It is removed when you leave a lobby, and deleting the app removes it in any case.</p>
             </div>
           </section>
 
@@ -91,7 +104,7 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>7. Children</h2>
             <div class="legal-body">
-              <p>Scorer is not specifically directed at children. Users should choose a nickname rather than enter a real name or other personal information. A parent or guardian may contact me to request deletion of a child’s online-session data.</p>
+              <p>Scorer is not specifically directed at children. Users should choose a nickname rather than enter a real name or other personal information. A parent or guardian may contact me with questions about a child’s use of the online function.</p>
             </div>
           </section>
 
@@ -132,22 +145,27 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>3. Optionale Online-Spiele</h2>
             <div class="legal-body">
-              <p>Wenn du ein Online-Spiel erstellst oder einem Online-Spiel beitrittst, sendet Scorer die für die Durchführung und Synchronisierung des Spiels erforderlichen Daten an Apple CloudKit. Dazu gehören:</p>
+              <p>Scorer kann ein Online-Spiel für bis zu acht Spieler erstellen oder einem solchen beitreten. Dabei verbindet sich die App mit einem von mir betriebenen Relay-Server unter relay.nickringelmann.com und sendet die für die Durchführung und Synchronisierung des Spiels erforderlichen Daten:</p>
               <ul>
-                <li>dein gewählter Benutzername und der Benutzername deines Gegners;</li>
-                <li>der sechsstellige Lobby-Code, der Sitzungsstatus und der Erstellungszeitpunkt;</li>
+                <li>den von dir gewählten Anzeigenamen sowie die Anzeigenamen der übrigen Teilnehmer;</li>
+                <li>den sechsstelligen Lobby-Code und ein zufälliges Sitzungstoken, mit dem du nach einem Verbindungsabbruch wieder beitreten kannst;</li>
+                <li>deinen Platz in der Wurfreihenfolge und ob du gerade verbunden bist;</li>
                 <li>Spieleinstellungen wie Startpunktzahl, Auswurfregel, Legs und Sets; sowie</li>
-                <li>Spieldaten wie eingegebene und verbleibende Punktzahlen, Aufnahmen, Busts, Finish-Informationen, Zeitstempel, Legs, Sets, Gewinner und Revanche-Status.</li>
+                <li>Spieldaten wie eingegebene und verbleibende Punktzahlen, Aufnahmen, Busts, Finish-Informationen, Zeitstempel, Legs, Sets und Gewinner.</li>
               </ul>
-              <p>Die Verarbeitung ist erforderlich, um die von dir angeforderte Online-Spielfunktion bereitzustellen (Art. 6 Abs. 1 lit. b DSGVO). Online-Spiele sind optional; lokale Spiele bleiben möglich, ohne Spieldaten an CloudKit zu senden.</p>
-              <p>Scorer verwendet die öffentliche Datenbank von CloudKit, damit die Teilnehmer Spieldaten austauschen können. Dein Gegner erhält die für das Spiel benötigten Benutzernamen und Spieldaten. Andere Scorer-Nutzer können technisch in der Lage sein, eine Sitzung abzurufen, wenn sie deren Lobby-Code kennen oder erraten. Verwende keinen echten Namen und keine sensiblen Informationen als Benutzernamen.</p>
+              <p>Die Verarbeitung ist erforderlich, um die von dir angeforderte Online-Spielfunktion bereitzustellen (Art. 6 Abs. 1 lit. b DSGVO). Online-Spiele sind optional; lokale Spiele funktionieren, ohne dass Daten an das Relay gesendet werden.</p>
+              <p>Frühere Versionen von Scorer nutzten für Online-Spiele Apple CloudKit. Das ist nicht mehr der Fall; Apple ist an dieser Verarbeitung nicht beteiligt.</p>
+              <p>Das Relay leitet Spieldaten zwischen den Teilnehmern einer einzelnen Lobby weiter. Alle Teilnehmer deiner Lobby sehen die Anzeigenamen und Spieldaten der anderen. Wer deinen Lobby-Code errät, während die Lobby noch offen ist, kann dem Spiel beitreten; sobald der Host das Spiel startet, ist kein Beitritt mehr möglich. Verwende einen Spitznamen statt deines echten Namens und gib darin keine personenbezogenen Informationen an.</p>
             </div>
           </section>
 
           <section class="legal-section">
-            <h2>4. Dienstleister und internationale Verarbeitung</h2>
+            <h2>4. Hosting, Server-Protokolle und internationale Verarbeitung</h2>
             <div class="legal-body">
-              <p>Apple stellt CloudKit bereit und verarbeitet die Daten der Online-Sitzung in meinem Auftrag. Apple kann außerdem technische Verbindungs-, Konto- und Dienstmetadaten nach Maßgabe seiner Bedingungen und <a href="https://www.apple.com/de/legal/privacy/" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> verarbeiten. Abhängig von Apples Infrastruktur können Daten außerhalb des Europäischen Wirtschaftsraums verarbeitet werden. Apple stellt die jeweils erforderlichen Garantien bereit, insbesondere Angemessenheitsbeschlüsse oder Standardvertragsklauseln.</p>
+              <p>Das Relay läuft auf einem virtuellen Server, den ich bei der netcup GmbH, Daimlerstraße 25, 76185 Karlsruhe, Deutschland, in einem Rechenzentrum in Wien, Österreich, gemietet habe. netcup ist Auftragsverarbeiter in meinem Auftrag auf Grundlage eines Vertrags zur Auftragsverarbeitung nach Art. 28 DSGVO. Die Verarbeitung findet innerhalb der Europäischen Union statt; eine Übermittlung in ein Drittland erfolgt nicht.</p>
+              <p>Die Verbindung zwischen App und Relay ist mit TLS verschlüsselt. Das Zertifikat wird automatisch von der Zertifizierungsstelle Let’s Encrypt ausgestellt.</p>
+              <p>Das Relay hält Spieldaten ausschließlich im Arbeitsspeicher. Es schreibt keine Spieldaten in eine Datenbank oder auf einen Datenträger.</p>
+              <p>Der dem Relay vorgelagerte Webserver schreibt technische Zugriffsprotokolle mit der IP-Adresse des verbindenden Geräts, dem Zeitpunkt der Anfrage und deren Ergebnis. Ich nutze sie für den Betrieb des Dienstes sowie zur Erkennung von Störungen und Missbrauch (Art. 6 Abs. 1 lit. f DSGVO). Sie rotieren automatisch und sind in ihrer Größe begrenzt, sodass ältere Einträge im laufenden Betrieb überschrieben werden. Sie werden nicht mit Spieldaten zusammengeführt und nicht zur Profilbildung verwendet. Das Protokoll des Relays selbst erfasst Lobby-Codes und Verbindungsereignisse, jedoch keine Spielernamen, Sitzungstoken oder IP-Adressen.</p>
               <p>Ich verkaufe diese Daten nicht und verwende sie nicht für Werbung, Marketing, Analysen, Tracking oder Profiling. Scorer enthält keine Werbung und kein Analyse-SDK eines Drittanbieters.</p>
             </div>
           </section>
@@ -155,7 +173,15 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>5. Speicherdauer und Löschung</h2>
             <div class="legal-body">
-              <p>Scorer löscht den Datensatz einer Online-Sitzung derzeit nicht automatisch, wenn ein Spiel endet oder ein Spieler die Verbindung trennt. Der Datensatz kann deshalb in CloudKit verbleiben, bis ich ihn lösche. Du kannst per E-Mail an <a href="mailto:work@nickringelmann.com">work@nickringelmann.com</a> Auskunft über einen Online-Sitzungsdatensatz oder dessen Löschung verlangen. Damit ich ihn finden kann, nenne bitte den Lobby-Code und, falls vorhanden, den Benutzernamen und das ungefähre Datum des Spiels. Ich lösche Daten, wenn sie für den Online-Dienst nicht mehr erforderlich sind oder ein wirksames Löschverlangen vorliegt, sofern keine gesetzliche Pflicht eine längere Speicherung erfordert.</p>
+              <p>Spieldaten verbleiben nur so lange im Arbeitsspeicher des Relays, wie das Spiel sie benötigt:</p>
+              <ul>
+                <li>Verlässt der Host das Spiel oder verlässt ein Spieler ein bereits laufendes Spiel, wird die Lobby geschlossen und ihre Daten werden sofort verworfen.</li>
+                <li>Sind alle Teilnehmer getrennt, wird die Lobby nach etwa zehn Minuten verworfen; dieses Zeitfenster ermöglicht den erneuten Beitritt nach einem Verbindungsabbruch.</li>
+                <li>Eine Lobby ohne jede Aktivität wird nach sechs Stunden verworfen.</li>
+                <li>Ein Neustart des Relays löscht sämtliche Lobbys sofort.</li>
+              </ul>
+              <p>Es entsteht daher kein dauerhafter Datensatz eines Spiels, den ich aufbewahren oder herausgeben könnte; für Spieldaten ist kein Löschverlangen erforderlich. Technische Zugriffsprotokolle werden im Zuge der Rotation überschrieben, wie oben beschrieben.</p>
+              <p>Das Sitzungstoken, mit dem du einem Spiel wieder beitreten kannst, wird auf deinem Gerät gespeichert, nicht bei mir. Es wird entfernt, wenn du eine Lobby verlässt; das Löschen der App entfernt es in jedem Fall.</p>
             </div>
           </section>
 
@@ -170,7 +196,7 @@ import '../../styles/legal.css'
           <section class="legal-section">
             <h2>7. Kinder</h2>
             <div class="legal-body">
-              <p>Scorer richtet sich nicht speziell an Kinder. Nutzer sollten einen Spitznamen wählen und keinen echten Namen oder andere persönliche Informationen eingeben. Eltern oder Erziehungsberechtigte können mich kontaktieren, um die Löschung der Daten einer Online-Sitzung eines Kindes zu verlangen.</p>
+              <p>Scorer richtet sich nicht speziell an Kinder. Nutzer sollten einen Spitznamen wählen und keinen echten Namen oder andere persönliche Informationen eingeben. Eltern oder Erziehungsberechtigte können sich bei Fragen zur Nutzung der Online-Funktion durch ein Kind an mich wenden.</p>
             </div>
           </section>
 
@@ -196,8 +222,8 @@ import '../../styles/legal.css'
       de: 'Scorer Datenschutzerklärung',
     }
     const updateLabels: Record<string, string> = {
-      en: 'Last updated: August 17, 2026',
-      de: 'Stand: 17. August 2026',
+      en: 'Last updated: September 3, 2026',
+      de: 'Stand: 3. September 2026',
     }
 
     tabs.forEach(tab => {
