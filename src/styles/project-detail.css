@@ -78,6 +78,22 @@
   gap: 8px;
 }
 
+.project-detail__badge-link {
+  display: inline-flex;
+  border-radius: 8px;
+  transition: opacity 0.15s ease;
+}
+
+.project-detail__badge-link:hover {
+  opacity: 0.85;
+}
+
+.project-detail__badge-link img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
 .project-detail__description {
   display: flex;
   flex-direction: column;

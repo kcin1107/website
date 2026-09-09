@@ -77,6 +77,17 @@ const metaDescription = project.lead
           <div class="project-detail__titles">
             <h1 class="project-detail__title">{project.title}</h1>
             <span class="project-detail__client">{project.client}</span>
+            {project.links?.filter(link => link.badge).map(link => (
+              <a
+                href={link.href}
+                class="project-detail__badge-link"
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                aria-label={link.label}
+              >
+                <img src={link.badge} alt="" width="119" height="40" />
+              </a>
+            ))}
           </div>
         </div>
         <div class="project-detail__tags">
@@ -87,9 +98,9 @@ const metaDescription = project.lead
 
       {project.lead && <p class="text-md">{project.lead}</p>}
 
-      {project.links?.length > 0 && (
+      {project.links?.some(link => !link.badge) && (
         <nav class="project-detail__links" aria-label="Project links">
-          {project.links.map(link => (
+          {project.links.filter(link => !link.badge).map(link => (
             <Button
               href={link.href}
               variant={link.variant}
