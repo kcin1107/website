@@ -269,7 +269,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
   .skip-link:focus-visible,
   .skip-link:focus {
     transform: translateY(0%);
-    outline: 2px solid #357DFF;
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 

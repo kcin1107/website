@@ -29,16 +29,12 @@ const arms = [
 
 <style>
   .result {
-    --accent: #0A7A3C;
+    --accent: var(--status-green);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
     width: 100%;
     margin: 0;
-  }
-
-  :global([data-theme='dark']) .result {
-    --accent: #41E788;
   }
 
   .result__item {

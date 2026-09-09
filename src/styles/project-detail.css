@@ -116,16 +116,12 @@
 
 .project-detail__image-wrapper {
   width: 100%;
-  background-color: #F7F7F7;
+  background-color: var(--surface-grey);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 64px 48px;
-}
-
-[data-theme='dark'] .project-detail__image-wrapper {
-  background-color: var(--surface-grey);
 }
 
 .project-detail__image {
@@ -185,17 +181,15 @@
   display: block;
 }
 
-/* Dark mode: soften image frames. In light mode these are an intentional
-   high-contrast frame (black on projects, light-grey mat on the hero), but
-   they invert to a harsh near-white on dark. Recolor to a subtle grey so the
-   screenshots read as framed, not glaringly outlined. */
-[data-theme='dark'] .hero__image-1,
-[data-theme='dark'] .hero__image-2,
-[data-theme='dark'] .project-card__image,
+/* Dark mode: soften image frames. In light mode this is an intentional
+   high-contrast black border, but it inverts to a harsh near-white on dark.
+   Recolor to a subtle grey so the screenshots read as framed, not glaringly
+   outlined. (.hero__image-1/2 and .project-card__image get the equivalent
+   fix in global.css, since this stylesheet only loads on this page.) */
 [data-theme='dark'] .project-detail__image,
 [data-theme='dark'] .project-detail__showcase-mobile,
 [data-theme='dark'] .project-detail__showcase-item {
-  border-color: #3a3a3a;
+  border-color: var(--border-grey);
 }
 
 @media (max-width: 767px) {
@@ -274,13 +268,14 @@
    badge in the component maps to an entry in the legend underneath, naming
    the behavioural lever that element pulls.
 
-   The accent green has no custom property of its own. Values are the
-   documented status colours: #0A7A3C light (tuned to 4.5:1, do not lighten)
-   and #41E788 dark.
+   The accent green is the shared var(--status-green) token (tuned to 4.5:1
+   in light mode, do not lighten). --accent-on is intentionally its own
+   literal, not a themed token — pure white/black text-on-saturated-chip
+   contrast, decoupled from the canvas/ink tokens.
    ========================================================================== */
 
 .nudge {
-  --accent: #0A7A3C;
+  --accent: var(--status-green);
   --accent-on: #ffffff;
   display: flex;
   flex-direction: column;
@@ -290,7 +285,6 @@
 }
 
 [data-theme='dark'] .nudge {
-  --accent: #41E788;
   --accent-on: #000000;
 }
 

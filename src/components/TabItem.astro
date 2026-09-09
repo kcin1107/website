@@ -37,7 +37,7 @@ const { label, selected = false, disabled = false, href, ...rest } = Astro.props
     height: 38px;
     padding: 8px 12px;
     border-radius: 12px;
-    color: #616161;
+    color: var(--dark-grey);
     text-decoration: none;
     cursor: pointer;
     border: 1px solid transparent;
@@ -48,43 +48,29 @@ const { label, selected = false, disabled = false, href, ...rest } = Astro.props
   }
 
   .tab-item:hover:not(:disabled):not(.tab-item--disabled) {
-    background-color: #fafafa;
-    color: #212121;
-  }
-
-  .tab-item--selected,
-  .tab-item[aria-selected="true"] {
-    background-color: #fafafa;
-    border-color: #eeeeee;
-    color: #212121;
-  }
-
-  .tab-item:disabled,
-  .tab-item--disabled {
-    color: #bdbdbd;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  /* Dark mode */
-  :global([data-theme='dark']) .tab-item {
-    color: var(--dark-grey);
-  }
-
-  :global([data-theme='dark']) .tab-item:hover:not(:disabled):not(.tab-item--disabled) {
     background-color: var(--hover-grey);
     color: var(--black);
   }
 
-  :global([data-theme='dark']) .tab-item--selected,
-  :global([data-theme='dark']) .tab-item[aria-selected="true"] {
+  .tab-item--selected,
+  .tab-item[aria-selected="true"] {
     background-color: var(--hover-grey);
     border-color: var(--border-grey);
     color: var(--black);
   }
 
+  .tab-item:disabled,
+  .tab-item--disabled {
+    color: #BDB6A8;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Dark mode: base rules above already use theme-adapting vars, so only
+     the disabled-state literal (not worth promoting to a token) needs a
+     separate dark value. */
   :global([data-theme='dark']) .tab-item:disabled,
   :global([data-theme='dark']) .tab-item--disabled {
-    color: #525252;
+    color: #5C554A;
   }
 </style>

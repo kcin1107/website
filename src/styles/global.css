@@ -29,30 +29,80 @@
 
 :root {
   --white: #f4efe6;
-  --black: #000000;
-  --light-grey: #f5f5f5;
-  --dark-grey: #706e6e;
-  --surface-grey: #f7f7f7;
-  --hover-grey: #ebebeb;
-  --border-grey: #eeeeee;
+  --black: #1C1815;
+  --light-grey: #EFE9DC;
+  --dark-grey: #63605B;
+  --surface-grey: #F8F3EA;
+  --hover-grey: #EAE3D5;
+  --border-grey: #E4DCC9;
   /* Boundary of interactive controls — needs 3:1 per WCAG 1.4.11,
      unlike the decorative --border-grey. */
-  --border-interactive: #8a8a8a;
+  --border-interactive: #83786D;
   /* Idle/unselected tag-pill fill — a touch darker than --white so pills
      stay visible against the cream canvas instead of blending into it. */
   --tag-idle: #f5f4ed;
+
+  /* Status colors — contrast-tuned text pairs, shared by status pills,
+     case-study highlights, the shipping/framing nudges, and the contact
+     form's success state so they can't drift out of sync with each other. */
+  --status-green: #0A7A3C;
+  --status-green-rgb: 10, 122, 60;
+  --status-green-bg: #E6F9EF;
+  --status-blue: #1E5FD9;
+
+  /* Theme-invariant vivid accents: always this exact value in both themes,
+     unlike the pairs above. --status-green-vivid-rgb is the animated status
+     dot's brand green (brighter than the contrast-safe text color); the
+     focus-ring pair is the site's one fixed interactive-focus color, chosen
+     to clear 3:1 against every surface it can land on (see :focus-visible
+     below), and doubles as .status--blue's decorative border/shadow tint. */
+  --status-green-vivid-rgb: 65, 231, 136;
+  --focus-ring: #357DFF;
+  --focus-ring-rgb: 53, 125, 255;
+
+  --error: #B3221C;
+  --error-rgb: 179, 34, 28;
+  --error-bg: #FBE9E7;
+
+  /* Card fill — a touch warmer than --surface-grey, reserved for project
+     cards; resolves to var(--surface-grey) in dark mode below. */
+  --card-warm: #E9E2D7;
+
+  /* Elevation tiers shared by every hand-rolled box-shadow on the site, so
+     duplicates reference one source instead of re-declaring the same rgba
+     stack. Neutral black in both themes — shadows are cast-occlusion, not
+     surface tone, so they don't pick up the warm tint the rest of the
+     palette does. */
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.12), 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
 }
 
 [data-theme='dark'] {
-  --white: #000000;
-  --black: #f5f5f5;
-  --light-grey: #111111;
-  --dark-grey: #a3a3a3;
-  --surface-grey: #141414;
-  --hover-grey: #1c1c1c;
-  --border-grey: #2a2a2a;
-  --border-interactive: #6a6a6a;
+  --white: #17130F;
+  --black: #F2ECE2;
+  --light-grey: #221D17;
+  --dark-grey: #ACA599;
+  --surface-grey: #1E1A15;
+  --hover-grey: #241F19;
+  --border-grey: #332C24;
+  --border-interactive: #726B60;
   --tag-idle: var(--white);
+
+  --status-green: #41E788;
+  --status-green-rgb: 65, 231, 136;
+  --status-green-bg: #123524;
+  --status-blue: #357DFF;
+
+  --error: #FFB4AB;
+  --error-rgb: 255, 180, 171;
+  --error-bg: #3B1616;
+
+  --card-warm: var(--surface-grey);
+
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.16);
+  --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.18), 0px 2px 16px 0px rgba(0, 0, 0, 0.14);
+  --shadow-lg: 0px 12px 24px 0px rgba(0, 0, 0, 0.20), 0px 6px 32px 0px rgba(0, 0, 0, 0.16);
 }
 
 ::selection {
@@ -121,14 +171,14 @@ body {
    ========================================================================== */
 
 /* :focus-visible only (never :focus) so the ring shows for keyboard
-   navigation but not mouse clicks. #357DFF is the site's established
-   interactive-focus color (see contact form inputs/subject pills) and
-   clears 3:1 against every surface it can land on: 3.32:1 on var(--white)
-   in light mode (#f4efe6), 5.53:1 on var(--white) in dark mode (#000000),
-   5.53:1 on var(--black)/.secondaryButton fill in light mode (#000000),
-   and 3.49:1 on var(--black)/.secondaryButton fill in dark mode (#f5f5f5). */
+   navigation but not mouse clicks. var(--focus-ring) is the site's one
+   fixed interactive-focus color (see contact form inputs/subject pills)
+   and clears 3:1 against every surface it can land on: 3.32:1 on
+   var(--white) in light mode, 4.64:1 on var(--white) in dark mode,
+   4.64:1 on var(--black)/.secondaryButton fill in light mode, and 3.23:1
+   on var(--black)/.secondaryButton fill in dark mode. */
 :focus-visible {
-  outline: 2px solid #357DFF;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -250,11 +300,11 @@ ul {
   background-color: hsl(43 60% 95% / 0.85);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  border-bottom-color: #E9E2D7;
+  border-bottom-color: var(--border-grey);
 }
 
 [data-theme='dark'] .nav--scrolled {
-  background-color: hsl(0 0% 8% / 0.85);
+  background-color: hsl(24 12% 6.5% / 0.85);
   border-bottom-color: #ffffff26;
 }
 
@@ -394,11 +444,7 @@ ul {
 }
 
 .secondaryButton:hover {
-  background-color: #292929;
-}
-
-[data-theme='dark'] .secondaryButton:hover {
-  background-color: #d8d8d8;
+  background-color: color-mix(in srgb, var(--black) 84%, var(--white) 16%);
 }
 
 /* Nav actions group (toggle + CTA) */
@@ -561,6 +607,9 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   min-height: 392px;
 }
 
+/* Both carry the .elevation-md utility class in the markup for their shadow
+   — it's declared later in this file, so it wins the cascade at equal
+   specificity and any box-shadow declared here would be dead code. */
 .hero__image-1 {
   position: absolute;
   top: 0;
@@ -571,8 +620,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 20px;
-  border: 5px solid #EDEDED;
-  box-shadow: 0px 6px 32px 0px #00000010, 0px 12px 24px 0px #00000014;
+  border: 5px solid var(--border-grey);
 }
 
 .hero__image-2 {
@@ -584,8 +632,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   height: auto;
   object-fit: cover;
   border-radius: 16px;
-  border: 5px solid #EDEDED;
-  box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.12);
+  border: 5px solid var(--border-grey);
 }
 
 .hero__content {
@@ -648,9 +695,9 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   width: 8px;
   height: 8px;
   flex: 0 0 auto;
-  background-color: #41E788;
+  background-color: rgb(var(--status-green-vivid-rgb));
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(65, 231, 136, 0.16);
+  box-shadow: 0 0 0 4px rgba(var(--status-green-vivid-rgb), 0.16);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -660,9 +707,10 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 .status__text {
-  /* Darkened from #0DAC52 so 14px/500 text reaches 4.5:1 on the light pill
-     surface (WCAG 1.4.3). Dark mode keeps the brighter #41E788 below. */
-  color: #0A7A3C;
+  /* var(--status-green) is darkened from the brand #0DAC52 so 14px/500 text
+     reaches 4.5:1 on the light pill surface (WCAG 1.4.3); dark mode's value
+     is the brighter brand green. */
+  color: var(--status-green);
   font-weight: 500;
   font-size: 14px;
   line-height: 1;
@@ -671,40 +719,42 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 .status--blue {
-  /* Darkened from #357DFF for the same reason as .status__text above. */
-  color: #1E5FD9;
+  /* var(--status-blue) is darkened from var(--focus-ring) for the same
+     reason as .status__text above; the decorative border/shadow below stay
+     at the vivid, theme-invariant focus-ring blue. */
+  color: var(--status-blue);
   background: linear-gradient(180deg, rgba(247, 252, 255, 0.98) 0%, rgba(238, 247, 255, 0.94) 100%);
-  border-color: rgba(53, 125, 255, 0.18);
-  box-shadow: 0 8px 20px rgba(53, 125, 255, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.76);
+  border-color: rgba(var(--focus-ring-rgb), 0.18);
+  box-shadow: 0 8px 20px rgba(var(--focus-ring-rgb), 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.76);
 }
 
 .status--blue .status__text {
-  color: #1E5FD9;
+  color: var(--status-blue);
 }
 
 /* Dark mode status pills */
 [data-theme='dark'] .status {
-  background: linear-gradient(180deg, rgba(20, 20, 20, 0.96) 0%, rgba(12, 12, 12, 0.9) 100%);
-  border-color: rgba(65, 231, 136, 0.28);
+  background: linear-gradient(180deg, rgba(30, 26, 21, 0.96) 0%, rgba(18, 15, 12, 0.9) 100%);
+  border-color: rgba(var(--status-green-vivid-rgb), 0.28);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 [data-theme='dark'] .status__dot {
-  box-shadow: 0 0 0 4px rgba(65, 231, 136, 0.18);
+  box-shadow: 0 0 0 4px rgba(var(--status-green-vivid-rgb), 0.18);
 }
 
 [data-theme='dark'] .status__text {
-  color: #41E788;
+  color: var(--status-green);
 }
 
 [data-theme='dark'] .status--blue {
-  background: linear-gradient(180deg, rgba(20, 20, 20, 0.96) 0%, rgba(12, 12, 12, 0.9) 100%);
-  border-color: rgba(53, 125, 255, 0.32);
+  background: linear-gradient(180deg, rgba(30, 26, 21, 0.96) 0%, rgba(18, 15, 12, 0.9) 100%);
+  border-color: rgba(var(--focus-ring-rgb), 0.32);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 [data-theme='dark'] .status--blue .status__text {
-  color: #357DFF;
+  color: var(--status-blue);
 }
 
 @keyframes blink {
@@ -793,18 +843,16 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   flex-direction: column;
   gap: 32px;
   padding: 24px;
-  background-color: #E9E2D7;
+  background-color: var(--card-warm);
   border-radius: 32px;
-}
-
-[data-theme='dark'] .project-card {
-  background-color: var(--surface-grey);
 }
 
 .project-card__image {
   width: 170px;
   height: 96px;
   object-fit: cover;
+  /* Intentional high-contrast frame in light mode; var(--black) inverts to
+     near-white in dark mode, so it's softened to var(--border-grey) below. */
   border: 2px solid var(--black);
   border-radius: 8px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -815,6 +863,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
 }
 
 [data-theme='dark'] .project-card__image {
+  border-color: var(--border-grey);
   box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.16), 0px 12px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -951,7 +1000,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   justify-content: center;
   align-items: center;
   padding: 0 24px;
-  border-top: 1px solid #E9E2D7;
+  border-top: 1px solid var(--border-grey);
 }
 
 .footer__wrapper {
@@ -1095,23 +1144,13 @@ a.project-card:hover {
    ========================================================================== */
 
 .elevation-sm {
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.12), 0px 1px 6px 0px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-sm);
 }
 .elevation-md {
-  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.12), 0px 2px 16px 0px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-md);
 }
 .elevation-lg {
-  box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.14), 0px 6px 32px 0px rgba(0,0,0,0.10);
-}
-
-[data-theme='dark'] .elevation-sm {
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.12), 0px 1px 6px 0px rgba(0,0,0,0.16);
-}
-[data-theme='dark'] .elevation-md {
-  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.18), 0px 2px 16px 0px rgba(0,0,0,0.14);
-}
-[data-theme='dark'] .elevation-lg {
-  box-shadow: 0px 12px 24px 0px rgba(0,0,0,0.20), 0px 6px 32px 0px rgba(0,0,0,0.16);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==========================================================================
@@ -1193,7 +1232,7 @@ a.project-card:hover {
   .status-row--mobile .status__dot {
     width: 7px;
     height: 7px;
-    box-shadow: 0 0 0 3px rgba(65, 231, 136, 0.16);
+    box-shadow: 0 0 0 3px rgba(var(--status-green-vivid-rgb), 0.16);
   }
 
   [data-theme='dark'] .status-row--mobile .status {

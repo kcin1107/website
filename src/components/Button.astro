@@ -74,7 +74,7 @@ const { href, variant = 'primary', icon = false, target, disabled = false, class
   }
 
   .btn--secondary:hover {
-    background-color: #292929;
+    background-color: color-mix(in srgb, var(--black) 84%, var(--white) 16%);
   }
 
   .btn--disabled,
@@ -87,10 +87,5 @@ const { href, variant = 'primary', icon = false, target, disabled = false, class
 
   .btn__icon {
     flex-shrink: 0;
-  }
-
-  /* Dark mode */
-  :global([data-theme='dark']) .btn--secondary:hover {
-    background-color: #d8d8d8;
   }
 </style>

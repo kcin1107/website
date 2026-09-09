@@ -306,24 +306,18 @@ const galleryWidths = section.kind === 'gallery' && section.presentation === 'la
     background-color: var(--border-grey);
   }
 
-  /* Highlighted chain steps use the page's hardcoded accent green, not a
-     CSS variable — there is no --status-blue-style token for it. */
   .case__chain-item--highlight {
-    border-color: rgba(10, 122, 60, 0.35);
-    background-color: rgba(10, 122, 60, 0.08);
+    border-color: rgba(var(--status-green-rgb), 0.35);
+    background-color: rgba(var(--status-green-rgb), 0.08);
   }
 
   .case__chain-item--highlight .case__chain-label {
-    color: #0A7A3C;
+    color: var(--status-green);
   }
 
   :global([data-theme='dark']) .case__chain-item--highlight {
-    border-color: rgba(65, 231, 136, 0.3);
-    background-color: rgba(65, 231, 136, 0.08);
-  }
-
-  :global([data-theme='dark']) .case__chain-item--highlight .case__chain-label {
-    color: #41E788;
+    border-color: rgba(var(--status-green-rgb), 0.3);
+    background-color: rgba(var(--status-green-rgb), 0.08);
   }
 
   /* Frame: matches .project-detail__showcase-item's treatment (16px radius,
@@ -339,7 +333,7 @@ const galleryWidths = section.kind === 'gallery' && section.presentation === 'la
     border-radius: 16px;
     border: 2px solid var(--black);
     overflow: hidden;
-    box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: var(--shadow-lg);
   }
 
   .case__frame :global(img) {
@@ -349,7 +343,7 @@ const galleryWidths = section.kind === 'gallery' && section.presentation === 'la
   }
 
   :global([data-theme='dark']) .case__frame {
-    border-color: #3a3a3a;
+    border-color: var(--border-grey);
   }
 
   .case__caption {
@@ -505,7 +499,7 @@ const galleryWidths = section.kind === 'gallery' && section.presentation === 'la
     overflow: hidden;
     border: 2px solid var(--black);
     border-radius: 16px;
-    box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
+    box-shadow: var(--shadow-lg);
   }
 
   .case__gallery-frame :global(img) {
@@ -534,7 +528,7 @@ const galleryWidths = section.kind === 'gallery' && section.presentation === 'la
   }
 
   :global([data-theme='dark']) .case__gallery-frame {
-    border-color: #3a3a3a;
+    border-color: var(--border-grey);
   }
 
   @media (max-width: 767px) {
