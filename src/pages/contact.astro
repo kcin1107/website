@@ -68,7 +68,7 @@ import Layout from '../layouts/Layout.astro'
             <textarea id="contact-message" name="message" rows="5" required></textarea>
           </div>
 
-          <a href="#" id="contact-submit" class="secondaryButton contact-submit">Send Message</a>
+          <button type="button" id="contact-submit" class="secondaryButton contact-submit">Send Message</button>
 
           <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
 
@@ -81,7 +81,7 @@ import Layout from '../layouts/Layout.astro'
 
   <script>
     const form = document.getElementById('contact-form') as HTMLFormElement
-    const submit = document.getElementById('contact-submit') as HTMLAnchorElement
+    const submit = document.getElementById('contact-submit') as HTMLButtonElement
     const subjectRadios = document.querySelectorAll<HTMLInputElement>('input[name="subject"]')
     const subjectGroup = document.querySelector('.subject-pills') as HTMLElement
     const subjectError = document.getElementById('subject-error') as HTMLElement
@@ -432,6 +432,9 @@ import Layout from '../layouts/Layout.astro'
     align-self: stretch;
     text-align: center;
     padding: 12px 28px;
+    border: none;
+    font: inherit;
+    cursor: pointer;
   }
 
   @media (hover: hover) and (pointer: fine) {

@@ -20,7 +20,7 @@ const maxTags = 2
 const visibleTags = tags.slice(0, topicTag ? maxTags - 1 : maxTags)
 ---
 <Tag class="project-card" href={href}>
-  {image && (
+  {image ? (
     <Image
       class:list={['project-card__image', { 'project-card__image--app-icon': isSquareImage }]}
       src={image}
@@ -29,6 +29,8 @@ const visibleTags = tags.slice(0, topicTag ? maxTags - 1 : maxTags)
       height={96}
       densities={[1, 2]}
     />
+  ) : (
+    <div class="project-card__image project-card__image--placeholder" aria-hidden="true"></div>
   )}
   <div class="project-card__content">
     <div class="project-card__titles">

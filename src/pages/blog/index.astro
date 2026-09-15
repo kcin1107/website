@@ -21,18 +21,22 @@ const formatter = new Intl.DateTimeFormat('en-US', {
   <section class="section">
     <div class="container blog-index">
       <h1>Blog</h1>
-      <ul class="blog-list">
-        {posts.map((post) => (
-          <li>
-            <a class="blog-list__link" href={`/blog/${post.id}/`}>
-              <time class="blog-list__date" datetime={post.data.date.toISOString()}>
-                {formatter.format(post.data.date)}
-              </time>
-              <span class="blog-list__title">{post.data.title}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {posts.length === 0 ? (
+        <p class="blog-empty">Nothing here yet — check back soon, or see the <a href="/projects">projects</a> in the meantime.</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a class="blog-list__link" href={`/blog/${post.id}/`}>
+                <time class="blog-list__date" datetime={post.data.date.toISOString()}>
+                  {formatter.format(post.data.date)}
+                </time>
+                <span class="blog-list__title">{post.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   </section>
 
@@ -41,6 +45,11 @@ const formatter = new Intl.DateTimeFormat('en-US', {
 <style>
   .blog-index {
     max-width: 68ch;
+  }
+
+  .blog-empty {
+    margin-top: 24px;
+    color: var(--dark-grey);
   }
 
   .blog-list {
