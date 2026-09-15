@@ -1,9 +1,9 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-09-09
+Last updated: 2026-09-15
 
-**Stack:** Astro 7.1.3, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
+**Stack:** Astro 7.3.2, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
 ## Local development
 
@@ -67,7 +67,7 @@ website/
 │   ├── content.config.ts     # Zod schema for the blog collection
 │   ├── data/projects.ts      # projects[] + categories[] (business|web|side)
 │   └── styles/
-│       ├── global.css        # site-wide, loaded on every page (~1340 lines)
+│       ├── global.css        # site-wide, loaded on every page (~1380 lines)
 │       ├── legal.css         # /imprint + /privacy only
 │       └── project-detail.css # /projects/[slug] only
 │
@@ -83,7 +83,7 @@ website/
 | `/` | `pages/index.astro` | Hero, projects, approach, tools, clients |
 | `/projects` | `pages/projects/index.astro` | All projects, grouped by category |
 | `/projects/<slug>` | `pages/projects/[slug].astro` | One per project with a `slug` |
-| `/blog` | `pages/blog/index.astro` | All non-draft posts |
+| `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
 | `/imprint`, `/privacy` | `pages/*.astro` | Legal pages |
