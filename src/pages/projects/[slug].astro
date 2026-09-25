@@ -11,7 +11,7 @@ import '../../styles/project-detail.css'
 
 export function getStaticPaths() {
   return projects
-    .filter(project => project.slug)
+    .filter(project => project.slug && project.slug !== 'scorer')
     .map(project => ({
       params: { slug: project.slug },
       props: { project },

@@ -4,6 +4,7 @@ import { Image } from 'astro:assets'
 
 interface Props {
   image?: ImageMetadata
+  imageBorder?: boolean
   alt: string
   title: string
   subtitle: string
@@ -12,7 +13,7 @@ interface Props {
   href?: string
 }
 
-const { image, alt, title, subtitle, topicTag, tags, href } = Astro.props
+const { image, imageBorder = true, alt, title, subtitle, topicTag, tags, href } = Astro.props
 const Tag = href ? 'a' : 'div'
 const isSquareImage = image?.width === image?.height
 
@@ -22,7 +23,10 @@ const visibleTags = tags.slice(0, topicTag ? maxTags - 1 : maxTags)
 <Tag class="project-card" href={href}>
   {image ? (
     <Image
-      class:list={['project-card__image', { 'project-card__image--app-icon': isSquareImage }]}
+      class:list={['project-card__image', {
+        'project-card__image--app-icon': isSquareImage,
+        'project-card__image--borderless': !imageBorder,
+      }]}
       src={image}
       alt={alt}
       width={isSquareImage ? 96 : 170}

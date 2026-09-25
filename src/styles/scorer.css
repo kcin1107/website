@@ -1,0 +1,267 @@
+/* Scorer's app showcase. This stylesheet is loaded by /projects/scorer only. */
+.scorer {
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.scorer__container {
+  gap: 0;
+  margin-top: 72px;
+}
+
+.scorer__back {
+  color: var(--dark-grey);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.scorer__back:hover,
+.scorer__privacy a:hover {
+  color: var(--black);
+}
+
+.scorer__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: 64px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.scorer__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.scorer__identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--dark-grey);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.scorer__identity img {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+}
+
+.scorer h1 {
+  max-width: 700px;
+  font-size: clamp(3.5rem, 6vw, 6.25rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.scorer__intro > p:not(.scorer__byline) {
+  max-width: 520px;
+  font-size: clamp(1.125rem, 2vw, 1.4rem);
+  line-height: 1.45;
+}
+
+.scorer__store {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.scorer__store img {
+  display: block;
+  width: 160px;
+  height: auto;
+}
+
+.scorer__byline {
+  color: var(--dark-grey);
+  font-size: 0.875rem;
+}
+
+.scorer__hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.scorer__hero-image img {
+  display: block;
+  width: min(100%, 390px);
+  height: auto;
+}
+
+.scorer__feature {
+  display: grid;
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+  margin: 112px 0;
+}
+
+.scorer__feature-copy,
+.scorer__tile-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.scorer h2 {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.scorer__feature-copy p,
+.scorer__tile-copy p,
+.scorer__closing p {
+  max-width: 440px;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.scorer__feature-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.scorer__feature-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.scorer__feature-image--phone img {
+  max-width: 380px;
+}
+
+.scorer__feature--ipad {
+  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.2fr);
+}
+
+.scorer__feature-image--ipad img {
+  max-width: 760px;
+}
+
+.scorer__feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.scorer__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  min-width: 0;
+}
+
+.scorer__tile-copy {
+  align-self: stretch;
+}
+
+.scorer__tile img {
+  display: block;
+  width: min(100%, 390px);
+  height: auto;
+}
+
+.scorer__closing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+  margin-top: 112px;
+  padding: 48px 0;
+  border-top: 1px solid var(--light-grey);
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.scorer__closing > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scorer__privacy {
+  margin-top: 24px;
+  color: var(--dark-grey);
+  font-size: 0.875rem;
+}
+
+.scorer__privacy a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 1023px) {
+  .scorer__hero {
+    gap: 32px;
+  }
+
+  .scorer__feature {
+    gap: 32px;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .scorer__container {
+    margin-top: 64px;
+    margin-bottom: 96px;
+  }
+
+  .scorer__hero,
+  .scorer__feature,
+  .scorer__feature--ipad,
+  .scorer__feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .scorer__hero {
+    margin-top: 32px;
+  }
+
+  .scorer__intro {
+    gap: 20px;
+  }
+
+  .scorer h1 {
+    font-size: clamp(3.25rem, 13vw, 5rem);
+  }
+
+  .scorer__hero-image img,
+  .scorer__feature-image--phone img {
+    max-width: 280px;
+  }
+
+  .scorer__feature {
+    gap: 24px;
+    margin: 72px 0;
+  }
+
+  .scorer__tile img {
+    max-width: 280px;
+  }
+
+  .scorer__closing {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 72px;
+    padding: 32px 0;
+  }
+}

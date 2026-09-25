@@ -1,7 +1,7 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-09-15
+Last updated: 2026-09-25
 
 **Stack:** Astro 7.3.2, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
@@ -68,8 +68,9 @@ website/
 │   ├── data/projects.ts      # projects[] + categories[] (business|web|side)
 │   └── styles/
 │       ├── global.css        # site-wide, loaded on every page (~1380 lines)
-│       ├── legal.css         # /imprint + /privacy only
-│       └── project-detail.css # /projects/[slug] only
+│       ├── legal.css         # legal pages only
+│       ├── project-detail.css # shared project details only
+│       └── scorer.css        # /projects/scorer only
 │
 └── dist/                     # build output (gitignored)
 ```
@@ -82,7 +83,8 @@ website/
 |------|--------|-------|
 | `/` | `pages/index.astro` | Hero, projects, approach, tools, clients |
 | `/projects` | `pages/projects/index.astro` | All projects, grouped by category |
-| `/projects/<slug>` | `pages/projects/[slug].astro` | One per project with a `slug` |
+| `/projects/<slug>` | `pages/projects/[slug].astro` | Shared detail page for projects with a `slug`, except Scorer |
+| `/projects/scorer` | `pages/projects/scorer.astro` | Short Scorer app showcase with version 1.3 images |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
@@ -93,7 +95,7 @@ website/
 
 **Projects** live in `src/data/projects.ts` as a typed array. Entries without a `slug` render as non-linked cards. Images come from `src/assets/images/` as `ImageMetadata` and go through Astro's `<Image>` component, which emits resized retina WebP rather than full-resolution screenshots.
 
-**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang, Scorer and Cleankey use this system today.
+**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang and Cleankey use this system today. Scorer keeps its card metadata here, while its dedicated page imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
 
 **Blog** posts are Markdown in `src/content/blog/`, loaded as an Astro Content Collection with a Zod schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`). The folder is empty right now, so `/blog` renders an empty list.
 
@@ -109,5 +111,5 @@ website/
 - Status/semantic colours are variables too: `--status-green`, `--status-blue`, `--error` (each paired with a `-rgb` triplet for alpha tints, plus `--status-green-bg`/`--error-bg`). Light-mode values sit at 4.5:1 on their surface, so leave them where they are. `--focus-ring` is the one fixed interactive-focus colour, same in both themes. `--shadow-sm`/`--shadow-md`/`--shadow-lg` hold the shared box-shadow tiers.
 - BEM-style class names
 - Theme switches via `data-theme` on `<html>`, persisted in `localStorage`
-- `global.css` ships on every page, so route-specific rules belong in their own stylesheet imported by the page that needs it (`legal.css`, `project-detail.css`)
+- `global.css` ships on every page, so route-specific rules belong in their own stylesheet imported by the page that needs it (`legal.css`, `project-detail.css`, `scorer.css`)
 - Fonts are subsets built by `scripts/build-fonts.sh` from `fonts-src/`. The Inter subset only holds the glyphs of the nav logo string, so changing that string means rerunning the script.

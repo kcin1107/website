@@ -878,6 +878,12 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.16), 0px 12px 24px rgba(0, 0, 0, 0.2);
 }
 
+.project-card__image--borderless,
+[data-theme='dark'] .project-card__image--borderless {
+  border: 0;
+  box-shadow: none;
+}
+
 [data-theme='dark'] .project-card__image--placeholder {
   box-shadow: none;
 }

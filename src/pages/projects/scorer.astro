@@ -1,0 +1,126 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { Image } from 'astro:assets'
+import { projects } from '../../data/projects'
+import icon from '../../assets/images/projects/scorer-v13/icon.png'
+import setupPhone from '../../assets/images/projects/scorer-v13/iPhone1-device.png'
+import scoringPhone from '../../assets/images/projects/scorer-v13/iPhone2-device.png'
+import scoringPad from '../../assets/images/projects/scorer-v13/iPad2-device.png'
+import onlinePhone from '../../assets/images/projects/scorer-v13/iPhone4-device.png'
+import resultsPhone from '../../assets/images/projects/scorer-v13/iPhone6-device.png'
+import '../../styles/scorer.css'
+
+const scorer = projects.find(project => project.slug === 'scorer')!
+const appStoreUrl = scorer.links?.find(link => link.external)?.href ?? 'https://apple.co/4A4hy3g'
+---
+<Layout
+  title="Scorer – Darts scoring for iPhone and iPad · Nick Ringelmann"
+  description="Scorer is a native X01 darts app for iPhone and iPad. Play locally, against a computer, or online with friends. No ads and no account."
+>
+  <div class="scorer">
+    <div class="container scorer__container">
+      <a class="scorer__back" href="/projects" aria-label="Back to projects">← All projects</a>
+
+      <section class="scorer__hero" aria-labelledby="scorer-title">
+        <div class="scorer__intro">
+          <div class="scorer__identity">
+            <Image src={icon} alt="" width={72} height={72} format="webp" />
+            <span>Scorer · Version 1.3</span>
+          </div>
+          <h1 id="scorer-title">Keep score.<br />Play darts.</h1>
+          <p>Scorer keeps the game moving. Play X01 around one board, against a computer, or online with friends. It’s made for iPhone and iPad, with no ads and no account.</p>
+          <a class="scorer__store" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Get Scorer on the App Store (opens in a new tab)">
+            <img src="/assets/images/app-store-badge.svg" alt="Download on the App Store" width="119" height="40" />
+          </a>
+          <p class="scorer__byline">Designed and built by Nick Ringelmann.</p>
+        </div>
+        <div class="scorer__hero-image">
+          <Image
+            src={scoringPhone}
+            alt="Scorer's live 501 game screen on iPhone, with the active player, scores and number keypad"
+            widths={[320, 480, 640, 800]}
+            sizes="(max-width: 767px) 280px, 400px"
+            format="webp"
+            loading="eager"
+          />
+        </div>
+      </section>
+
+      <section class="scorer__feature scorer__feature--setup" aria-labelledby="setup-title">
+        <div class="scorer__feature-copy">
+          <h2 id="setup-title">Ready when you are.</h2>
+          <p>Pick a score, out rule and match length. Play locally, online or against a computer.</p>
+        </div>
+        <div class="scorer__feature-image scorer__feature-image--phone">
+          <Image
+            src={setupPhone}
+            alt="Scorer's local game setup with match settings, saved players and mode tabs"
+            widths={[320, 480, 640, 800]}
+            sizes="(max-width: 767px) 280px, 380px"
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <section class="scorer__feature scorer__feature--ipad" aria-labelledby="ipad-title">
+        <div class="scorer__feature-copy">
+          <h2 id="ipad-title">Everyone in view.</h2>
+          <p>See every player at once on iPad. Enter a visit total or score dart by dart.</p>
+        </div>
+        <div class="scorer__feature-image scorer__feature-image--ipad">
+          <Image
+            src={scoringPad}
+            alt="Scorer on an iPad in landscape, showing four player score cards beside the keypad"
+            widths={[640, 960, 1200, 1600]}
+            sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 700px, 760px"
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <div class="scorer__feature-grid">
+        <section class="scorer__tile" aria-labelledby="online-title">
+          <div class="scorer__tile-copy">
+            <h2 id="online-title">Same game. Different boards.</h2>
+            <p>Share a six digit code or invite a friend by their tag. Online matches support up to eight players.</p>
+          </div>
+          <Image
+            src={onlinePhone}
+            alt="Scorer's online host lobby with a six digit code, game settings and invite button"
+            widths={[320, 480, 640, 800]}
+            sizes="(max-width: 767px) 280px, 400px"
+            format="webp"
+            loading="lazy"
+          />
+        </section>
+        <section class="scorer__tile" aria-labelledby="results-title">
+          <div class="scorer__tile-copy">
+            <h2 id="results-title">A proper match recap.</h2>
+            <p>See the average, first nine, 180s and checkout rate after each leg. Ready for another? Tap Rematch.</p>
+          </div>
+          <Image
+            src={resultsPhone}
+            alt="Scorer's match results sheet with player statistics and a Rematch button"
+            widths={[320, 480, 640, 800]}
+            sizes="(max-width: 767px) 280px, 400px"
+            format="webp"
+            loading="lazy"
+          />
+        </section>
+      </div>
+
+      <section class="scorer__closing" aria-labelledby="closing-title">
+        <div>
+          <h2 id="closing-title">Download Scorer.</h2>
+          <p>Native X01 scoring for iPhone and iPad. No ads. No account.</p>
+        </div>
+        <a class="scorer__store" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Get Scorer on the App Store (opens in a new tab)">
+          <img src="/assets/images/app-store-badge.svg" alt="Download on the App Store" width="119" height="40" />
+        </a>
+      </section>
+      <p class="scorer__privacy">Questions about your data? <a href="/scorer/privacy">Scorer privacy policy</a>.</p>
+    </div>
+  </div>
+</Layout>

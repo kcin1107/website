@@ -38,19 +38,7 @@ import nickringelmannHero from '../assets/images/projects/nickringelmann-hero-20
 import nickringelmannProjects from '../assets/images/projects/nickringelmann-projects-20260724.png'
 import nickringelmannApproach from '../assets/images/projects/nickringelmann-approach-20260724.png'
 
-import scorerAppIcon from '../assets/images/projects/scorer-app-icon-20260818.png'
-import scorerSetupIphone from '../assets/images/projects/scorer-marketing-setup-iphone-20260909.jpg'
-import scorerSetupIpad from '../assets/images/projects/scorer-marketing-setup-ipad-20260909.jpg'
-import scorerScoringIphone from '../assets/images/projects/scorer-marketing-scoring-iphone-20260909.jpg'
-import scorerScoringIpad from '../assets/images/projects/scorer-marketing-scoring-ipad-20260909.jpg'
-import scorerInputIphone from '../assets/images/projects/scorer-marketing-input-iphone-20260909.jpg'
-import scorerInputIpad from '../assets/images/projects/scorer-marketing-input-ipad-20260909.jpg'
-import scorerMultiplayerIphone from '../assets/images/projects/scorer-marketing-multiplayer-iphone-20260909.jpg'
-import scorerMultiplayerIpad from '../assets/images/projects/scorer-marketing-multiplayer-ipad-20260909.jpg'
-import scorerBotIphone from '../assets/images/projects/scorer-marketing-bot-iphone-20260909.jpg'
-import scorerBotIpad from '../assets/images/projects/scorer-marketing-bot-ipad-20260909.jpg'
-import scorerResultsIphone from '../assets/images/projects/scorer-marketing-results-iphone-20260909.jpg'
-import scorerResultsIpad from '../assets/images/projects/scorer-marketing-results-ipad-20260909.jpg'
+import scorerAppIcon from '../assets/images/projects/scorer-v13/icon.png'
 
 import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-20260818.png'
 import cleankeyMenuActive from '../assets/images/projects/cleankey-menu-active-20260818.png'
@@ -119,6 +107,7 @@ export const categories: Category[] = [
 export interface Project {
   slug?: string
   image?: ImageMetadata
+  cardImageBorder?: boolean
   appIcon?: ProjectImage
   images?: ProjectImage[]
   mobileImage?: ProjectImage
@@ -444,135 +433,26 @@ export const projects: Project[] = [
   {
     slug: 'scorer',
     image: scorerAppIcon,
+    cardImageBorder: false,
     appIcon: {
       src: scorerAppIcon,
       alt: '',
     },
-    alt: 'The Scorer app icon, a dart inside a broken circle, on a warm off-white background',
+    alt: 'Scorer app icon with an amber dart and target',
     title: 'Scorer',
     client: 'Get The Score Done',
     topicTag: 'Darts',
-    tags: ['B2C', 'Product Design', 'iOS', 'SwiftUI', 'WebSockets'],
+    tags: ['iOS', 'Product Design', 'SwiftUI'],
     category: 'side',
     showOnHome: true,
-    lead: 'A native X01 scorer for iPhone and iPad that keeps game night moving. Play locally or online with up to eight players, or against a configurable bot. No ads and no account.',
-    meta: [
-      { label: 'Role', value: 'Solo product design and iOS development' },
-      { label: 'Timeframe', value: 'April 2025 to August 2026' },
-      { label: 'Year', value: '2025 to 2026' },
-      { label: 'Tools', value: 'Figma, Xcode, SwiftUI, Hummingbird, Docker, Codex, Claude Code, MCP' },
-    ],
+    lead: 'A native darts scorer for iPhone and iPad. Play X01 locally, against a computer, or online with friends. No ads and no account.',
     links: [
       {
-        label: 'Get it on the App Store',
+        label: 'Get Scorer on the App Store',
         href: 'https://apple.co/4A4hy3g',
         variant: 'secondary',
         external: true,
         badge: '/assets/images/app-store-badge.svg',
-      },
-    ],
-    sections: [
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Setup and roster',
-        body: 'Start a game with 301, 501 or 701, then choose Straight, Double or Master Out. Matches run first to or best of, with legs and sets from 1 to 13. Your player roster stays on the device between games: tap a card to add someone, or long press one to rename them or give them a photo. Switch to vs. Bot and the roster gives way to a computer opponent.',
-        images: [
-          {
-            src: scorerSetupIphone,
-            alt: 'App Store marketing screenshot of the Scorer game setup screen on iPhone, with start score, out mode and format controls above a saved player roster',
-          },
-          {
-            src: scorerSetupIpad,
-            alt: 'The same game setup screen on a 13-inch iPad in landscape, with five players selected from the roster',
-          },
-        ],
-      },
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Scoring screen',
-        body: 'Every player gets a card showing their remaining score, live average, last visit, best visit and darts thrown. The active card follows the throwing order and picks up a checkout suggestion once one exists. Undo sits one tap away.',
-        images: [
-          {
-            src: scorerScoringIphone,
-            alt: 'App Store marketing screenshot of the Scorer scoring screen on iPhone during a 501 Double Out match, with Nick on 173 and Dominik on 152 showing a T20 T20 D16 checkout',
-          },
-          {
-            src: scorerScoringIpad,
-            alt: 'The same scoring screen on a 13-inch iPad in landscape, with a card per player across five players',
-          },
-        ],
-      },
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Two ways to enter scores',
-        body: 'Enter a visit total on the number keypad, or switch to dart by dart and log each throw with its multiplier. Dart-by-dart mode records the exact finish and blocks any visit total that can\'t be scored with three darts.',
-        images: [
-          {
-            src: scorerInputIphone,
-            alt: 'App Store marketing screenshot of Scorer\'s dart-by-dart input mode on iPhone, entering S7 and D18 for a 43 visit total',
-          },
-          {
-            src: scorerInputIpad,
-            alt: 'The same dart-by-dart input mode on a 13-inch iPad in landscape',
-          },
-        ],
-      },
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Online multiplayer',
-        body: 'Host a lobby and share the six-digit code, or join one a friend started. Up to eight players play the same match over the network, and joining a lobby is the only step. Scorer has no account to set up.',
-        images: [
-          {
-            src: scorerMultiplayerIphone,
-            alt: 'App Store marketing screenshot of Scorer\'s Host Game screen on iPhone, showing a six-digit lobby code and one player waiting for others to join',
-          },
-          {
-            src: scorerMultiplayerIpad,
-            alt: 'The same Host Game screen on a 13-inch iPad, with the setup screen visible behind it',
-          },
-        ],
-      },
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Bot opponent',
-        body: 'Set the bot\'s average anywhere from 20 to 110, and its checkout rate from 10% to 100%. It throws dart by dart with haptic feedback and a sound on every throw. It aims for the same checkout routes the app shows a human player, and misses into neighbouring beds the way a real throw would.',
-        images: [
-          {
-            src: scorerBotIphone,
-            alt: 'App Store marketing screenshot of Scorer\'s bot settings on iPhone, with skill and checkout rate sliders set to a 90 average and 35% checkout rate',
-          },
-          {
-            src: scorerBotIpad,
-            alt: 'The same bot settings on a 13-inch iPad, with skill set to a 60 average',
-          },
-        ],
-      },
-      {
-        kind: 'gallery',
-        columns: 2,
-        presentation: 'device',
-        title: 'Leg and match results',
-        body: 'Each leg and set ends with a result card naming the winner, with average, darts thrown, top score and checkout percentage listed for every player. Start the next leg or end the match right from there.',
-        images: [
-          {
-            src: scorerResultsIphone,
-            alt: 'App Store marketing screenshot of a Scorer match result on iPhone, naming Dominik the winner with stats for Dominik, Nick and Fabian',
-          },
-          {
-            src: scorerResultsIpad,
-            alt: 'App Store marketing screenshot of a Scorer leg result on a 13-inch iPad, naming Dominik the leg winner with stats for Dominik, Nick and Fabian',
-          },
-        ],
       },
     ],
   },
