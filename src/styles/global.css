@@ -1095,13 +1095,16 @@ a.project-card:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Tablet: portrait and text stay side by side, but the two-photo collage
+     needs more width than this, so it drops to the single square portrait.
+     The 767px block below re-flows this into the phone profile header. */
   .hero {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 40px;
   }
 
-  /* Tablet + mobile: single square portrait. The wrapper shrinks to the
-     photo so it doesn't stretch across the column. */
+  /* The wrapper shrinks to the photo so it doesn't stretch across the
+     column. */
   .hero__images {
     position: relative;
     display: block;
@@ -1113,7 +1116,7 @@ a.project-card:hover {
   .hero__image-1 {
     position: static;
     display: block;
-    width: min(56vw, 360px);
+    width: clamp(220px, 28vw, 280px);
     max-width: 100%;
     aspect-ratio: 1 / 1;
     object-position: 50% 50%;
@@ -1167,37 +1170,25 @@ a.project-card:hover {
     padding: 13px;
   }
 
-  /* Profile-header layout: a small portrait with the availability chip
-     beside it, then the headline, subtitle and buttons at full width. The
-     content wrapper is display:contents so its children join this grid,
-     which keeps the whole hero (buttons included) near the first screen
-     instead of a 360px photo pushing everything below the fold. */
+  /* Phones: stacked, with a compact portrait so the headline and buttons
+     stay near the first screen. The availability pill is dropped here. */
   .hero {
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 24px 16px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
 
   .hero__content {
-    display: contents;
-  }
-
-  .hero__content > :not(.status) {
-    grid-column: 1 / -1;
+    gap: 18px;
   }
 
   .hero__content .status {
-    justify-self: start;
+    display: none;
   }
 
   .hero__image-1 {
-    width: 88px;
-    border-width: 3px;
-    border-radius: 20px;
-  }
-
-  .hero h1 {
-    margin-bottom: -6px;
+    width: 128px;
+    border-width: 4px;
+    border-radius: 24px;
   }
 
   .hero__links {
@@ -1250,18 +1241,18 @@ a.project-card:hover {
 }
 
 @media (max-width: 360px) {
-  /* Smaller portrait so the pill beside it stays on one line at 320px. */
-  .hero__image-1 {
-    width: 72px;
-  }
-
   .hero__links {
     gap: 8px;
   }
 
+  /* The 50/50 split gives each button ~132px here, which breaks
+     "Connect on LinkedIn" onto two lines. Size each to its label instead;
+     .hero__links wraps, so a button drops to its own row if it can't fit. */
   .hero__links .primaryButton,
   .hero__links .secondaryButton {
+    flex: 0 0 auto;
     padding-right: 10px;
     padding-left: 10px;
+    white-space: nowrap;
   }
 }
