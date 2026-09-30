@@ -551,6 +551,16 @@ ul {
   color: var(--dark-grey);
 }
 
+/* Stands in for the header CTA on phones: same type as the links above,
+   on the .secondaryButton fill so it still reads as the primary action. */
+.nav__overlay-link--cta,
+.nav__overlay-link--cta:hover {
+  margin-top: 16px;
+  color: var(--white);
+  background-color: var(--black);
+  border-radius: 4px;
+}
+
 /* The overlay only exists on mobile — keep it out of the document entirely
    above the breakpoint so it can never collect focus there. */
 @media (min-width: 768px) {
@@ -663,6 +673,7 @@ body.nav-open .nav__hamburger span:nth-child(3) {
    paragraph margin. */
 .status {
   margin: 0;
+  white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -1128,23 +1139,11 @@ a.project-card:hover {
     display: none;
   }
 
-  /* Restored as the header's only conversion action, kept compact via the
-     same font-size:0 + ::after label-swap trick used by .project-detail__back
-     above — full label hidden, "Contact" substituted, 44px hit area kept. */
+  /* Replaced by the overlay's "Contact" link on phones — with it in the
+     header, the hamburger got pushed past the gutter on 320–375px screens. */
   .nav__cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 8px 14px;
-    font-size: 0;
+    display: none;
   }
-
-  .nav__cta::after {
-    content: 'Contact';
-    font-size: 14px;
-  }
-
 
   .nav__actions {
     margin-left: auto;
@@ -1157,7 +1156,10 @@ a.project-card:hover {
     align-items: center;
     width: 44px;
     height: 44px;
-    margin-left: 16px;
+    margin-left: 8px;
+    /* The 32px bars sit centered in the 44px hit area; pull the button out
+       by that 6px inset so the bars line up with the content gutter. */
+    margin-right: -6px;
   }
 
   /* Theme toggle measured ~35px tall at this breakpoint — pad up to 44px. */
@@ -1248,6 +1250,11 @@ a.project-card:hover {
 }
 
 @media (max-width: 360px) {
+  /* Smaller portrait so the pill beside it stays on one line at 320px. */
+  .hero__image-1 {
+    width: 72px;
+  }
+
   .hero__links {
     gap: 8px;
   }
