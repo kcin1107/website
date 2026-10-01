@@ -1,7 +1,7 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-09-25
+Last updated: 2026-10-01
 
 **Stack:** Astro 7.3.2, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
@@ -106,7 +106,7 @@ website/
 ## Conventions
 
 - Spacing unit 8px, radii 8px to 32px, breakpoints 1023px and 767px
-- Theming through CSS custom properties on `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`, `--card-warm`. Naming follows the value rather than the role, so `--white` resolves to a warm near-black in dark mode. The palette is warm throughout — cream light canvas, warm-tinted (not pure black) dark canvas.
+- Theming through CSS custom properties on `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`, `--card-warm`. Naming follows the value rather than the role: `--white` is the canvas (cream `#fae7b8` in light mode, crimson `#9d1e3d` in dark mode), `--black` the ink (`#081809` / white). Shapes are the same in both themes — square corners, 1px outlined cards.
 - `--border-grey` is decorative. `--border-interactive` draws the boundary of interactive controls and needs 3:1 per WCAG 1.4.11.
 - Status/semantic colours are variables too: `--status-green`, `--status-blue`, `--error` (each paired with a `-rgb` triplet for alpha tints, plus `--status-green-bg`/`--error-bg`). Light-mode values sit at 4.5:1 on their surface, so leave them where they are. `--focus-ring` is the one fixed interactive-focus colour, same in both themes. `--shadow-sm`/`--shadow-md`/`--shadow-lg` hold the shared box-shadow tiers.
 - BEM-style class names

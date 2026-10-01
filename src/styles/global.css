@@ -28,87 +28,83 @@
    ========================================================================== */
 
 :root {
-  --white: #f4efe6;
-  --black: #1C1815;
-  --light-grey: #EFE9DC;
-  --dark-grey: #63605B;
-  --surface-grey: #F8F3EA;
-  --hover-grey: #EAE3D5;
-  --border-grey: #E4DCC9;
+  --white: #fae7b8;
+  --black: #081809;
+  --light-grey: #f1d99f;
+  --dark-grey: #4A5446;
+  --surface-grey: #f5dfa9;
+  --hover-grey: #ecd193;
+  --border-grey: #E0CB94;
   /* Boundary of interactive controls — needs 3:1 per WCAG 1.4.11,
      unlike the decorative --border-grey. */
-  --border-interactive: #83786D;
+  --border-interactive: #766C4D;
   /* Idle/unselected tag-pill fill — a touch darker than --white so pills
-     stay visible against the cream canvas instead of blending into it. */
-  --tag-idle: #f5f4ed;
+     stay visible against the canvas instead of blending into it. */
+  --tag-idle: #f5dfa9;
 
   /* Status colors — contrast-tuned text pairs, shared by status pills,
      case-study highlights, the shipping/framing nudges, and the contact
      form's success state so they can't drift out of sync with each other. */
-  --status-green: #0A7A3C;
-  --status-green-rgb: 10, 122, 60;
-  --status-green-bg: #E6F9EF;
-  --status-blue: #1E5FD9;
+  --status-green: #085C2E;
+  --status-green-rgb: 8, 92, 46;
+  --status-green-bg: #DDF0C8;
+  --status-blue: #184BB0;
 
-  /* Theme-invariant accent: the site's one fixed interactive-focus color,
-     chosen to clear 3:1 against every surface it can land on (see
-     :focus-visible below). */
-  --focus-ring: #357DFF;
-  --focus-ring-rgb: 53, 125, 255;
+  /* Interactive-focus color, chosen per theme to clear 3:1 against every
+     surface it can land on (see :focus-visible below). */
+  --focus-ring: #184BB0;
+  --focus-ring-rgb: 24, 75, 176;
 
-  --error: #B3221C;
-  --error-rgb: 179, 34, 28;
-  --error-bg: #FBE9E7;
+  --error: #A8161B;
+  --error-rgb: 168, 22, 27;
+  --error-bg: #F8D5C4;
 
-  /* Card fill — a touch warmer than --surface-grey, reserved for project
-     cards; resolves to var(--surface-grey) in dark mode below. */
-  --card-warm: #E9E2D7;
+  /* Project card fill — same as the canvas in both themes; the card is
+     outlined instead of filled. */
+  --card-warm: var(--white);
 
   /* Elevation tiers shared by every hand-rolled box-shadow on the site, so
      duplicates reference one source instead of re-declaring the same rgba
      stack. Neutral black in both themes — shadows are cast-occlusion, not
-     surface tone, so they don't pick up the warm tint the rest of the
-     palette does. */
+     surface tone, so they don't pick up the tint the rest of the palette
+     does. */
   --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.08);
   --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.12), 0px 2px 16px 0px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 6px 32px 0px rgba(0, 0, 0, 0.10);
 }
 
 [data-theme='dark'] {
-  --white: #17130F;
-  --black: #F2ECE2;
-  --light-grey: #221D17;
-  --dark-grey: #ACA599;
-  --surface-grey: #1E1A15;
-  --hover-grey: #241F19;
-  --border-grey: #332C24;
-  --border-interactive: #726B60;
-  --tag-idle: var(--white);
+  --white: #9d1e3d;
+  --black: #ffffff;
+  --light-grey: #861933;
+  --dark-grey: #F4CCD5;
+  --surface-grey: #8c1a36;
+  --hover-grey: #7a162f;
+  --border-grey: #B8506A;
+  --border-interactive: #E88FA4;
+  --tag-idle: #8c1a36;
 
-  --status-green: #41E788;
-  --status-green-rgb: 65, 231, 136;
-  --status-green-bg: #123524;
-  --status-blue: #357DFF;
+  --status-green: #9BF0BD;
+  --status-green-rgb: 155, 240, 189;
+  --status-green-bg: #0E3F24;
+  --status-blue: #C7DBFF;
 
-  --error: #FFB4AB;
-  --error-rgb: 255, 180, 171;
-  --error-bg: #3B1616;
+  --focus-ring: #FFD84D;
+  --focus-ring-rgb: 255, 216, 77;
 
-  --card-warm: var(--surface-grey);
+  --error: #FFC7B8;
+  --error-rgb: 255, 199, 184;
+  --error-bg: #5E0F24;
 
   --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.16);
   --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.18), 0px 2px 16px 0px rgba(0, 0, 0, 0.14);
   --shadow-lg: 0px 12px 24px 0px rgba(0, 0, 0, 0.20), 0px 6px 32px 0px rgba(0, 0, 0, 0.16);
 }
 
+/* Inverted canvas/ink in both themes. */
 ::selection {
-  background-color: #d97757;
-  color: #faf9f5;
-}
-
-[data-theme='dark'] ::selection {
-  background-color: #d97757;
-  color: #faf9f5;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 /* ==========================================================================
@@ -167,12 +163,11 @@ body {
    ========================================================================== */
 
 /* :focus-visible only (never :focus) so the ring shows for keyboard
-   navigation but not mouse clicks. var(--focus-ring) is the site's one
-   fixed interactive-focus color (see contact form inputs/subject pills)
-   and clears 3:1 against every surface it can land on: 3.32:1 on
-   var(--white) in light mode, 4.64:1 on var(--white) in dark mode,
-   4.64:1 on var(--black)/.secondaryButton fill in light mode, and 3.23:1
-   on var(--black)/.secondaryButton fill in dark mode. */
+   navigation but not mouse clicks. var(--focus-ring) is the site's
+   interactive-focus color (see contact form inputs/subject pills) and
+   clears 3:1 against every surface it can land on: 6.43:1 on var(--white)
+   in light mode, 5.65:1 in dark mode. The ring sits on the canvas via
+   outline-offset, not on the ink-coloured .secondaryButton fill. */
 :focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
@@ -205,10 +200,7 @@ h1 {
 
 h1 strong {
   font-weight: 500;
-  color: #d97757;
-  background: linear-gradient(90deg, #ff9748 0%, #ff0b0b 100%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--black);
 }
 
 h2 {
@@ -293,15 +285,10 @@ ul {
 }
 
 .nav--scrolled {
-  background-color: hsl(43 60% 95% / 0.85);
+  background-color: color-mix(in srgb, var(--white) 85%, transparent);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-bottom-color: var(--border-grey);
-}
-
-[data-theme='dark'] .nav--scrolled {
-  background-color: hsl(24 12% 6.5% / 0.85);
-  border-bottom-color: #ffffff26;
 }
 
 .nav__wrapper {
@@ -404,7 +391,7 @@ ul {
   text-decoration: none;
   letter-spacing: -0.1px;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 0;
 }
 
 .primaryButton::after {
@@ -435,9 +422,10 @@ ul {
   text-decoration: none;
   letter-spacing: -0.1px;
   padding: 8px 12px;
-  border-radius: 4px;
+  border-radius: 0;
   transition: background-color 0.2s ease-out;
 }
+
 
 .secondaryButton:hover {
   background-color: color-mix(in srgb, var(--black) 84%, var(--white) 16%);
@@ -460,10 +448,11 @@ ul {
   color: var(--black);
   display: flex;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 0;
   transition: background-color 0.2s ease-out;
   flex-shrink: 0;
 }
+
 
 @media (hover: hover) and (pointer: fine) {
   .theme-toggle:hover {
@@ -527,12 +516,8 @@ ul {
   gap: 8px;
   padding: 0 24px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.6);
+  background: color-mix(in srgb, var(--white) 85%, transparent);
   backdrop-filter: blur(8px);
-}
-
-[data-theme='dark'] .nav__overlay-links {
-  background: rgba(0, 0, 0, 0.82);
 }
 
 .nav__overlay-link {
@@ -558,7 +543,7 @@ ul {
   margin-top: 16px;
   color: var(--white);
   background-color: var(--black);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 /* The overlay only exists on mobile — keep it out of the document entirely
@@ -613,9 +598,6 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   min-height: 392px;
 }
 
-/* Both carry the .elevation-md utility class in the markup for their shadow
-   — it's declared later in this file, so it wins the cascade at equal
-   specificity and any box-shadow declared here would be dead code. */
 .hero__image-1 {
   position: absolute;
   top: 0;
@@ -625,8 +607,8 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   height: auto;
   object-fit: cover;
   object-position: 50% 50%;
-  border-radius: 20px;
-  border: 5px solid var(--border-grey);
+  border-radius: 0;
+  border: 1px solid var(--black);
 }
 
 .hero__image-2 {
@@ -637,8 +619,14 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   aspect-ratio: 16 / 10;
   height: auto;
   object-fit: cover;
-  border-radius: 16px;
-  border: 5px solid var(--border-grey);
+  border-radius: 0;
+  border: 1px solid var(--black);
+}
+
+/* Same offset outline as the project-card hover, shown permanently. */
+.hero__image-1,
+.hero__image-2 {
+  box-shadow: 8px 8px 0px -1px var(--white), 8px 8px 0px 0px var(--black);
 }
 
 .hero__content {
@@ -754,17 +742,16 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   gap: 32px;
   padding: 24px;
   background-color: var(--card-warm);
-  border-radius: 32px;
+  border: 1px solid var(--black);
+  border-radius: 0;
 }
+
 
 .project-card__image {
   width: 170px;
   height: 96px;
   object-fit: cover;
-  /* Intentional high-contrast frame in light mode; var(--black) inverts to
-     near-white in dark mode, so it's softened to var(--border-grey) below. */
-  border: 2px solid var(--black);
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -779,18 +766,8 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   box-shadow: none;
 }
 
-[data-theme='dark'] .project-card__image {
-  border-color: var(--border-grey);
-  box-shadow: 0px 6px 32px rgba(0, 0, 0, 0.16), 0px 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.project-card__image--borderless,
-[data-theme='dark'] .project-card__image--borderless {
+.project-card__image--borderless {
   border: 0;
-  box-shadow: none;
-}
-
-[data-theme='dark'] .project-card__image--placeholder {
   box-shadow: none;
 }
 
@@ -841,8 +818,9 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   color: var(--black);
   background-color: var(--tag-idle);
   border: 1px solid var(--border-grey);
-  border-radius: 16px;
+  border-radius: 0;
 }
+
 
 .tag--topic {
   color: var(--white);
@@ -896,26 +874,13 @@ body.nav-open .nav__hamburger span:nth-child(3) {
   /* Keeps the 128×48 aspect ratio from the width/height attributes, which
      reserve the space before load and stop the logos shifting layout (CLS). */
   height: auto;
-  filter: grayscale(1);
-  transition: filter 0.2s ease-out;
+  /* Flattened to a single-colour silhouette matching the ink — the mixed
+     grey/brand artwork has no reliable contrast on either canvas. */
+  filter: brightness(0);
 }
 
-.clients-grid a:hover img {
-  filter: grayscale(0);
-}
-
-/* Most client logos are dark artwork, so they vanish on the dark background.
-   Grayscale first, then invert — inverting the brand colours directly would
-   flip them to their complements. */
 [data-theme='dark'] .clients-grid img {
-  filter: grayscale(1) invert(1);
-}
-
-/* The light-mode hover reveals brand colour by dropping grayscale — not
-   possible in dark mode since these logos aren't designed for a dark
-   background, so hover is a no-op here instead of going invisible. */
-[data-theme='dark'] .clients-grid a:hover img {
-  filter: grayscale(1) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 /* ==========================================================================
@@ -1062,9 +1027,13 @@ a.project-card {
   transition: box-shadow 0.2s ease;
 }
 
+/* Offset outline instead of a filled drop shadow: a canvas-coloured layer
+   shrunk by 1px (-1px spread) sits on top of a white one, so only a 1px
+   white frame shows — matching the card's own border. */
 a.project-card:hover {
-  box-shadow: 8px 8px 0px 0px #D2C3AD;
+  box-shadow: 8px 8px 0px -1px var(--white), 8px 8px 0px 0px var(--black);
 }
+
 
 /* ==========================================================================
    Elevation
@@ -1187,8 +1156,6 @@ a.project-card:hover {
 
   .hero__image-1 {
     width: 128px;
-    border-width: 4px;
-    border-radius: 24px;
   }
 
   .hero__links {

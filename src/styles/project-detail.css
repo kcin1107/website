@@ -144,7 +144,7 @@
   width: 100%;
   max-width: 720px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 0;
   border: 4px solid var(--black);
   box-shadow: 0px 24px 48px 0px rgba(0, 0, 0, 0.18);
 }
@@ -161,7 +161,7 @@
 
 .project-detail__showcase-mobile,
 .project-detail__showcase-item {
-  border-radius: 16px;
+  border-radius: 0;
   border: 2px solid var(--black);
   overflow: hidden;
   box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.14);
@@ -195,17 +195,6 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
   display: block;
-}
-
-/* Dark mode: soften image frames. In light mode this is an intentional
-   high-contrast black border, but it inverts to a harsh near-white on dark.
-   Recolor to a subtle grey so the screenshots read as framed, not glaringly
-   outlined. (.hero__image-1/2 and .project-card__image get the equivalent
-   fix in global.css, since this stylesheet only loads on this page.) */
-[data-theme='dark'] .project-detail__image,
-[data-theme='dark'] .project-detail__showcase-mobile,
-[data-theme='dark'] .project-detail__showcase-item {
-  border-color: var(--border-grey);
 }
 
 @media (max-width: 767px) {
@@ -284,24 +273,19 @@
    badge in the component maps to an entry in the legend underneath, naming
    the behavioural lever that element pulls.
 
-   The accent green is the shared var(--status-green) token (tuned to 4.5:1
-   in light mode, do not lighten). --accent-on is intentionally its own
-   literal, not a themed token — pure white/black text-on-saturated-chip
-   contrast, decoupled from the canvas/ink tokens.
+   The accent green is the shared var(--status-green) token. --accent-on is
+   intentionally its own literal, not a themed token — black text on the
+   bright green chip in both themes, decoupled from the canvas/ink tokens.
    ========================================================================== */
 
 .nudge {
   --accent: var(--status-green);
-  --accent-on: #ffffff;
+  --accent-on: #000000;
   display: flex;
   flex-direction: column;
   gap: 24px;
   margin: 0;
   width: 100%;
-}
-
-[data-theme='dark'] .nudge {
-  --accent-on: #000000;
 }
 
 .nudge__surface {
