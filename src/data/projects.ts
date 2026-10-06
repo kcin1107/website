@@ -40,7 +40,7 @@ import nickringelmannApproach from '../assets/images/projects/nickringelmann-app
 
 import scorerAppIcon from '../assets/images/projects/scorer-v13/icon.png'
 
-import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-20260818.png'
+import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-20261006.png'
 import cleankeyMenuActive from '../assets/images/projects/cleankey-menu-active-20260818.png'
 
 export type ProjectCategory = 'business' | 'web' | 'side'
@@ -499,7 +499,7 @@ export const projects: Project[] = [
       src: cleankeyAppIcon,
       alt: '',
     },
-    alt: 'Cleankey broom app icon on a warm beige background',
+    alt: 'Cleankey app icon: a white outlined broom with speed lines on a warm tan background',
     title: 'Cleankey',
     client: 'Clean Your Keyboard',
     topicTag: 'Menu Bar Utility',
