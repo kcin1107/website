@@ -457,42 +457,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'my-website',
-    image: nickringelmannCard,
-    mobileImage: {
-      src: nickringelmannMobile,
-      alt: 'nickringelmann.com on mobile, scrolled through the hero, project grid, and approach sections',
-    },
-    images: [
-      {
-        src: nickringelmannHero,
-        alt: 'nickringelmann.com homepage hero introducing Nick as a freelance product designer based in Hamburg',
-      },
-      {
-        src: nickringelmannProjects,
-        alt: 'nickringelmann.com projects section showing real client and side projects with their tags',
-      },
-      {
-        src: nickringelmannApproach,
-        alt: 'nickringelmann.com approach section listing six product design principles, from lean UX to sustainability',
-      },
-    ],
-    alt: 'My Website',
-    title: 'Rework of My Personal Website',
-    client: 'nickringelmann.com',
-    topicTag: 'Portfolio',
-    tags: ['Astro', 'TypeScript', 'Frontend', 'UX Design', 'Self-Hosted Backend'],
-    description: 'My own site is the one project where I\'m both client and designer, so I use it to test decisions before I\'d recommend them to anyone else. It\'s deliberately plain: no page builder, no component library pulled in from npm, a handful of Astro components and one stylesheet I can read start to finish. When I added a contact page, I skipped the usual third-party form service and built a small PHP backend instead, so a message sent through the form gets mailed straight from my own IONOS inbox rather than passing through someone else\'s server first.\n\nThe site runs on Astro 7 as a fully static build. I type project data in TypeScript and write blog posts in Markdown through Astro\'s Content Collections. Dark mode comes down to a single data attribute on the html tag: I persist it in localStorage and set it before paint so the page never flashes the wrong theme. Screenshots and photos go through Astro\'s image pipeline, which resizes everything to WebP with retina versions instead of me shipping full-resolution files. A GitHub Actions workflow builds the site and pushes it straight to IONOS shared hosting over SFTP on every push to main, so publishing a change is a single git push.',
-    category: 'side',
-    meta: [
-      { label: 'Role', value: 'Concept, Design & Implementation' },
-      { label: 'Timeframe', value: '1 week' },
-      { label: 'Year', value: '2026' },
-      { label: 'Tools', value: 'Claude Code, Codex, VS Code, Figma, MCP, CLI' },
-    ],
-    showOnHome: false,
-  },
-  {
     slug: 'cleankey',
     image: cleankeyAppIcon,
     cardImageBorder: false,
@@ -584,6 +548,42 @@ export const projects: Project[] = [
         body: 'The first commit landed in January 2026. By February the core interaction and the system-level blocking worked. The months to August went into the parts that turn that into a release: permission recovery, launch-at-login behavior, update checks, a universal build, code signing, notarization and an automated GitHub release workflow.\n\nI designed and built Cleankey solo, using Codex and Claude Code alongside Xcode, the command line and MCP. Version 1.1 build 8 keeps the constraint I started with: one switch, and nothing between a dirty keyboard and a clean one.',
       },
     ],
+  },
+  {
+    slug: 'my-website',
+    image: nickringelmannCard,
+    mobileImage: {
+      src: nickringelmannMobile,
+      alt: 'nickringelmann.com on mobile, scrolled through the hero, project grid, and approach sections',
+    },
+    images: [
+      {
+        src: nickringelmannHero,
+        alt: 'nickringelmann.com homepage hero introducing Nick as a freelance product designer based in Hamburg',
+      },
+      {
+        src: nickringelmannProjects,
+        alt: 'nickringelmann.com projects section showing real client and side projects with their tags',
+      },
+      {
+        src: nickringelmannApproach,
+        alt: 'nickringelmann.com approach section listing six product design principles, from lean UX to sustainability',
+      },
+    ],
+    alt: 'My Website',
+    title: 'Rework of My Personal Website',
+    client: 'nickringelmann.com',
+    topicTag: 'Portfolio',
+    tags: ['Astro', 'TypeScript', 'Frontend', 'UX Design', 'Self-Hosted Backend'],
+    description: 'My own site is the one project where I\'m both client and designer, so I use it to test decisions before I\'d recommend them to anyone else. It\'s deliberately plain: no page builder, no component library pulled in from npm, a handful of Astro components and one stylesheet I can read start to finish. When I added a contact page, I skipped the usual third-party form service and built a small PHP backend instead, so a message sent through the form gets mailed straight from my own IONOS inbox rather than passing through someone else\'s server first.\n\nThe site runs on Astro 7 as a fully static build. I type project data in TypeScript and write blog posts in Markdown through Astro\'s Content Collections. Dark mode comes down to a single data attribute on the html tag: I persist it in localStorage and set it before paint so the page never flashes the wrong theme. Screenshots and photos go through Astro\'s image pipeline, which resizes everything to WebP with retina versions instead of me shipping full-resolution files. A GitHub Actions workflow builds the site and pushes it straight to IONOS shared hosting over SFTP on every push to main, so publishing a change is a single git push.',
+    category: 'side',
+    meta: [
+      { label: 'Role', value: 'Concept, Design & Implementation' },
+      { label: 'Timeframe', value: '1 week' },
+      { label: 'Year', value: '2026' },
+      { label: 'Tools', value: 'Claude Code, Codex, VS Code, Figma, MCP, CLI' },
+    ],
+    showOnHome: false,
   },
   {
     alt: 'Fuel Station App',
