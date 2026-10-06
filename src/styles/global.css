@@ -1024,6 +1024,10 @@ a.project-card {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  /* Same two layers as the hover state, parked behind the card. Starting from
+     `none` would fade the colours in too, and the half-transparent canvas layer
+     lets the ink layer flash through as a solid block mid-transition. */
+  box-shadow: 0px 0px 0px -1px var(--white), 0px 0px 0px 0px var(--black);
   transition: box-shadow 0.2s ease;
 }
 
