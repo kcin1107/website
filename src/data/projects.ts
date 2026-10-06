@@ -495,6 +495,7 @@ export const projects: Project[] = [
   {
     slug: 'cleankey',
     image: cleankeyAppIcon,
+    cardImageBorder: false,
     appIcon: {
       src: cleankeyAppIcon,
       alt: '',
