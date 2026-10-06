@@ -1,7 +1,7 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-10-01
+Last updated: 2026-10-06
 
 **Stack:** Astro 7.3.2, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
@@ -44,7 +44,7 @@ website/
 │   │   └── PHPMailer/        # vendored source (no Composer on shared hosting)
 │   └── assets/
 │       ├── fonts/            # Roboto and Inter woff2 subsets (56 KB total)
-│       ├── icons/            # favicons, backArrow.svg
+│       ├── icons/            # favicons
 │       ├── images/           # hero, client logos, animated demos (served as-is)
 │       └── signature/        # email signature graphics
 │

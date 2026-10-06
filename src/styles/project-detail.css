@@ -348,11 +348,6 @@
     gap: 24px;
   }
 
-  .project-detail__back {
-    padding-left: 0 !important;
-    gap: 4px !important;
-  }
-
   .project-detail__showcase {
     grid-template-columns: 1fr;
   }
@@ -361,24 +356,12 @@
     display: none;
   }
 
-  /* First desktop shot moves up between back link and header; hide the grid copy */
+  /* First desktop shot moves up above the header; hide the grid copy */
   .project-detail__mobile-lead {
     display: block;
   }
 
   .project-detail__showcase-item--lead {
     display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  /* Shorten back-link label to just "Back" on mobile */
-  .project-detail__back .btn__label {
-    font-size: 0;
-  }
-
-  .project-detail__back .btn__label::after {
-    content: 'Back';
-    font-size: 14px;
   }
 }

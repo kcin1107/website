@@ -10,14 +10,6 @@
   margin-top: 72px;
 }
 
-.scorer__back {
-  color: var(--dark-grey);
-  font-size: 0.875rem;
-  font-weight: 400;
-  text-decoration: none;
-}
-
-.scorer__back:hover,
 .scorer__privacy a:hover {
   color: var(--black);
 }
