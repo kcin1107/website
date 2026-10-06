@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch: # erlaubt manuelles Auslösen im GitHub-UI
+  schedule:
+    - cron: '0 4 * * *' # täglich 04:00 UTC: holt neue Scorer-/Cleankey-Versionen (src/data/app-releases.ts)
 
 # Verhindert parallele Deploys, falls schnell hintereinander gepusht wird
 concurrency:

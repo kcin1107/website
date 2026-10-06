@@ -67,6 +67,7 @@ website/
 │   ├── content/blog/         # Markdown posts (currently empty)
 │   ├── content.config.ts     # Zod schema for the blog collection
 │   ├── data/projects.ts      # projects[] + categories[] (business|web|side)
+│   ├── data/app-releases.ts  # Scorer + Cleankey versions, fetched at build time
 │   └── styles/
 │       ├── global.css        # site-wide, loaded on every page (~1380 lines)
 │       ├── legal.css         # legal pages only

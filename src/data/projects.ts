@@ -480,8 +480,8 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: 'Download v1.1.4',
-        href: 'https://github.com/kcin1107/Cleankey/releases/tag/v1.1.4',
+        label: 'Download',
+        href: 'https://github.com/kcin1107/Cleankey/releases/latest',
         variant: 'primary',
         external: true,
       },

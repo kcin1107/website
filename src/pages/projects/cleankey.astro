@@ -3,9 +3,11 @@ import Layout from '../../layouts/Layout.astro'
 import AppShowcase from '../../components/AppShowcase.astro'
 import Button from '../../components/Button.astro'
 import { projects } from '../../data/projects'
+import { getCleankeyRelease } from '../../data/app-releases'
 
 const cleankey = projects.find(project => project.slug === 'cleankey')!
 const links = cleankey.links ?? []
+const release = await getCleankeyRelease()
 ---
 <Layout
   title="Cleankey – Clean Your Keyboard · Nick Ringelmann"
@@ -15,7 +17,7 @@ const links = cleankey.links ?? []
     icon={cleankey.appIcon!.src}
     title="Cleankey"
     tagline="Lock every key from the menu bar while you wipe your keyboard."
-    version="Version 1.1.4 · Free · macOS 14 or later"
+    version={`Version ${release.version} · Free · macOS 14 or later`}
   >
     <Fragment slot="actions">
       {links.map(link => (
