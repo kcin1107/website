@@ -1,0 +1,35 @@
+---
+/* Above-the-fold app page: centered identity and actions, one composed visual
+   underneath. Used by /projects/scorer and /projects/cleankey. The visual goes in
+   the default slot, the download buttons in the `actions` slot. */
+import { Image } from 'astro:assets'
+import '../styles/app-showcase.css'
+
+interface Props {
+  icon: ImageMetadata
+  title: string
+  tagline: string
+  version: string
+}
+
+const { icon, title, tagline, version } = Astro.props
+---
+<div class="app-showcase">
+  <div class="container app-showcase__container">
+    <section class="app-showcase__hero" aria-labelledby="app-title">
+      <Image class="app-showcase__icon" src={icon} alt="" width={96} height={96} densities={[1, 2]} format="webp" loading="eager" />
+      <h1 id="app-title" class="app-showcase__title">{title}</h1>
+      <p class="app-showcase__tagline">{tagline}</p>
+      <div class="app-showcase__actions">
+        <slot name="actions" />
+      </div>
+      <p class="app-showcase__version">{version}</p>
+    </section>
+
+    <div class="app-showcase__visual">
+      <slot />
+    </div>
+
+    <slot name="footer" />
+  </div>
+</div>
