@@ -504,6 +504,7 @@ export const projects: Project[] = [
     topicTag: 'Utility',
     tags: ['macOS', 'AppKit'],
     category: 'side',
+    showOnHome: true,
     lead: 'A native macOS menu bar app that shows how much of your Claude session and weekly limits you have used, as percentages or progress rings, with the time each limit resets.',
     links: [
       {
@@ -534,6 +535,7 @@ export const projects: Project[] = [
     topicTag: 'Utility',
     tags: ['macOS', 'SwiftUI'],
     category: 'side',
+    showOnHome: true,
     lead: 'A small native Mac app for yt-dlp: paste a link, press Return, and get the video in up to 4K or just the audio. It handles playlists, search, and Spotify and Apple Music links, and installs and updates yt-dlp, ffmpeg and Deno on its own.',
     links: [
       {
