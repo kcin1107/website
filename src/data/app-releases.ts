@@ -5,7 +5,7 @@
 
 export interface ScorerRelease {
   version: string
-  /** Store-formatted price from the German App Store, e.g. "1,99 €". */
+  /** "Free", or the store-formatted price from the German App Store, e.g. "1,99 €". */
   price: string
 }
 
@@ -15,7 +15,7 @@ export interface CleankeyRelease {
 
 const TIMEOUT_MS = 5000
 
-const scorerFallback: ScorerRelease = { version: '1.3.1', price: '1,99 €' }
+const scorerFallback: ScorerRelease = { version: '1.3.1', price: 'Free' }
 const cleankeyFallback: CleankeyRelease = { version: '1.1.4' }
 
 async function fetchScorer(): Promise<ScorerRelease> {
@@ -25,7 +25,9 @@ async function fetchScorer(): Promise<ScorerRelease> {
     })
     const app = (await res.json()).results?.[0]
     if (!app?.version) throw new Error('no App Store result')
-    return { version: app.version, price: app.formattedPrice ?? scorerFallback.price }
+    // The German storefront formats a free app as "Gratis"; the page is English.
+    const price = app.price === 0 ? 'Free' : app.formattedPrice ?? scorerFallback.price
+    return { version: app.version, price }
   } catch (error) {
     console.warn(`[app-releases] Scorer lookup failed, using ${scorerFallback.version}:`, error)
     return scorerFallback
