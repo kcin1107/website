@@ -1,7 +1,7 @@
-/* Current app versions, read at build time so the Scorer, Cleankey and Crescent
-   pages never need a hand edit after a release. Each lookup falls back to the last
-   known values, so an offline build or an API hiccup still deploys — just with
-   possibly stale numbers until the next build. */
+/* Current app versions, read at build time so the app pages (Scorer, Cleankey,
+   Crescent, Grab) never need a hand edit after a release. Each lookup falls back
+   to the last known values, so an offline build or an API hiccup still deploys —
+   just with possibly stale numbers until the next build. */
 
 export interface ScorerRelease {
   version: string
@@ -18,6 +18,7 @@ const TIMEOUT_MS = 5000
 const scorerFallback: ScorerRelease = { version: '1.3.1', price: 'Free' }
 const cleankeyFallback: GitHubRelease = { version: '1.1.4' }
 const crescentFallback: GitHubRelease = { version: '1.0' }
+const grabFallback: GitHubRelease = { version: '1.0.0' }
 
 async function fetchScorer(): Promise<ScorerRelease> {
   try {
@@ -58,9 +59,12 @@ async function fetchGitHubRelease(name: string, repo: string, fallback: GitHubRe
 let scorer: Promise<ScorerRelease> | undefined
 let cleankey: Promise<GitHubRelease> | undefined
 let crescent: Promise<GitHubRelease> | undefined
+let grab: Promise<GitHubRelease> | undefined
 
 export const getScorerRelease = () => (scorer ??= fetchScorer())
 export const getCleankeyRelease = () =>
   (cleankey ??= fetchGitHubRelease('Cleankey', 'kcin1107/Cleankey', cleankeyFallback))
 export const getCrescentRelease = () =>
   (crescent ??= fetchGitHubRelease('Crescent', 'kcin1107/Crescent', crescentFallback))
+export const getGrabRelease = () =>
+  (grab ??= fetchGitHubRelease('Grab', 'kcin1107/grab', grabFallback))

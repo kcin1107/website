@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import AppShowcase from '../../components/AppShowcase.astro'
+import Button from '../../components/Button.astro'
+import { projects } from '../../data/projects'
+import { getGrabRelease } from '../../data/app-releases'
+import { Image } from 'astro:assets'
+import window from '../../assets/images/projects/grab-window-20261012.webp'
+
+const grab = projects.find(project => project.slug === 'grab')!
+const links = grab.links ?? []
+const release = await getGrabRelease()
+---
+<Layout
+  title="Grab – Video and Audio Downloader for Mac · Nick Ringelmann"
+  description={grab.lead}
+>
+  <AppShowcase
+    icon={grab.appIcon!.src}
+    title="Grab"
+    tagline="Paste a link, press Return, done. A small Mac app for yt-dlp."
+    version={`Version ${release.version} · Free · macOS 26 or later, Apple silicon`}
+  >
+    <Fragment slot="actions">
+      {links.map(link => (
+        <Button
+          href={link.href}
+          variant={link.variant}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+        >
+          {link.label}
+        </Button>
+      ))}
+    </Fragment>
+
+    <Image
+      class="app-showcase__demo"
+      src={window}
+      alt="Grab's main window: a link field with a Best quality menu and a Download button, above one finished download with its thumbnail, title and channel"
+      widths={[640, 960, 1440, 1920]}
+      sizes="(max-width: 767px) calc(100vw - 48px), 960px"
+      format="webp"
+      loading="eager"
+    />
+
+    <p slot="footer" class="app-showcase__footer">
+      Based on <a href="https://github.com/Astrofrogger/pluck" target="_blank" rel="noopener noreferrer">Pluck</a>.
+      Grab isn't notarized, so allow the first launch under System Settings → Privacy &amp; Security.
+    </p>
+  </AppShowcase>
+</Layout>

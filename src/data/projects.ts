@@ -44,6 +44,8 @@ import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-2026100
 
 import crescentAppIcon from '../assets/images/projects/crescent-app-icon-20261012.png'
 
+import grabAppIcon from '../assets/images/projects/grab-app-icon-20261012.png'
+
 export type ProjectCategory = 'business' | 'web' | 'side'
 
 export interface Category {
@@ -513,6 +515,36 @@ export const projects: Project[] = [
       {
         label: 'View source',
         href: 'https://github.com/kcin1107/Crescent',
+        variant: 'secondary',
+        external: true,
+      },
+    ],
+  },
+  {
+    slug: 'grab',
+    image: grabAppIcon,
+    cardImageBorder: false,
+    appIcon: {
+      src: grabAppIcon,
+      alt: '',
+    },
+    alt: 'Grab app icon: a yellow dot between a red and an orange arc on a cream background',
+    title: 'Grab',
+    client: 'Video and Audio Downloader',
+    topicTag: 'Utility',
+    tags: ['macOS', 'SwiftUI'],
+    category: 'side',
+    lead: 'A small native Mac app for yt-dlp: paste a link, press Return, and get the video in up to 4K or just the audio. It handles playlists, search, and Spotify and Apple Music links, and installs and updates yt-dlp, ffmpeg and Deno on its own.',
+    links: [
+      {
+        label: 'Download',
+        href: 'https://github.com/kcin1107/grab/releases/latest',
+        variant: 'primary',
+        external: true,
+      },
+      {
+        label: 'View source',
+        href: 'https://github.com/kcin1107/grab',
         variant: 'secondary',
         external: true,
       },

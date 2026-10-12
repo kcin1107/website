@@ -57,7 +57,7 @@ website/
 │   │   ├── Button.astro
 │   │   ├── ProjectCard.astro
 │   │   ├── ApproachCard.astro
-│   │   ├── AppShowcase.astro     # one-screen app page (Scorer, Cleankey, Crescent)
+│   │   ├── AppShowcase.astro     # one-screen app page (Scorer, Cleankey, Crescent, Grab)
 │   │   ├── ProjectSection.astro  # case-study block dispatcher
 │   │   ├── ResultLines.astro     # Boomerang case study only
 │   │   ├── FramingNudge.astro    # Boomerang case study only
@@ -67,12 +67,12 @@ website/
 │   ├── content/blog/         # Markdown posts (currently empty)
 │   ├── content.config.ts     # Zod schema for the blog collection
 │   ├── data/projects.ts      # projects[] + categories[] (business|web|side)
-│   ├── data/app-releases.ts  # Scorer, Cleankey + Crescent versions, fetched at build time
+│   ├── data/app-releases.ts  # app versions (Scorer, Cleankey, Crescent, Grab), fetched at build time
 │   └── styles/
 │       ├── global.css        # site-wide, loaded on every page (~1380 lines)
 │       ├── legal.css         # legal pages only
 │       ├── project-detail.css # shared project details only
-│       └── app-showcase.css  # /projects/scorer, /cleankey + /crescent only
+│       └── app-showcase.css  # /projects/scorer, /cleankey, /crescent + /grab only
 │
 └── dist/                     # build output (gitignored)
 ```
@@ -85,10 +85,11 @@ website/
 |------|--------|-------|
 | `/` | `pages/index.astro` | Hero, projects, approach, tools, clients |
 | `/projects` | `pages/projects/index.astro` | All projects, grouped by category |
-| `/projects/<slug>` | `pages/projects/[slug].astro` | Shared detail page for projects with a `slug`, except Scorer, Cleankey and Crescent |
+| `/projects/<slug>` | `pages/projects/[slug].astro` | Shared detail page for projects with a `slug`, except the four app pages below |
 | `/projects/scorer` | `pages/projects/scorer.astro` | One-screen Scorer app page (`AppShowcase`): iPad + iPhone composition |
 | `/projects/cleankey` | `pages/projects/cleankey.astro` | One-screen Cleankey app page (`AppShowcase`): demo GIF |
 | `/projects/crescent` | `pages/projects/crescent.astro` | One-screen Crescent app page (`AppShowcase`): menu screenshot |
+| `/projects/grab` | `pages/projects/grab.astro` | One-screen Grab app page (`AppShowcase`): window screenshot, Pluck credit and install note |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
@@ -99,11 +100,11 @@ website/
 
 **Projects** live in `src/data/projects.ts` as a typed array. Entries without a `slug` render as non-linked cards. Images come from `src/assets/images/` as `ImageMetadata` and go through Astro's `<Image>` component, which emits resized retina WebP rather than full-resolution screenshots.
 
-**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang uses this system today. Scorer, Cleankey and Crescent keep their card metadata here, but each has a dedicated one-screen page built on `AppShowcase.astro`; Scorer's imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
+**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang uses this system today. Scorer, Cleankey, Crescent and Grab keep their card metadata here, but each has a dedicated one-screen page built on `AppShowcase.astro`; Scorer's imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
 
 **Blog** posts are Markdown in `src/content/blog/`, loaded as an Astro Content Collection with a Zod schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`). The folder is empty right now, so `/blog` renders an empty list.
 
-**App releases** come from `src/data/app-releases.ts`. Each build fetches Scorer's version and price from the German App Store and Cleankey's and Crescent's versions from their latest GitHub releases. If a lookup fails, the build uses the fallback values in that file; keep those current after releases or price changes.
+**App releases** come from `src/data/app-releases.ts`. Each build fetches Scorer's version and price from the German App Store and the Cleankey, Crescent and Grab versions from their latest GitHub releases. If a lookup fails, the build uses the fallback values in that file; keep those current after releases or price changes.
 
 ## Deployment
 

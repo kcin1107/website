@@ -1,4 +1,4 @@
-/* App showcase pages (/projects/scorer, /projects/cleankey, /projects/crescent).
+/* App showcase pages (/projects/scorer, /cleankey, /crescent, /grab).
    Imported by AppShowcase.astro, so it only ships with those pages. */
 .app-showcase {
   display: flex;
