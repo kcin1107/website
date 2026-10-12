@@ -1,9 +1,9 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-10-06
+Last updated: 2026-10-12
 
-**Stack:** Astro 7.3.2, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
+**Stack:** Astro 7, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
 ## Local development
 
@@ -27,9 +27,9 @@ website/
 ├── README.md                 # this file
 │
 ├── .github/workflows/
-│   └── deploy.yml            # build + SFTP upload to IONOS on push to main
+│   └── deploy.yml            # build + SFTP upload to IONOS on push and daily
 ├── .vscode/
-│   └── mcp.json              # local Figma MCP server (port 3845)
+│   └── mcp.json              # remote Figma and IONOS MCP servers
 │
 ├── fonts-src/                # upstream variable TTFs, build input only, never deployed
 ├── scripts/
@@ -57,7 +57,7 @@ website/
 │   │   ├── Button.astro
 │   │   ├── ProjectCard.astro
 │   │   ├── ApproachCard.astro
-│   │   ├── AppShowcase.astro     # one-screen app page (Scorer, Cleankey)
+│   │   ├── AppShowcase.astro     # one-screen app page (Scorer, Cleankey, Crescent)
 │   │   ├── ProjectSection.astro  # case-study block dispatcher
 │   │   ├── ResultLines.astro     # Boomerang case study only
 │   │   ├── FramingNudge.astro    # Boomerang case study only
@@ -67,12 +67,12 @@ website/
 │   ├── content/blog/         # Markdown posts (currently empty)
 │   ├── content.config.ts     # Zod schema for the blog collection
 │   ├── data/projects.ts      # projects[] + categories[] (business|web|side)
-│   ├── data/app-releases.ts  # Scorer + Cleankey versions, fetched at build time
+│   ├── data/app-releases.ts  # Scorer, Cleankey + Crescent versions, fetched at build time
 │   └── styles/
 │       ├── global.css        # site-wide, loaded on every page (~1380 lines)
 │       ├── legal.css         # legal pages only
 │       ├── project-detail.css # shared project details only
-│       └── app-showcase.css  # /projects/scorer + /projects/cleankey only
+│       └── app-showcase.css  # /projects/scorer, /cleankey + /crescent only
 │
 └── dist/                     # build output (gitignored)
 ```
@@ -85,9 +85,10 @@ website/
 |------|--------|-------|
 | `/` | `pages/index.astro` | Hero, projects, approach, tools, clients |
 | `/projects` | `pages/projects/index.astro` | All projects, grouped by category |
-| `/projects/<slug>` | `pages/projects/[slug].astro` | Shared detail page for projects with a `slug`, except Scorer and Cleankey |
+| `/projects/<slug>` | `pages/projects/[slug].astro` | Shared detail page for projects with a `slug`, except Scorer, Cleankey and Crescent |
 | `/projects/scorer` | `pages/projects/scorer.astro` | One-screen Scorer app page (`AppShowcase`): iPad + iPhone composition |
 | `/projects/cleankey` | `pages/projects/cleankey.astro` | One-screen Cleankey app page (`AppShowcase`): demo GIF |
+| `/projects/crescent` | `pages/projects/crescent.astro` | One-screen Crescent app page (`AppShowcase`): menu screenshot |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
@@ -98,20 +99,22 @@ website/
 
 **Projects** live in `src/data/projects.ts` as a typed array. Entries without a `slug` render as non-linked cards. Images come from `src/assets/images/` as `ImageMetadata` and go through Astro's `<Image>` component, which emits resized retina WebP rather than full-resolution screenshots.
 
-**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang uses this system today. Scorer and Cleankey keep their card metadata here, but each has a dedicated one-screen page built on `AppShowcase.astro`; Scorer's imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
+**Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang uses this system today. Scorer, Cleankey and Crescent keep their card metadata here, but each has a dedicated one-screen page built on `AppShowcase.astro`; Scorer's imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
 
 **Blog** posts are Markdown in `src/content/blog/`, loaded as an Astro Content Collection with a Zod schema in `src/content.config.ts` (`title`, `description`, `date`, `tags`, `draft`). The folder is empty right now, so `/blog` renders an empty list.
 
+**App releases** come from `src/data/app-releases.ts`. Each build fetches Scorer's version and price from the German App Store and Cleankey's and Crescent's versions from their latest GitHub releases. If a lookup fails, the build uses the fallback values in that file; keep those current after releases or price changes.
+
 ## Deployment
 
-`.github/workflows/deploy.yml` builds the site and uploads `dist/*` to IONOS shared hosting over SFTP on every push to `main`. The sync only uploads and never deletes, so `public/api/config.php` holding the real SMTP password (git-ignored) goes up by hand once and survives later deploys. `public/api/config.example.php` lists the fields it needs. The `.htaccess` uploads in a separate step because the glob skips dotfiles.
+`.github/workflows/deploy.yml` builds the site with Node 24 and uploads `dist/*` to IONOS shared hosting over SFTP on every push to `main`, on manual dispatch, and daily at 04:00 UTC to refresh app release information. The sync only uploads and never deletes, so `public/api/config.php` holding the real SMTP password (git-ignored) goes up by hand once and survives later deploys. `public/api/config.example.php` lists the fields it needs. The `.htaccess` uploads in a separate step because the glob skips dotfiles.
 
 ## Conventions
 
-- Spacing unit 8px, radii 8px to 32px, breakpoints 1023px and 767px
+- Spacing unit 8px, square corners for cards and controls, breakpoints 1023px and 767px
 - Theming through CSS custom properties on `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`, `--card-warm`. Naming follows the value rather than the role: `--white` is the canvas (cream `#fae7b8` in light mode, crimson `#9d1e3d` in dark mode), `--black` the ink (`#081809` / white). Shapes are the same in both themes — square corners, 1px outlined cards.
 - `--border-grey` is decorative. `--border-interactive` draws the boundary of interactive controls and needs 3:1 per WCAG 1.4.11.
-- Status/semantic colours are variables too: `--status-green`, `--status-blue`, `--error` (each paired with a `-rgb` triplet for alpha tints, plus `--status-green-bg`/`--error-bg`). Light-mode values sit at 4.5:1 on their surface, so leave them where they are. `--focus-ring` is the one fixed interactive-focus colour, same in both themes. `--shadow-sm`/`--shadow-md`/`--shadow-lg` hold the shared box-shadow tiers.
+- Status/semantic colours use `--status-green`, `--status-blue`, and `--error`; green and error also have `-rgb` triplets for alpha tints and `-bg` surfaces. `--focus-ring` changes with the theme: blue in light mode and yellow in dark mode. `--shadow-sm`/`--shadow-md`/`--shadow-lg` hold the shared box-shadow tiers, with darker shadows in dark mode.
 - BEM-style class names
 - Theme switches via `data-theme` on `<html>`, persisted in `localStorage`
 - `global.css` ships on every page, so route-specific rules belong in their own stylesheet imported by the page that needs it (`legal.css`, `project-detail.css`, `app-showcase.css`)

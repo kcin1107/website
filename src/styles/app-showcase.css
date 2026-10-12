@@ -1,5 +1,5 @@
-/* App showcase pages (/projects/scorer, /projects/cleankey). Imported by
-   AppShowcase.astro, so it only ships with those two pages. */
+/* App showcase pages (/projects/scorer, /projects/cleankey, /projects/crescent).
+   Imported by AppShowcase.astro, so it only ships with those pages. */
 .app-showcase {
   display: flex;
   justify-content: center;
@@ -100,7 +100,7 @@
   height: auto;
 }
 
-/* Cleankey: the demo GIF, framed like the home hero images. */
+/* Cleankey and Crescent: the demo media, framed like the home hero images. */
 .app-showcase__demo {
   display: block;
   width: 100%;
@@ -109,6 +109,11 @@
   margin: 0 auto;
   border: 1px solid var(--black);
   box-shadow: 8px 8px 0px -1px var(--white), 8px 8px 0px 0px var(--black);
+}
+
+/* Crescent: a menu screenshot, smaller than its 834px source so it stays sharp. */
+.app-showcase__demo--narrow {
+  max-width: 640px;
 }
 
 @media (max-width: 767px) {

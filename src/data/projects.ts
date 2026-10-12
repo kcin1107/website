@@ -42,6 +42,8 @@ import scorerAppIcon from '../assets/images/projects/scorer-v13/icon.png'
 
 import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-20261006.png'
 
+import crescentAppIcon from '../assets/images/projects/crescent-app-icon-20261012.png'
+
 export type ProjectCategory = 'business' | 'web' | 'side'
 
 export interface Category {
@@ -481,6 +483,36 @@ export const projects: Project[] = [
       {
         label: 'View source',
         href: 'https://github.com/kcin1107/Cleankey',
+        variant: 'secondary',
+        external: true,
+      },
+    ],
+  },
+  {
+    slug: 'crescent',
+    image: crescentAppIcon,
+    cardImageBorder: false,
+    appIcon: {
+      src: crescentAppIcon,
+      alt: '',
+    },
+    alt: 'Crescent app icon: copper progress rings stacked on a dark brown background',
+    title: 'Crescent',
+    client: 'Claude Usage in the Menu Bar',
+    topicTag: 'Utility',
+    tags: ['macOS', 'AppKit'],
+    category: 'side',
+    lead: 'A native macOS menu bar app that shows how much of your Claude session and weekly limits you have used, as percentages or progress rings, with the time each limit resets.',
+    links: [
+      {
+        label: 'Download',
+        href: 'https://github.com/kcin1107/Crescent/releases/latest',
+        variant: 'primary',
+        external: true,
+      },
+      {
+        label: 'View source',
+        href: 'https://github.com/kcin1107/Crescent',
         variant: 'secondary',
         external: true,
       },

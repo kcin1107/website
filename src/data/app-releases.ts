@@ -1,6 +1,6 @@
-/* Current app versions, read at build time so the Scorer and Cleankey pages never
-   need a hand edit after a release. Each lookup falls back to the last known
-   values, so an offline build or an API hiccup still deploys — just with
+/* Current app versions, read at build time so the Scorer, Cleankey and Crescent
+   pages never need a hand edit after a release. Each lookup falls back to the last
+   known values, so an offline build or an API hiccup still deploys — just with
    possibly stale numbers until the next build. */
 
 export interface ScorerRelease {
@@ -9,14 +9,15 @@ export interface ScorerRelease {
   price: string
 }
 
-export interface CleankeyRelease {
+export interface GitHubRelease {
   version: string
 }
 
 const TIMEOUT_MS = 5000
 
 const scorerFallback: ScorerRelease = { version: '1.3.1', price: 'Free' }
-const cleankeyFallback: CleankeyRelease = { version: '1.1.4' }
+const cleankeyFallback: GitHubRelease = { version: '1.1.4' }
+const crescentFallback: GitHubRelease = { version: '1.0' }
 
 async function fetchScorer(): Promise<ScorerRelease> {
   try {
@@ -36,9 +37,9 @@ async function fetchScorer(): Promise<ScorerRelease> {
 
 /* github.com/…/releases/latest redirects to the newest tag's page. Reading that
    redirect avoids the REST API and its unauthenticated rate limit. */
-async function fetchCleankey(): Promise<CleankeyRelease> {
+async function fetchGitHubRelease(name: string, repo: string, fallback: GitHubRelease): Promise<GitHubRelease> {
   try {
-    const res = await fetch('https://github.com/kcin1107/Cleankey/releases/latest', {
+    const res = await fetch(`https://github.com/${repo}/releases/latest`, {
       method: 'HEAD',
       redirect: 'manual',
       signal: AbortSignal.timeout(TIMEOUT_MS),
@@ -48,14 +49,18 @@ async function fetchCleankey(): Promise<CleankeyRelease> {
     if (!tag) throw new Error(`unexpected redirect "${url}"`)
     return { version: tag }
   } catch (error) {
-    console.warn(`[app-releases] Cleankey lookup failed, using ${cleankeyFallback.version}:`, error)
-    return cleankeyFallback
+    console.warn(`[app-releases] ${name} lookup failed, using ${fallback.version}:`, error)
+    return fallback
   }
 }
 
 /* Memoised so every page in one build shares a single request per app. */
 let scorer: Promise<ScorerRelease> | undefined
-let cleankey: Promise<CleankeyRelease> | undefined
+let cleankey: Promise<GitHubRelease> | undefined
+let crescent: Promise<GitHubRelease> | undefined
 
 export const getScorerRelease = () => (scorer ??= fetchScorer())
-export const getCleankeyRelease = () => (cleankey ??= fetchCleankey())
+export const getCleankeyRelease = () =>
+  (cleankey ??= fetchGitHubRelease('Cleankey', 'kcin1107/Cleankey', cleankeyFallback))
+export const getCrescentRelease = () =>
+  (crescent ??= fetchGitHubRelease('Crescent', 'kcin1107/Crescent', crescentFallback))

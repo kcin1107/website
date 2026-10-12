@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import AppShowcase from '../../components/AppShowcase.astro'
+import Button from '../../components/Button.astro'
+import { projects } from '../../data/projects'
+import { getCrescentRelease } from '../../data/app-releases'
+import { Image } from 'astro:assets'
+import menu from '../../assets/images/projects/crescent-menu-20261012.png'
+
+const crescent = projects.find(project => project.slug === 'crescent')!
+const links = crescent.links ?? []
+const release = await getCrescentRelease()
+---
+<Layout
+  title="Crescent – Claude Usage in the Menu Bar · Nick Ringelmann"
+  description={crescent.lead}
+>
+  <AppShowcase
+    icon={crescent.appIcon!.src}
+    title="Crescent"
+    tagline="Your Claude session and weekly limits, always in the menu bar."
+    version={`Version ${release.version} · Free · macOS 13 or later`}
+  >
+    <Fragment slot="actions">
+      {links.map(link => (
+        <Button
+          href={link.href}
+          variant={link.variant}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+        >
+          {link.label}
+        </Button>
+      ))}
+    </Fragment>
+
+    <Image
+      class="app-showcase__demo app-showcase__demo--narrow"
+      src={menu}
+      alt="Crescent's open menu in the macOS menu bar: session 54% used, resetting at 22:00, and weekly 52% used, resetting Wednesday at 21:00, above Refresh, Refresh Every, Display, Launch at Login and Quit"
+      widths={[640, 834]}
+      sizes="(max-width: 767px) calc(100vw - 48px), 640px"
+      format="webp"
+      loading="eager"
+    />
+  </AppShowcase>
+</Layout>
