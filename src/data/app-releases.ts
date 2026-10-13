@@ -17,8 +17,8 @@ const TIMEOUT_MS = 5000
 
 const scorerFallback: ScorerRelease = { version: '1.3.1', price: 'Free' }
 const cleankeyFallback: GitHubRelease = { version: '1.1.4' }
-const crescentFallback: GitHubRelease = { version: '1.0' }
-const grabFallback: GitHubRelease = { version: '1.0.0' }
+const crescentFallback: GitHubRelease = { version: '1.0.1' }
+const grabFallback: GitHubRelease = { version: '1.0.1' }
 
 async function fetchScorer(): Promise<ScorerRelease> {
   try {
