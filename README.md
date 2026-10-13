@@ -89,7 +89,7 @@ website/
 | `/projects/scorer` | `pages/projects/scorer.astro` | One-screen Scorer app page (`AppShowcase`): iPad + iPhone composition |
 | `/projects/cleankey` | `pages/projects/cleankey.astro` | One-screen Cleankey app page (`AppShowcase`): demo GIF |
 | `/projects/crescent` | `pages/projects/crescent.astro` | One-screen Crescent app page (`AppShowcase`): menu screenshot |
-| `/projects/grab` | `pages/projects/grab.astro` | One-screen Grab app page (`AppShowcase`): window screenshot and Pluck credit |
+| `/projects/grab` | `pages/projects/grab.astro` | One-screen Grab app page (`AppShowcase`): window screenshot |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
