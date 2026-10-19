@@ -9,16 +9,13 @@ const title = 'SwimFix – FIT File Fix for Garmin Pool Swimming'
 const description = 'Fix miscounted pool lengths, rests and stroke types in Garmin swim FIT files. SwimFix is a free FIT file editor that runs locally in your browser, without uploads.'
 const content = {
   en: {
-    tagline: 'FIT file fix for Garmin pool swimming',
     intro: 'Your watch counted too many lengths? Fix pool lengths, rests and stroke types in your Garmin FIT file right in your browser. Free, no account and no file upload.',
-    aboutLabel: 'Edit Garmin swim FIT files',
     aboutTitle: 'When one length becomes two.',
     paragraphs: [
       'During a pool swim, your watch may detect an extra turn or count a rest as an active length. The recorded distance, pace and SWOLF can then differ from your actual swim. SwimFix helps you review and correct those lengths.',
       'The automatic check compares length times and stroke counts, highlights unusual sections and suggests merges or rests. You decide which changes fit your swim. You can also select lengths manually, change stroke types and undo edits before downloading a corrected FIT file.',
       'Your activity stays in your browser’s memory. There is no upload, sign-in or analytics script on this page. Download the edited file before closing or reloading the page; your original file is never overwritten.',
     ],
-    faqLabel: 'Questions & answers',
     faqTitle: 'Editing a FIT file: common questions',
     faqs: [
       { question: 'What can SwimFix fix in a FIT file?', answer: 'SwimFix edits pool-swimming activities in Garmin FIT files. You can merge two adjacent lengths within the same interval, mark a falsely detected swimming length as rest, or change a stroke type. Distance and the related swimming metrics are recalculated after each correction.' },
@@ -29,16 +26,13 @@ const content = {
     ],
   },
   de: {
-    tagline: 'FIT File Fix für Garmin-Schwimmaktivitäten',
     intro: 'Deine Uhr hat zu viele Bahnen gezählt? Korrigiere Schwimmbahnen, Pausen und Schwimmstile in deiner Garmin-FIT-Datei direkt im Browser. Kostenlos, ohne Anmeldung und ohne Datei-Upload.',
-    aboutLabel: 'Garmin-FIT-Dateien korrigieren',
     aboutTitle: 'Wenn aus einer Bahn zwei werden.',
     paragraphs: [
       'Bei einer Pool-Schwimmeinheit kann die Uhr einen zusätzlichen Bahnwechsel erkennen oder eine Pause als aktive Länge zählen. Dadurch passen Distanz, Tempo und SWOLF nicht mehr zur tatsächlich geschwommenen Strecke. SwimFix hilft dir, diese Aufzeichnungen gezielt zu bearbeiten.',
       'Die automatische Prüfung vergleicht Zeiten und Züge deiner Längen. Sie zeigt auffällige Abschnitte und schlägt Zusammenlegungen oder Pausen vor. Du entscheidest, welche Änderungen passen. Du kannst Längen auch manuell auswählen, den Schwimmstil ändern und Bearbeitungen vor dem Download rückgängig machen.',
       'Deine Aktivität bleibt im Arbeitsspeicher deines Browsers. Es gibt keinen Upload, keine Anmeldung und auf dieser Seite kein Analytics-Skript. Lade die bearbeitete Datei vor dem Schließen oder Neuladen der Seite herunter; das Original wird nicht überschrieben.',
     ],
-    faqLabel: 'Fragen & Antworten',
     faqTitle: 'FIT-Datei bearbeiten: häufige Fragen',
     faqs: [
       { question: 'Was kann ich mit SwimFix an einer FIT-Datei korrigieren?', answer: 'SwimFix bearbeitet Pool-Schwimmaktivitäten aus Garmin-FIT-Dateien. Du kannst zwei benachbarte Längen im selben Intervall zusammenlegen, eine fälschlich erkannte Schwimmbahn als Pause markieren oder den Schwimmstil ändern. Anschließend werden Distanz und die davon abhängigen Schwimmkennzahlen neu berechnet.' },
@@ -82,7 +76,6 @@ const structuredData = {
     <div id="swimfix-content" role="tabpanel" aria-labelledby="swimfix-tab-en">
       {languages.map(language => (
         <header class="swimfix-page__hero" data-swimfix-copy={language} lang={language} hidden={language !== 'en'}>
-          <p class="swimfix-page__eyebrow">{content[language].tagline}</p>
           <p>{content[language].intro}</p>
         </header>
       ))}
@@ -93,16 +86,12 @@ const structuredData = {
       {languages.map(language => (
         <div data-swimfix-copy={language} lang={language} hidden={language !== 'en'}>
           <section class="swimfix-page__info" aria-labelledby={`swimfix-about-${language}`}>
-            <div>
-              <p class="swimfix-page__eyebrow">{content[language].aboutLabel}</p>
-              <h2 id={`swimfix-about-${language}`}>{content[language].aboutTitle}</h2>
-            </div>
+            <h2 id={`swimfix-about-${language}`}>{content[language].aboutTitle}</h2>
             <div class="swimfix-page__prose">
               {content[language].paragraphs.map(paragraph => <p>{paragraph}</p>)}
             </div>
           </section>
           <section class="swimfix-page__faq" aria-labelledby={`swimfix-faq-${language}`}>
-            <p class="swimfix-page__eyebrow">{content[language].faqLabel}</p>
             <h2 id={`swimfix-faq-${language}`}>{content[language].faqTitle}</h2>
             {content[language].faqs.map(({ question, answer }) => (
               <details><summary>{question}</summary><p>{answer}</p></details>
@@ -170,24 +159,27 @@ const structuredData = {
 
 <style>
   .swimfix-page { max-width: 1248px; padding: 0 24px; margin: 64px auto 96px; }
-  .swimfix-page__heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+  .swimfix-page__heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 16px; }
   .swimfix-page__heading h1 { margin: 0; }
-  .swimfix-page__hero { max-width: 800px; margin-bottom: 48px; }
-  .swimfix-page__hero > p:last-child { max-width: 680px; color: var(--dark-grey); font-size: 18px; line-height: 1.5; }
-  .swimfix-page__eyebrow { margin-bottom: 16px; color: var(--dark-grey); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-  .swimfix-page__info { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border-grey); }
+  .swimfix-page__hero { max-width: 680px; margin-bottom: 40px; }
+  .swimfix-page__hero p { color: var(--dark-grey); font-size: 18px; line-height: 1.5; }
+  .swimfix-page__info { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--border-grey); }
+  .swimfix-page__info h2 { line-height: 1.2; }
   .swimfix-page__prose { max-width: 640px; }
   .swimfix-page__prose p { margin-bottom: 16px; line-height: 1.6; }
   .swimfix-page__faq { max-width: 800px; margin-top: 64px; }
   .swimfix-page__faq h2 { margin-bottom: 24px; }
   .swimfix-page__faq details { border-top: 1px solid var(--border-grey); }
   .swimfix-page__faq details:last-child { border-bottom: 1px solid var(--border-grey); }
-  .swimfix-page__faq summary { padding: 16px 0; cursor: pointer; font-weight: 400; }
+  .swimfix-page__faq summary { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; cursor: pointer; font-weight: 400; list-style: none; }
+  .swimfix-page__faq summary::-webkit-details-marker { display: none; }
+  .swimfix-page__faq summary::after { content: '+'; color: var(--dark-grey); font-weight: 300; }
+  .swimfix-page__faq details[open] summary::after { content: '−'; }
   .swimfix-page__faq details p { padding: 0 0 24px; max-width: 720px; color: var(--dark-grey); line-height: 1.6; }
   @media (max-width: 767px) {
     .swimfix-page { margin: 32px auto 64px; }
     .swimfix-page__hero { margin-bottom: 32px; }
-    .swimfix-page__hero > p:last-child { font-size: 16px; }
+    .swimfix-page__hero p { font-size: 16px; }
     .swimfix-page__info { grid-template-columns: 1fr; gap: 16px; margin-top: 48px; }
     .swimfix-page__faq { margin-top: 48px; }
   }
