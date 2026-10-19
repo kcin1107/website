@@ -171,7 +171,7 @@ function tableHtml(model: Model, items: Suggestion[]): string {
       ? `<input type="checkbox" data-sel="${index}" data-focus="select-${index}" ${selected ? 'checked' : ''} aria-label="${t('select')} ${esc(label)}">`
       : '';
     return `<tr id="length-${index}" class="len${length.active ? '' : ' idle'}${selected ? ' sel' : ''}" data-hover="${index}">
-      <td>${select}</td><td>${label}</td><td>${length.active ? esc(strokeLabel(language, length.stroke)) : t('rest')}</td><td>${dur(length.seconds)}</td><td>${length.active ? length.strokes ?? '–' : '–'}</td><td>${length.hrStart === undefined ? '–' : `${length.hrStart}→${length.hrEnd}`}</td><td class="flag">${flags.get(index) ?? ''}</td>
+      <td>${select}</td><td>${label}</td><td>${length.active ? esc(strokeLabel(language, length.stroke)) : t('rest')}</td><td>${dur(length.seconds)}</td><td>${length.active ? length.strokes ?? '–' : '–'}</td><td>${length.hrStart === undefined ? '–' : `${length.hrStart} → ${length.hrEnd}`}</td><td class="flag">${flags.get(index) ?? ''}</td>
     </tr>`;
   };
   const rows = model.rows.map((row) => row.kind === 'rest'
