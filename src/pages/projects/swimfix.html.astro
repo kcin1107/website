@@ -18,11 +18,11 @@ const content = {
     ],
     faqTitle: 'Editing a FIT file: common questions',
     faqs: [
-      { question: 'What can SwimFix fix in a FIT file?', answer: 'SwimFix edits pool-swimming activities in Garmin FIT files. You can merge two adjacent lengths within the same interval, mark a falsely detected swimming length as rest, or change a stroke type. Distance and the related swimming metrics are recalculated after each correction.' },
-      { question: 'How does this FIT file fix work?', answer: 'Choose the exported FIT file from your swim. SwimFix looks for unusually short lengths and suggests corrections. Review those suggestions or select lengths yourself, then download a new FIT file with _swimfix added to its name. The original remains unchanged.' },
-      { question: 'Is my swim activity uploaded or stored?', answer: 'No. Your FIT file is read and edited only in your browser’s memory. There is no file upload, account or analytics script on this page. Save the edited file before closing or reloading the page.' },
-      { question: 'Can SwimFix repair corrupted FIT files?', answer: 'SwimFix focuses on miscounted lengths in readable pool-swimming files. It does not recover corrupted files or edit running, cycling or open-water activities. Compressed timestamps and chained FIT files are not currently supported.' },
-      { question: 'Does editing change heart rate, calories or total time?', answer: 'Total time, heart-rate records, calories and other untouched records are preserved. Metrics derived from swimming lengths are recalculated, including distance, active lengths, strokes, pace and SWOLF. You can undo each edit.' },
+      { question: 'What can SwimFix fix in a FIT file?', answer: 'SwimFix edits Garmin FIT files from pool swims. You can merge two neighbouring lengths in the same interval or turn a length into a rest. You can also change the stroke type. After each edit, SwimFix recalculates the distance and the swim metrics that depend on it.' },
+      { question: 'How do I fix my FIT file?', answer: 'Open the FIT file you exported from your swim. SwimFix looks for unusually short lengths and suggests merges or rests. Apply the suggestions that fit, or select lengths yourself. Then download the new file. Its name ends in _swimfix, and your original file stays as it is.' },
+      { question: 'Is my swim activity uploaded or stored?', answer: 'No. Your browser reads and edits the file in memory. This page has no upload, no account and no analytics script. Save the edited file before you close or reload the page.' },
+      { question: 'Can SwimFix repair corrupted FIT files?', answer: 'No. SwimFix fixes miscounted lengths in pool swims it can read. It does not recover damaged files, and it does not edit runs, rides or open-water swims. SwimFix does not support compressed timestamps or chained FIT files yet.' },
+      { question: 'Does editing change my heart rate or calories?', answer: 'No. SwimFix keeps total time, heart-rate data, calories and every record you leave alone. It recalculates the values that come from your lengths: distance, active lengths, strokes, pace and SWOLF. You can undo every edit.' },
     ],
   },
   de: {
@@ -35,11 +35,11 @@ const content = {
     ],
     faqTitle: 'FIT-Datei bearbeiten: häufige Fragen',
     faqs: [
-      { question: 'Was kann ich mit SwimFix an einer FIT-Datei korrigieren?', answer: 'SwimFix bearbeitet Pool-Schwimmaktivitäten aus Garmin-FIT-Dateien. Du kannst zwei benachbarte Längen im selben Intervall zusammenlegen, eine fälschlich erkannte Schwimmbahn als Pause markieren oder den Schwimmstil ändern. Anschließend werden Distanz und die davon abhängigen Schwimmkennzahlen neu berechnet.' },
-      { question: 'Wie funktioniert der FIT File Fix?', answer: 'Wähle die exportierte FIT-Datei deiner Schwimmaktivität aus. SwimFix sucht nach ungewöhnlich kurzen Längen und schlägt passende Korrekturen vor. Prüfe diese Vorschläge oder wähle Längen manuell aus. Anschließend lädst du eine neue FIT-Datei mit dem Zusatz _swimfix herunter. Das Original bleibt unverändert.' },
-      { question: 'Wird meine Aktivität hochgeladen oder gespeichert?', answer: 'Nein. Deine FIT-Datei wird ausschließlich im Arbeitsspeicher deines Browsers gelesen und bearbeitet. Es gibt keinen Datei-Upload, keine Anmeldung und auf dieser Seite kein Analytics-Skript. Speichere die bearbeitete Datei vor dem Schließen oder Neuladen der Seite.' },
-      { question: 'Kann SwimFix auch beschädigte FIT-Dateien reparieren?', answer: 'Der Schwerpunkt liegt auf falsch gezählten Schwimmbahnen in lesbaren Pool-Schwimmdateien. SwimFix stellt keine beschädigten Dateien wieder her und bearbeitet keine Lauf-, Rad- oder Freiwasseraktivitäten. Komprimierte Zeitstempel und verkettete FIT-Dateien werden derzeit nicht unterstützt.' },
-      { question: 'Werden Puls, Kalorien und die Gesamtzeit geändert?', answer: 'Gesamtzeit, Pulsdaten, Kalorien und weitere unberührte Aufzeichnungen bleiben erhalten. Neu berechnet werden die von den Schwimmlängen abhängigen Werte, darunter Distanz, aktive Längen, Züge, Tempo und SWOLF. Jede Korrektur lässt sich rückgängig machen.' },
+      { question: 'Was kann SwimFix in einer FIT-Datei korrigieren?', answer: 'SwimFix bearbeitet Garmin-FIT-Dateien vom Beckenschwimmen. Du kannst zwei benachbarte Längen im selben Intervall zusammenlegen oder eine Länge zur Pause machen. Auch den Schwimmstil kannst du ändern. Nach jeder Änderung berechnet SwimFix die Distanz und die davon abhängigen Schwimmwerte neu.' },
+      { question: 'Wie korrigiere ich meine FIT-Datei?', answer: 'Öffne die exportierte FIT-Datei deiner Schwimmeinheit. SwimFix sucht nach auffällig kurzen Längen und schlägt Zusammenlegungen oder Pausen vor. Übernimm die passenden Vorschläge oder wähle Längen selbst aus. Danach lädst du die neue Datei herunter. Ihr Name endet auf _swimfix, deine Originaldatei bleibt unverändert.' },
+      { question: 'Wird meine Aktivität hochgeladen oder gespeichert?', answer: 'Nein. Dein Browser liest und bearbeitet die Datei im Arbeitsspeicher. Diese Seite hat keinen Upload, kein Konto und kein Analytics-Skript. Speichere die bearbeitete Datei, bevor du die Seite schließt oder neu lädst.' },
+      { question: 'Kann SwimFix beschädigte FIT-Dateien reparieren?', answer: 'Nein. SwimFix korrigiert falsch gezählte Bahnen in lesbaren Dateien vom Beckenschwimmen. Beschädigte Dateien stellt es nicht wieder her, und Lauf-, Rad- oder Freiwasseraktivitäten bearbeitet es nicht. Komprimierte Zeitstempel und verkettete FIT-Dateien unterstützt SwimFix noch nicht.' },
+      { question: 'Ändert die Bearbeitung Puls oder Kalorien?', answer: 'Nein. Gesamtzeit, Pulsdaten, Kalorien und alle Datensätze, die du nicht anfasst, bleiben erhalten. SwimFix berechnet nur die Werte neu, die von deinen Längen abhängen: Distanz, aktive Längen, Züge, Tempo und SWOLF. Jede Änderung kannst du rückgängig machen.' },
     ],
   },
 }
@@ -167,7 +167,7 @@ const structuredData = {
   .swimfix-page__info h2 { line-height: 1.2; }
   .swimfix-page__prose { max-width: 640px; }
   .swimfix-page__prose p { margin-bottom: 16px; line-height: 1.6; }
-  .swimfix-page__faq { max-width: 800px; margin-top: 64px; }
+  .swimfix-page__faq { margin-top: 64px; }
   .swimfix-page__faq h2 { margin-bottom: 24px; }
   .swimfix-page__faq details { border-top: 1px solid var(--border-grey); }
   .swimfix-page__faq details:last-child { border-bottom: 1px solid var(--border-grey); }
