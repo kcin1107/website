@@ -7,13 +7,15 @@ interface Props {
   title: string
   description: string
   robots?: string
+  analytics?: boolean
+  canonicalPath?: string
 }
 
-const { title, description, robots } = Astro.props
+const { title, description, robots, analytics = true, canonicalPath } = Astro.props
 
 /* Self-referencing canonical on every page. The site is reachable over more
    than one host and scheme, so each page states which URL it wants indexed. */
-const canonical = new URL(Astro.url.pathname, Astro.site).href
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +41,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
        of the nav and hero by a round trip. -->
   <link rel="preload" href="/assets/fonts/Roboto-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="5543b25a-c01b-4682-b581-189a29d5bf87"></script>
+  {analytics && <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="5543b25a-c01b-4682-b581-189a29d5bf87"></script>}
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'WebSite',

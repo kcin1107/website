@@ -1,7 +1,7 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-10-12
+Last updated: 2026-10-19
 
 **Stack:** Astro 7, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
@@ -20,7 +20,7 @@ Needs Node >= 22.12.
 
 ```
 website/
-├── astro.config.mjs          # site URL + @astrojs/sitemap (drops /scorer/privacy)
+├── astro.config.mjs          # site URL, sitemap, exact SwimFix .html output
 ├── tsconfig.json
 ├── package.json              # scripts: dev / build / preview
 ├── skills-lock.json          # pinned agent skills
@@ -50,6 +50,7 @@ website/
 │
 ├── src/
 │   ├── assets/images/        # project cards and screenshots (optimized via astro:assets)
+│   ├── features/swimfix/     # mirrored local FIT editor core, client UI and scoped styles
 │   ├── layouts/
 │   │   └── Layout.astro      # head, nav, footer, theme toggle, mobile nav
 │   ├── pages/                # file-based routing, see Routes below
@@ -90,6 +91,7 @@ website/
 | `/projects/cleankey` | `pages/projects/cleankey.astro` | One-screen Cleankey app page (`AppShowcase`): demo GIF |
 | `/projects/crescent` | `pages/projects/crescent.astro` | One-screen Crescent app page (`AppShowcase`): menu screenshot |
 | `/projects/grab` | `pages/projects/grab.astro` | One-screen Grab app page (`AppShowcase`): window screenshot |
+| `/projects/swimfix.html` | `pages/projects/swimfix.html.astro` | Local FIT editor, native site theme, analytics disabled |
 | `/blog` | `pages/blog/index.astro` | All non-draft posts; not yet linked from nav |
 | `/blog/<slug>` | `pages/blog/[slug].astro` | One per Markdown post |
 | `/contact` | `pages/contact.astro` | Form posts via `fetch` to `public/api/contact.php` |
@@ -98,7 +100,7 @@ website/
 
 ## Data sources
 
-**Projects** live in `src/data/projects.ts` as a typed array. Entries without a `slug` render as non-linked cards. Images come from `src/assets/images/` as `ImageMetadata` and go through Astro's `<Image>` component, which emits resized retina WebP rather than full-resolution screenshots.
+**Projects** live in `src/data/projects.ts` as a typed array. Entries with an explicit `href` use that URL; otherwise a `slug` creates a project detail link. Entries with neither render as non-linked cards. Images come from `src/assets/images/` as `ImageMetadata` and go through Astro's `<Image>` component, which emits resized retina WebP rather than full-resolution screenshots.
 
 **Case studies** are optional fields on a project: `lead`, `meta[]`, `links[]` and `sections[]`. `sections` is a discriminated union on `kind` (`prose`, `steps`, `figure`, `compare`, `metrics`, `gallery`, `animation`, `annotated`, `embed`), rendered by `ProjectSection.astro`. When a project has `sections`, `[slug].astro` renders those in place of the legacy screenshot showcase. An `embed` section names a component resolved through a small registry in `[slug].astro`, which is how the three Boomerang components are wired in. Boomerang uses this system today. Scorer, Cleankey, Crescent and Grab keep their card metadata here, but each has a dedicated one-screen page built on `AppShowcase.astro`; Scorer's imports its icon and isolated device mock-ups exported from Figma from `src/assets/images/projects/scorer-v13/`.
 
@@ -120,3 +122,20 @@ website/
 - Theme switches via `data-theme` on `<html>`, persisted in `localStorage`
 - `global.css` ships on every page, so route-specific rules belong in their own stylesheet imported by the page that needs it (`legal.css`, `project-detail.css`, `app-showcase.css`)
 - Fonts are subsets built by `scripts/build-fonts.sh` from `fonts-src/`. The Inter subset only holds the glyphs of the nav logo string, so changing that string means rerunning the script.
+
+## SwimFix integration
+
+`/projects/swimfix.html` embeds the FIT editor in `Layout.astro`, using the portfolio navigation, fonts, theme switch and footer. The page and editor default to English. The EN/DE tabs reuse the Imprint tab components and switch the copy and editor in place without discarding the activity or edits. Its styles are route-specific and scoped to `.swimfix-tool`; they use the website tokens and never import the standalone app stylesheet. Analytics are disabled for this route through the layout’s optional `analytics` prop. The activity file stays in browser memory and is never sent to a server.
+
+`src/features/swimfix/{core,ui}` mirrors sources from the sibling SwimFix repository so deployment works from this repository alone. After changing the editor, run from the SwimFix checkout:
+
+```sh
+node scripts/sync-website.mjs ../Website
+node scripts/sync-website.mjs ../Website --check
+```
+
+Then run `npm run build` here. The exact output is `dist/projects/swimfix.html` (without another directory or extension). The project overview links to that URL through the project’s explicit `href`. Do not put activity samples in public assets.
+
+SwimFix has a static English introduction, explanatory content and visible FAQ for searches such as “FIT file fix” and Garmin swim-file corrections, plus a complete German translation. The initial HTML contains this content before the editor JavaScript runs. JSON-LD describes the real free bilingual WebApplication without invented reviews or ratings. The page heading is SwimFix and there is no project breadcrumb. Its canonical and sitemap entry use the exact `.html` URL.
+
+Astro otherwise emits the tool as `projects/swimfix.html/index.html` under the existing directory output format. The small `swimfix-html-output` build hook flattens only this route. Sitemap configuration replaces its slash-suffixed URL with the canonical `.html` URL; other routes retain their existing output format.

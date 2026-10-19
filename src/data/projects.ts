@@ -45,6 +45,7 @@ import cleankeyAppIcon from '../assets/images/projects/cleankey-app-icon-2026100
 import crescentAppIcon from '../assets/images/projects/crescent-app-icon-20261012.png'
 
 import grabAppIcon from '../assets/images/projects/grab-app-icon-20261012.png'
+import swimfixIcon from '../assets/images/projects/swimfix-icon.svg'
 
 export type ProjectCategory = 'business' | 'web' | 'side'
 
@@ -108,6 +109,7 @@ export const categories: Category[] = [
 ]
 
 export interface Project {
+  href?: string
   slug?: string
   image?: ImageMetadata
   cardImageBorder?: boolean
@@ -551,6 +553,18 @@ export const projects: Project[] = [
         external: true,
       },
     ],
+  },
+  {
+    href: '/projects/swimfix.html',
+    image: swimfixIcon,
+    alt: 'SwimFix: three swimming-pool waves',
+    title: 'SwimFix',
+    client: 'Garmin FIT File Fix',
+    topicTag: 'Utility',
+    tags: ['Web App', 'Local Processing'],
+    category: 'side',
+    showOnHome: false,
+    lead: 'Correct miscounted pool lengths and rests in Garmin FIT files, entirely in your browser.',
   },
   {
     slug: 'my-website',

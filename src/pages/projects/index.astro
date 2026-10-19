@@ -33,7 +33,7 @@ import { projects, categories } from '../../data/projects'
                     subtitle={p.client}
                     topicTag={p.topicTag}
                     tags={p.tags}
-                    href={p.slug ? `/projects/${p.slug}` : undefined}
+                    href={p.href ?? (p.slug ? `/projects/${p.slug}` : undefined)}
                   />
                 ))}
               </div>
