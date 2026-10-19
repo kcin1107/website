@@ -88,7 +88,7 @@ export function analyze(model: Model): Suggestion[] {
         kind: 'rest',
         indices: [l.index],
         key: `rest:${l.start}`,
-        reason: `nur ${strokes} Züge in ${Math.round(l.seconds)} s, Puls fällt ${l.hrStart}→${l.hrEnd} – vermutlich Pause am Beckenrand`,
+        reason: `nur ${strokes} Züge in ${Math.round(l.seconds)} s, Puls fällt ${l.hrStart} → ${l.hrEnd} – vermutlich Pause am Beckenrand`,
         confidence: strokes < 0.2 * S && drop <= -10 ? 'hoch' : 'mittel',
       });
     } else {
