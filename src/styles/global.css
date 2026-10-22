@@ -28,36 +28,39 @@
    ========================================================================== */
 
 :root {
-  --white: #fae7b8;
-  --black: #081809;
-  --light-grey: #f1d99f;
-  --dark-grey: #4A5446;
-  --surface-grey: #f5dfa9;
-  --hover-grey: #ecd193;
-  --border-grey: #E0CB94;
+  --white: #E9EFE4;
+  --black: #0E2619;
+  --light-grey: #DDE6D6;
+  --dark-grey: #3F5246;
+  --surface-grey: #E2EADC;
+  --hover-grey: #D5E0CD;
+  --border-grey: #C3D1BA;
   /* Boundary of interactive controls — needs 3:1 per WCAG 1.4.11,
      unlike the decorative --border-grey. */
-  --border-interactive: #766C4D;
+  --border-interactive: #62756A;
   /* Idle/unselected tag-pill fill — a touch darker than --white so pills
      stay visible against the canvas instead of blending into it. */
-  --tag-idle: #f5dfa9;
+  --tag-idle: #DDE6D6;
+  /* Disabled-control label. WCAG exempts disabled controls from contrast,
+     but this stays ~2.3:1+ so the label is still legible. */
+  --text-disabled: #86947F;
 
   /* Status colors — contrast-tuned text pairs, shared by status pills,
      case-study highlights, the shipping/framing nudges, and the contact
      form's success state so they can't drift out of sync with each other. */
-  --status-green: #085C2E;
-  --status-green-rgb: 8, 92, 46;
-  --status-green-bg: #DDF0C8;
-  --status-blue: #184BB0;
+  --status-green: #0A5A2E;
+  --status-green-rgb: 10, 90, 46;
+  --status-green-bg: #CFEBC4;
+  --status-blue: #1A4BA8;
 
   /* Interactive-focus color, chosen per theme to clear 3:1 against every
      surface it can land on (see :focus-visible below). */
-  --focus-ring: #184BB0;
-  --focus-ring-rgb: 24, 75, 176;
+  --focus-ring: #1A4BA8;
+  --focus-ring-rgb: 26, 75, 168;
 
-  --error: #A8161B;
-  --error-rgb: 168, 22, 27;
-  --error-bg: #F8D5C4;
+  --error: #A3161D;
+  --error-rgb: 163, 22, 29;
+  --error-bg: #F5D6CC;
 
   /* Project card fill — same as the canvas in both themes; the card is
      outlined instead of filled. */
@@ -74,27 +77,28 @@
 }
 
 [data-theme='dark'] {
-  --white: #9d1e3d;
-  --black: #ffffff;
-  --light-grey: #861933;
-  --dark-grey: #F4CCD5;
-  --surface-grey: #8c1a36;
-  --hover-grey: #7a162f;
-  --border-grey: #B8506A;
-  --border-interactive: #E88FA4;
-  --tag-idle: #8c1a36;
+  --white: #0F2A1E;
+  --black: #EEF4E6;
+  --light-grey: #143426;
+  --dark-grey: #BFD3C2;
+  --surface-grey: #123023;
+  --hover-grey: #1A3D2D;
+  --border-grey: #2C5340;
+  --border-interactive: #79A08A;
+  --tag-idle: #163828;
+  --text-disabled: #5F8370;
 
-  --status-green: #9BF0BD;
-  --status-green-rgb: 155, 240, 189;
-  --status-green-bg: #0E3F24;
-  --status-blue: #C7DBFF;
+  --status-green: #A6F0C0;
+  --status-green-rgb: 166, 240, 192;
+  --status-green-bg: #08391F;
+  --status-blue: #C3D6FF;
 
   --focus-ring: #FFD84D;
   --focus-ring-rgb: 255, 216, 77;
 
-  --error: #FFC7B8;
-  --error-rgb: 255, 199, 184;
-  --error-bg: #5E0F24;
+  --error: #FFC2B4;
+  --error-rgb: 255, 194, 180;
+  --error-bg: #4A1A1A;
 
   --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.12), 0px 1px 6px 0px rgba(0, 0, 0, 0.16);
   --shadow-md: 0px 4px 8px 0px rgba(0, 0, 0, 0.18), 0px 2px 16px 0px rgba(0, 0, 0, 0.14);

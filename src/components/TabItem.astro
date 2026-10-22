@@ -60,16 +60,8 @@ const { label, selected = false, disabled = false, href, ...rest } = Astro.props
 
   .tab-item:disabled,
   .tab-item--disabled {
-    color: #B3A67F;
+    color: var(--text-disabled);
     cursor: not-allowed;
     pointer-events: none;
-  }
-
-  /* Dark mode: base colours already use theme-adapting vars, so only the
-     disabled-state literal (not worth promoting to a token) needs a
-     separate dark value. */
-  :global([data-theme='dark']) .tab-item:disabled,
-  :global([data-theme='dark']) .tab-item--disabled {
-    color: #C9798B;
   }
 </style>

@@ -23,6 +23,9 @@ const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <!-- Browser chrome tint; kept in sync with the active theme by the scripts
+       below. Values mirror --white in global.css. -->
+  <meta name="theme-color" content="#E9EFE4">
   <title>{title}</title>
   <meta name="description" content={description}>
   {robots && <meta name="robots" content={robots}>}
@@ -76,6 +79,7 @@ const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href
       var isDark = stored ? stored === 'dark' : prefersDark;
       if (isDark) {
         document.documentElement.setAttribute('data-theme', 'dark');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0F2A1E');
       }
     })();
   </script>
@@ -223,6 +227,7 @@ const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href
       function syncPressedState() {
         var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         themeToggle.setAttribute('aria-pressed', String(isDark));
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#0F2A1E' : '#E9EFE4');
       }
 
       syncPressedState();

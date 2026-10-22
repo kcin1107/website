@@ -1,7 +1,7 @@
 # Project Structure
 
 Reference snapshot of the repo layout, kept as context for future work.
-Last updated: 2026-10-19
+Last updated: 2026-10-22
 
 **Stack:** Astro 7, TypeScript, static output, no UI framework, self-hosted Roboto and Inter (subsetted variable woff2).
 
@@ -12,6 +12,7 @@ npm install      # first time only
 npm run dev      # http://localhost:4321
 npm run build    # static build into dist/
 npm run preview  # serve the built dist/
+npm run check:contrast  # WCAG contrast check of the theme tokens
 ```
 
 Needs Node >= 22.12.
@@ -33,7 +34,8 @@ website/
 │
 ├── fonts-src/                # upstream variable TTFs, build input only, never deployed
 ├── scripts/
-│   └── build-fonts.sh        # regenerates the woff2 subsets in public/assets/fonts/
+│   ├── build-fonts.sh        # regenerates the woff2 subsets in public/assets/fonts/
+│   └── check-contrast.mjs    # WCAG contrast check of the theme tokens in global.css
 │
 ├── public/
 │   ├── .htaccess             # HTTPS redirect, gzip, cache headers
@@ -115,7 +117,7 @@ website/
 ## Conventions
 
 - Spacing unit 8px, square corners for cards and controls, breakpoints 1023px and 767px
-- Theming through CSS custom properties on `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`, `--card-warm`. Naming follows the value rather than the role: `--white` is the canvas (cream `#fae7b8` in light mode, crimson `#9d1e3d` in dark mode), `--black` the ink (`#081809` / white). Shapes are the same in both themes — square corners, 1px outlined cards.
+- Theming through CSS custom properties on `:root`, overridden under `[data-theme="dark"]`: `--white`, `--black`, `--light-grey`, `--dark-grey`, `--surface-grey`, `--hover-grey`, `--border-grey`, `--border-interactive`, `--card-warm`. Naming follows the value rather than the role: `--white` is the canvas (pale sage `#E9EFE4` in light mode, forest green `#0F2A1E` in dark mode), `--black` the ink (`#0E2619` / `#EEF4E6`). `npm run check:contrast` verifies every text, border and focus token against every surface in both themes. Shapes are the same in both themes — square corners, 1px outlined cards.
 - `--border-grey` is decorative. `--border-interactive` draws the boundary of interactive controls and needs 3:1 per WCAG 1.4.11.
 - Status/semantic colours use `--status-green`, `--status-blue`, and `--error`; green and error also have `-rgb` triplets for alpha tints and `-bg` surfaces. `--focus-ring` changes with the theme: blue in light mode and yellow in dark mode. `--shadow-sm`/`--shadow-md`/`--shadow-lg` hold the shared box-shadow tiers, with darker shadows in dark mode.
 - BEM-style class names
